@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import jp.co.rakus.ecommerce_c.domain.Item;
+
 
 /**
  * itemsテーブルを操作するクラス.
@@ -33,8 +33,16 @@ public class ItemRepository {
 
 	};
 
-	
+	/**
+	 * 商品情報を全件表示する.
+	 * 
+	 * @return itemList 
+	 */
+	public List<Item> findAll(){
 		
-	
+		String findAllSql ="select id,name,description,price_m,price_l,image_path,deleted from items";
+	    List<Item> itemList =template.query(findAllSql,itemRowMapper);		
+		return itemList; 
 
+	}
 }

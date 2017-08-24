@@ -1,9 +1,12 @@
 package jp.co.rakus.ecommerce_c.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import jp.co.rakus.ecommerce_c.domain.Topping;
 
 /**
@@ -27,4 +30,11 @@ public class ToppingRepository {
 		return topping;
 	};
 
+	public List<Topping> findAllTopping(){
+		
+		String findAllToppingSql ="select id,name,price_m,price_l from toppings";
+		List<Topping> toppingList = template.query(findAllToppingSql,toppingRowMapper);
+		return toppingList ;
+		
+	}
 }
