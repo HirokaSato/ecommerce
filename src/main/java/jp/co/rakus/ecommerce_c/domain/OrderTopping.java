@@ -15,7 +15,7 @@ public class OrderTopping {
 	/** 注文商品ID **/
 	private Integer orderItemId;
 	/** トッピング **/
-//	private Topping topping;
+	private Topping topping;
 	
 	public Integer getId() {
 		return id;
@@ -35,12 +35,12 @@ public class OrderTopping {
 	public void setOrderItemId(Integer orderItemId) {
 		this.orderItemId = orderItemId;
 	}
-//	public Topping getTopping() {
-//		return topping;
-//	}
-//	public void setTopping(Topping topping) {
-//		this.topping = topping;
-//	}
+	public Topping getTopping() {
+		return topping;
+	}
+	public void setTopping(Topping topping) {
+		this.topping = topping;
+	}
 	
 	
 }

@@ -21,9 +21,9 @@ public class OrderItem {
 	/** サイズ **/
 	private String size;
 	/** 商品 **/
-//	private Item item;
+	private Item item;
 	/** トッピングリスト**/
-	private List orderToppingList;
+	private List<Topping> orderToppingList;
 	
 	//未実装
 	public void getSubTotal(){
@@ -60,18 +60,19 @@ public class OrderItem {
 	public void setSize(String size) {
 		this.size = size;
 	}
-	//	public Item getItem() {
-//		return item;
-//	}
-//	public void setItem(Item item) {
-//		this.item = item;
-//	}
-	public List getOrderToppingList() {
+		public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
+	public List<Topping> getOrderToppingList() {
 		return orderToppingList;
 	}
-	public void setOrderToppingList(List orderToppingList) {
+	public void setOrderToppingList(List<Topping> orderToppingList) {
 		this.orderToppingList = orderToppingList;
 	}
+
 
 	
 	
