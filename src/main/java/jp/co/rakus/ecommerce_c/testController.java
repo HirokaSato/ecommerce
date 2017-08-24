@@ -12,5 +12,11 @@ public class testController {
 		return "orderList";
 	}
 	
+	@RequestMapping("/viewItemDetailTest")
+	public String viewItemDetailTest(){
+		
+		return "itemDetail";
+	}
+	
 
 }
