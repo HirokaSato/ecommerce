@@ -10,3 +10,5 @@ spring:
     password: postgres
 server:
   context-path: /ec-pizza
+  
+security.basic.enabled: false
