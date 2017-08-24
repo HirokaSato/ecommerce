@@ -25,6 +25,11 @@ public class OrderItem {
 	/** トッピングリスト**/
 	private List orderToppingList;
 	
+	//未実装
+	public void getSubTotal(){
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}
