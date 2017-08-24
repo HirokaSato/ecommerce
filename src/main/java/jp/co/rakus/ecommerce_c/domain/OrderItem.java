@@ -19,7 +19,7 @@ public class OrderItem {
 	/** 注文数 **/
 	private Integer quantity;
 	/** サイズ **/
-	private Character size;
+	private String size;
 	/** 商品 **/
 //	private Item item;
 	/** トッピングリスト**/
@@ -54,13 +54,13 @@ public class OrderItem {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	public Character getSize() {
+	public String getSize() {
 		return size;
 	}
-	public void setSize(Character size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
-//	public Item getItem() {
+	//	public Item getItem() {
 //		return item;
 //	}
 //	public void setItem(Item item) {
@@ -72,6 +72,7 @@ public class OrderItem {
 	public void setOrderToppingList(List orderToppingList) {
 		this.orderToppingList = orderToppingList;
 	}
+
 	
 	
 	
