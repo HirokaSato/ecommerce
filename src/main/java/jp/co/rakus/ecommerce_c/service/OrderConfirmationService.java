@@ -14,7 +14,7 @@ import jp.co.rakus.ecommerce_c.repository.OrderRepository;
  */
 @Service
 @Transactional
-public class OrderConfirmation {
+public class OrderConfirmationService {
 	@Autowired
 	private OrderRepository repository;
 	
