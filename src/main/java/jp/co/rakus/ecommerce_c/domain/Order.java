@@ -1,16 +1,15 @@
 package jp.co.rakus.ecommerce_c.domain;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Order {
 	
 	/**id*/
-	private Long id;
+	private long id;
 	/**ユーザーID*/
-	private Long userId;
+	private long userId;
 	/**状態*/
 	private Integer status;
 	/**合計金額*/
@@ -36,16 +35,17 @@ public class Order {
 	/**注文内容*/
 	private List<OrderItem> orderItemList;
 	
-	public Long getId() {
+	
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-	public Long getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	public Integer getStatus() {
@@ -114,7 +114,7 @@ public class Order {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public List getOrderItemList() {
+	public List<OrderItem> getOrderItemList() {
 		return orderItemList;
 	}
 	public void setOrderItemList(List<OrderItem> orderItemList) {
