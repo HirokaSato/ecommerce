@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -47,24 +46,52 @@
 		<div class="row">
 			<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 				<div class="well">
-					<form method="post" action="${pageContext.request.contextPath}/loginSubmit">
+					<form method="post" action="item_list.html">
 						<fieldset>
-							<legend>
-								ログイン
-							</legend>
-							<label class="control-label" style="color: red" for="inputError"><c:out value="${error}"/></label>
+							<legend>ユーザ登録</legend>
 							<div class="form-group">
-								<label for="inputEmail">メールアドレス:</label>
-								<input type="text" id="inputEmail" class="form-control" name="email"
+								<label for="inputName">名前:</label><label
+									class="control-label" style="color: red" for="inputError">名前を入力してください</label>
+								<input type="text" id="inputName" class="form-control"
+									placeholder="Name">
+							</div>
+							<div class="form-group">
+								<label for="inputEmail">メールアドレス:</label><label
+									class="control-label" style="color: red" for="inputError">メールアドレスを入力してください</label>
+								<input type="text" id="inputEmail" class="form-control"
 									placeholder="Email">
 							</div>
 							<div class="form-group">
+								<label for="inputAddress">住所:</label>
+								<label
+									class="control-label" style="color: red" for="inputError">住所を入力してください</label>
+								<input type="text" id="inputAddress" class="form-control"
+									placeholder="Address">
+							</div>
+							<div class="form-group">
+								<label for="inputTel">電話番号:</label>
+								<label
+									class="control-label" style="color: red" for="inputError">電話番号を入力してください</label>
+								<input type="text" id="inputTel" class="form-control"
+									placeholder="Tel">
+							</div>
+							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>
-								<input type="text" id="inputPassword" class="form-control" name="password"
+								<label
+									class="control-label" style="color: red" for="inputError">パスワードを入力してください</label>
+								<input type="text" id="inputPassword" class="form-control"
 									placeholder="Password">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary">ログイン</button>
+								<label for="inputConfirmationPassword">確認用パスワード:</label>
+								<label
+									class="control-label" style="color: red" for="inputError">確認用パスワードを入力してください</label>
+								<input type="text" id="inputConfirmationPassword" class="form-control"
+									placeholder="Confirmation Password">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">登録</button>
+								<button type="reset" class="btn btn-primary">クリア</button>
 							</div>
 						</fieldset>
 					</form>
@@ -72,16 +99,10 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="text-center">
-				<a href="${pageContext.request.contextPath}/registerUser">ユーザ登録はこちら</a>
-			</div>
-		</div>
-		
 	</div>
 	<!-- end container -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
