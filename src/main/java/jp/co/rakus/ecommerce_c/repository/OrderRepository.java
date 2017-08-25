@@ -48,7 +48,7 @@ public class OrderRepository {
 		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
 				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
 				+ "delivery_time, payment_method "
-				+ "from orders from id=:id;";
+				+ "from orders where id = :id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
 		Order order = template.queryForObject(sql, param, orderRowMapper);
 		return order;
@@ -65,6 +65,22 @@ public class OrderRepository {
 				+ "destination_tel,delivery_time,payment_method)"
 				+ "values(:id, :userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode,:destinationAddress,destinationTel,:deliveryTime,:paymentMethod);";
 		template.update(sql, param);
+	}
+	
+	/**
+	 * 注文情報をuserIdで取得.
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Order findByUserId(long userId){
+		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
+				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
+				+ "delivery_time, payment_method "
+				+ "from orders where user_id = :user_id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("user_id",userId);
+		Order order = template.queryForObject(sql, param, orderRowMapper);
+		return order;
 	}
 	
 	
