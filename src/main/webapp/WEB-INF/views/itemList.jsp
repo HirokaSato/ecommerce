@@ -86,12 +86,11 @@
 								<tr>							
 							</c:if>
 									<th>
-										<!-- 詳細画面にとぶようにする、-->										
-										<a href="item_detail.html">
+										<a href="${pageContext.request.contextPath}/detailController/detail?id=${item.id}">
 											<img src="${item.imagePath}" class="img-responsive img-rounded" width="200" height="600">
 										</a><br>	
-										<!-- 詳細画面にとぶようにする、-->
-										<a href="item_detail.html"><c:out value="${item.name}"/></a><br>
+										<a href="${pageContext.request.contextPath}/detailController/detail?id=${item.id}">
+										<c:out value="${item.name}"/></a><br>
 											<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)<br>
 											<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceL}" pattern="###,###"/>円(税抜)<br>
 									</th> 

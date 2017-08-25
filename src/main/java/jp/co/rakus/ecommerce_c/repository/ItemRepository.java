@@ -54,7 +54,7 @@ public class ItemRepository {
 	 * @return item 検索した商品データ
 	 */
 	public Item load(Integer id) {
-
+		
 		String loadSql = "select id,name,description,price_m,price_l,image_path,deleted from items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Item item = template.queryForObject(loadSql, param, itemRowMapper);
