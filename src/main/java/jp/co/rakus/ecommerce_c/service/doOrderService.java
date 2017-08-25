@@ -13,15 +13,7 @@ public class doOrderService {
 	@Autowired
 	private OrderRepository repository;
 	
-	/**
-	 * 注文内容をIdごとに確認.
-	 * @param id 注文Id
-	 * @return　取得した注文データ
-	 */
-	public Order findbyId(long id){
-		
-		return repository.findbyId(id);
-	}
+	
 	
 	/**
 	 * 注文情報をDBに格納.
