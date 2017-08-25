@@ -32,7 +32,7 @@ public class EcSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.formLogin()
 		.loginPage("/login")
-		.loginProcessingUrl("/login-submit")
+		.loginProcessingUrl("/loginSubmit")
 		.failureUrl("/login?error=true")
 		.defaultSuccessUrl("/top", false)
 		.usernameParameter("email")
