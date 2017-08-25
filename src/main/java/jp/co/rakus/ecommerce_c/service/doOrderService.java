@@ -23,8 +23,14 @@ public class doOrderService {
 		return repository.findbyId(id);
 	}
 	
+	/**
+	 * 注文情報をDBに格納.
+	 * @param order 注文情報
+	 */
 	public void save(Order order){
+		
+		return repository.save(order);
+	}
 		
 		
 	}
-}
