@@ -38,7 +38,7 @@ public class OrderToppingRepository {
 	 * @param orderItemId 注文商品ID
 	 * @return　注文商品に紐づけられたトッピングリスト
 	 */
-	public List<OrderTopping> findByOrderItemId(Integer orderItemId){
+	public List<OrderTopping> findByOrderItemId(long orderItemId){
 		String sql = "select id, topping_id, order_item_id where order_item_id = :orderItemId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
 		List<OrderTopping> toppingList = template.query(sql, param,orderToppingRowMapper);
