@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -57,7 +58,7 @@
 						<tr>
 							<th>
 								<div class="text-center">
-									商品名
+								 商品名 
 								</div>
 							</th>
 							<th>
@@ -78,88 +79,54 @@
 							<th>
 							</th>
 						</tr>
+						
+				
+				
 						<tr>
 							<td>
 								<div class="center">
 									<img src="img/1.jpg"
 										class="img-responsive img-rounded" width="100" height="300"><br>
-									じゃがバターベーコン
+									
+								<c:forEach var="orderItem" items="${order.orderItemList}">
+									<c:out value="${orderItem.item.name}"/><br>
+								</c:forEach>
 								</div>
 							</td>
 							<td>
-								<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-								&nbsp;&nbsp;1個
+								<span class="price">
+									&nbsp;
+									<c:forEach var="orderItem" items="${order.orderItemList}">
+										<c:out value="${orderItem.size}"/><br>
+									</c:forEach>
+									
+									&nbsp;&nbsp;
+									
+									<c:forEach var="orderItem" items="${order.orderItemList}">
+										<c:out value="${orderItem.item.priceM}"/><br>
+									</c:forEach>
+									
+									&nbsp;&nbsp;
+									<c:forEach var="orderItem" items="${order.orderItemList}">
+										<c:out value="${orderItem.quantity}"/><br>
+									</c:forEach>
+									
+									</span>
 							</td>
+
 							<td>
 								<ul>
-									<li>ピーマン300円</li>
-									<li>オニオン300円</li>
-									<li>あらびきソーセージ300円</li>
+									<c:forEach var="orderItemList" items="${order.orderItemList}">
+										<c:forEach var="toppingList" items="${orderItemList.orderToppingList}">
+											<li><c:out value="${toppingList.topping.name}"/></li>
+										</c:forEach>
+										
+									</c:forEach>
 								</ul>
 							</td>
 							<td>
 								<div class="text-center">
-									3,280円
-								</div>
-							</td>
-							<td>
-								<div class="text-center">
-									<button type="submit" class="btn btn-primary">削除</button>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="center">
-									<img src="img/1.jpg"
-										class="img-responsive img-rounded" width="100" height="300"><br>
-									じゃがバターベーコン
-								</div>
-							</td>
-							<td>
-								<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-								&nbsp;&nbsp;1個
-							</td>
-							<td>
-								<ul>
-									<li>ピーマン300円</li>
-									<li>オニオン300円</li>
-									<li>あらびきソーセージ300円</li>
-								</ul>
-							</td>
-							<td>
-								<div class="text-center">
-									3,280円
-								</div>
-							</td>
-							<td>
-								<div class="text-center">
-									<button type="submit" class="btn btn-primary">削除</button>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="center">
-									<img src="img/1.jpg"
-										class="img-responsive img-rounded" width="100" height="300"><br>
-									じゃがバターベーコン
-								</div>
-							</td>
-							<td>
-								<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-								&nbsp;&nbsp;1個
-							</td>
-							<td>
-								<ul>
-									<li>ピーマン300円</li>
-									<li>オニオン300円</li>
-									<li>あらびきソーセージ300円</li>
-								</ul>
-							</td>
-							<td>
-								<div class="text-center">
-									3,280円
+									円
 								</div>
 							</td>
 							<td>
@@ -176,8 +143,8 @@
 		<div class="row">
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
-					<span id="total-price">消費税：8,000円</span><br>
-					<span id="total-price">ご注文金額合計：38,000 (税込)</span>
+					<span id="total-price">消費税：円</span><br>
+					<span id="total-price">ご注文金額合計：(税込)</span>
 				</div>
 			</div>
 		</div>
