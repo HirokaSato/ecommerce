@@ -31,7 +31,7 @@
 							class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="item_list.html"> <!-- 企業ロゴ --> <img
-						alt="main log" src="${pageContext.request.contextPath}img/header_logo.png" height="35">
+						alt="main log" src="${pageContext.request.contextPath}/img/header_logo.png" height="35">
 					</a>
 				</div>
 
@@ -82,28 +82,25 @@
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<table class="table table-striped">
-					<tbody>
-						
-			 <c:forEach var="item" items="${itemList}">
-						<tr>
-							<th>
-								<!-- 詳細画面にとぶようにする -->
-								<a href="item_detail.html">
-								<!-- 画像を取り出す -->
-									<img src="${item.imagePath}" class="img-responsive img-rounded" width="200" height="600">
-									
-								</a><br>
-								<!-- 詳細画面にとぶようにする、商品名を取り出す -->
-								<a href="item_detail.html"><c:out value="${item.name}"/></a><br>
-								<!-- M、Lの値段を取り出す -->
-								<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)<br>
-								<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceL}" pattern="###,###"/>円(税抜)<br>
-							</th> 
-						</tr>
-			 </c:forEach>	
-			
-												
-												
+					<tbody>	
+						 <c:forEach var="item" items="${itemList}" varStatus="status">
+							<c:if test="${status.count + 3 % 3 == 1}">
+								<tr>							
+							</c:if>
+									<th>
+										<!-- 詳細画面にとぶようにする -->
+										<a href="item_detail.html">
+											<img src="${item.imagePath}" class="img-responsive img-rounded" width="200" height="600">
+										</a><br>
+										<!-- 詳細画面にとぶようにする、-->
+										<a href="item_detail.html"><c:out value="${item.name}"/></a><br>
+											<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)<br>
+											<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceL}" pattern="###,###"/>円(税抜)<br>
+									</th> 
+							<c:if test="${status.count % 3 == 0}">
+								</tr>				
+							</c:if>
+						</c:forEach>	
 					</tbody>
 				</table>
 

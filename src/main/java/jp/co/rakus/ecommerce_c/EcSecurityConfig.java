@@ -27,6 +27,7 @@ public class EcSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
+
 			.antMatchers("/**").permitAll() // 作り終わったらアクセス許可のURLを追記する
 			.anyRequest().authenticated();
 		
