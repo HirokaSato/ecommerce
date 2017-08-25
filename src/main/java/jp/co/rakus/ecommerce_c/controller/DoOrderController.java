@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommerce_c.domain.Order;
+import jp.co.rakus.ecommerce_c.form.OrderForm;
 import jp.co.rakus.ecommerce_c.service.doOrderService;
 
 /**

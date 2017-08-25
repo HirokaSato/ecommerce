@@ -1,6 +1,8 @@
 package jp.co.rakus.ecommerce_c.repository;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -44,14 +46,14 @@ public class OrderRepository {
 	 * @param id 注文Id
 	 * @return　取得した注文データ
 	 */
-	public Order findbyId(long id){
+	public List<Order> findbyId(Long id,Integer status){
 		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
 				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
 				+ "delivery_time, payment_method "
-				+ "from orders where id = :id;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
-		Order order = template.queryForObject(sql, param, orderRowMapper);
-		return order;
+				+ "from orders where id = :id status = :status order by id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id).addValue("status", status);
+		List<Order> orderList = template.query(sql, param, orderRowMapper);
+		return orderList;
 		
 	}
 	
