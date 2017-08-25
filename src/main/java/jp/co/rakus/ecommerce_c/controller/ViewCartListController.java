@@ -24,7 +24,7 @@ public class ViewCartListController {
 	@RequestMapping("/execute")
 	public String execute(Integer userId, Model model){
 		Order order = new Order();
-		order = viewCartListservice.execute(userId);
+		order = viewCartListservice.execute(1);
 		model.addAttribute("order",order);
 		return "cartList";
 	}
