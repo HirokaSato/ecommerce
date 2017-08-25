@@ -53,7 +53,7 @@ public class ItemRepository {
 	 * @param id 商品ID
 	 * @return item 検索した商品データ
 	 */
-	public Item load(Integer id) {
+	public Item load(long id) {
 
 		String loadSql = "select id,name,description,price_m,price_l,image_path,deleted from items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
