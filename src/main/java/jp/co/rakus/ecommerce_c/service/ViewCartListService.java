@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
+import jp.co.rakus.ecommerce_c.domain.Topping;
+import jp.co.rakus.ecommerce_c.repository.ItemRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderItemRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderToppingRepository;
+import jp.co.rakus.ecommerce_c.repository.ToppingRepository;
 
 /**
  * カート内商品一覧表示の実行クラス.
@@ -29,6 +32,11 @@ public class ViewCartListService {
 	
 	@Autowired
 	private OrderToppingRepository orderToppingRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
+	
+	@Autowired ToppingRepository toppingRepository;
 
 	/**
 	 * 実行メソッド
@@ -39,20 +47,23 @@ public class ViewCartListService {
 		Order order = new Order();
 		order = orderRepository.findByUserId(userId);
 		
-		//注文IDを基にorder_itemsテーブルに登録されている商品を取得し、orderオブジェクトに格納
-		OrderItem orderItem = new OrderItem();
+		//userId[1]の人のidから注文商品リストを取得
 		List<OrderItem> orderItemList = orderItemRepository.findByOrderId(order.getId());
 		
-		//item_idを基にorder_toppingsテーブルからトッピングリストを取得 -> 
-//		List<OrderTopping> orderToppingList = orderToppingRepository.findByOrderItemId(orderItem.getId());
-//	
-//		orderItemList.get(0).setOrderToppingList(orderToppingList.get(0).getTopping());
-		
 		//各注文ピザにトッピングリストを追加する
-		for(OrderItem piza : orderItemList){
-			piza.setOrderToppingList(orderToppingRepository.findByOrderItemId(piza.getId()));
+		for(OrderItem orderItem : orderItemList){
+			orderItem.setItem(itemRepository.load(orderItem.getItemId()));
+			orderItem.setOrderToppingList(orderToppingRepository.findByOrderItemId(orderItem.getId()));
+			//個々の注文商品が持つトッピングリストを取得
+			for(int i = 0; i < orderItemList.size(); i++){
+				List<OrderTopping> toppingList = orderItem.getOrderToppingList();
+				for(OrderTopping orderTopping : toppingList){
+					Topping topping = toppingRepository.findByToppingId(orderTopping.getToppingId());
+					orderTopping.setTopping(topping);
+				}
+			}
 		}
-		
+
 		//注文商品をorderオブジェクトに詰める
 		order.setOrderItemList(orderItemList);	
 		
@@ -63,7 +74,10 @@ public class ViewCartListService {
 
 
 
-
+//item_idを基にorder_toppingsテーブルからトッピングリストを取得 -> 
+//List<OrderTopping> orderToppingList = orderToppingRepository.findByOrderItemId(orderItem.getId());
+//
+//orderItemList.get(0).setOrderToppingList(orderToppingList.get(0).getTopping());
 
 
 
