@@ -8,7 +8,7 @@ import java.util.List;
  * @author ryo.kamiyama
  *
  */
-public class addToCartForm {
+public class AddToCartForm {
 
 	/** 商品ID */
 	private String itemId;

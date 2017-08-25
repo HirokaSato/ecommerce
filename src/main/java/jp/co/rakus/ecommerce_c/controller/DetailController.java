@@ -1,6 +1,8 @@
 package jp.co.rakus.ecommerce_c.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommerce_c.domain.Item;
 import jp.co.rakus.ecommerce_c.domain.Topping;
-import jp.co.rakus.ecommerce_c.form.addToCartForm;
+import jp.co.rakus.ecommerce_c.form.AddToCartForm;
 import jp.co.rakus.ecommerce_c.service.DetailService;
 
 /**
@@ -27,6 +29,11 @@ public class DetailController {
 	@Autowired
 	private DetailService detailService;
 	
+	@ModelAttribute
+	public AddToCartForm setUpForm(){
+		return new AddToCartForm();
+	}
+	
 	/**
 	 * 商品の詳細を表示する
 	 * 
@@ -36,17 +43,19 @@ public class DetailController {
 	@RequestMapping("/detail")
 	public String detailOfItem(Integer id, Model model) {
 
+		//idを元に商品詳細を表示
 		Item item = detailService.load(id);
 		model.addAttribute("item", item);
-		
+				
+		//toppingリストの詳細を表示
 		List<Topping> toppingList = detailService.findAllTopping();
-		model.addAttribute("toppingList",toppingList);
+		Map<Integer, String> toppingMap = new LinkedHashMap<Integer, String>();
 		
+		for(Topping topping : toppingList){
+			toppingMap.put(topping.getId(), topping.getName());
+		}
+		model.addAttribute("toppingMap", toppingMap);
 		return "itemDetail";
-	}
 	
-	
-	
-	
-	
+	}	
 }	
