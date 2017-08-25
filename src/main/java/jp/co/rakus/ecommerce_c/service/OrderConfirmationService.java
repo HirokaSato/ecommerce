@@ -1,5 +1,7 @@
 package jp.co.rakus.ecommerce_c.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +25,9 @@ public class OrderConfirmationService {
 	 * @param id
 	 * @return
 	 */
-	public Order findById(Integer id){
+	public List<Order> findById(Long userId, Integer status){
 		
-		return repository.findbyId(id);
+		return repository.findbyId(userId,status);
 	}
 
 }

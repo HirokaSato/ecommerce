@@ -1,4 +1,4 @@
-package jp.co.rakus.ecommerce_c.controller;
+package jp.co.rakus.ecommerce_c.form;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
