@@ -1,15 +1,14 @@
 package jp.co.rakus.ecommerce_c.controller;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * 注文情報を受け取るフォーム.
  * @author rakus
  *
  */
-public class doOrderForm {
+public class OrderForm {
 	
 	/**名前*/
 	private String name;
@@ -26,7 +25,7 @@ public class doOrderForm {
 	/**配達時間*/
 	private String deliveryTime;
 	/**お支払い方法*/
-	private String paymethod;
+	private String paymentMethod;
 
 	public String getName() {
 		return name;
@@ -74,17 +73,23 @@ public class doOrderForm {
 	}
 	
 	/**	DeliveryDateとTimeをDateに直す*/
-	public Date getDateDeliveryDate() throws ParseException{
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date formatDate = sdf.parse(deliveryDate+deliveryTime);
-		return formatDate;
+	public Timestamp getTimeStampDeliveryDate() throws ParseException{
+		String deliverydate = deliveryDate+deliveryTime;
+		Timestamp timestamp = Timestamp.valueOf(deliverydate);
+		return timestamp;
 	}
 	
-	public String getPaymethod() {
-		return paymethod;
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
-	public void setPaymethod(String paymethod) {
-		this.paymethod = paymethod;
+	public void setPaymentMethod(String paymentMethod) {
+		
+		this.paymentMethod = paymentMethod;
+	}
+	
+	public Integer getIntPaymentMethod(){
+		
+		return Integer.parseInt(paymentMethod);
 	}
 
 	
