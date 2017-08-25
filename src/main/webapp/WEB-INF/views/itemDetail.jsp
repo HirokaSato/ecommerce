@@ -1,7 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ピザ屋のネット注文</title>
@@ -25,11 +29,10 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="item_list.html"> <!-- 企業ロゴ -->
+					<a class="navbar-brand" href="${pageContext.request.contextPath}/top"> <!-- 企業ロゴ -->
 						<img alt="main log" src="${pageContext.request.contextPath}/img/header_logo.png" height="35">
 					</a>
 				</div>
-
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
@@ -44,22 +47,27 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
-
-		<form action="cart_list.html">
+		
+		
+		
+	
+		
+		
+		<form:form action="${pageContext.request.contextPath}" modelAttribute="addToCartForm">
 		<div class="row">
 			<div class="col-xs-offset-2 col-xs-8">
 
 				<h3 class="text-center">商品詳細</h3>
 				<div class="row">
 					<div class="col-xs-5">
-						<img src="img/1.jpg" class="img-responsive img-rounded">
+						<img src="${item.imagePath}" class="img-responsive img-rounded">
 					</div>
 
 					<div class="col-xs-5">
 						<div class="bs-component">
-							<h4>じゃがバターベーコン</h4> <br>
+							<h4><c:out value="${item.name}"/></h4> <br>
 							<br>
-							<p>マイルドな味付けのカレーに大きくカットしたポテトをのせた、バターとチーズの風味が食欲をそそるお子様でも楽しめる商品です。</p>
+							<p><c:out value="${item.description}"/></p>
 						</div>
 					</div>
 				</div><br>
@@ -74,13 +82,14 @@
 									<label class="radio-inline"> 
 										<input type="radio"
 											name="responsibleCompany" checked="checked">
-										<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;1,380円(税抜)
+										<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)
 									</label>
 									<label class="radio-inline"> 
 										<input type="radio"
 											name="responsibleCompany"> 
-										<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円(税抜)
+										<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceL}" pattern="###,###"/>円(税抜)
 									</label>
+								
 								</div>
 							</div>
 						</div>
@@ -96,37 +105,25 @@
 										<span>&nbsp;М&nbsp;</span>&nbsp;&nbsp;200円(税抜)
 										<span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
 									</label>
-								</div>
-								<div class="col-sm-12">
-									<label class="checkbox-inline">
-										<input type="checkbox" value="">オニオン
-									</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" value="">チーズ
-									</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" value="">ピーマン
-									</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" value="">ロースハム
-									</label><br>
-									<label class="checkbox-inline">
-										<input type="checkbox" value="">ほうれん草
-									</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" value="">ぺパロに
-									</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" value="">グリルナス
-									</label>
-									<label class="checkbox-inline">
-										<input type="checkbox" value="">あらびきソーセージ
-									</label>
-								</div>
+									<c:forEach var="topping" items="${toppingList}">		
+										<div class="col-sm-12">
+											<label class="checkbox-inline">
+									
+												
+									
+												<input type="checkbox" value="">value="${topping.name}
+											</label>
+										</div>									
+									</c:forEach>	
 							</div>
 						</div>
 					</div>
 				</div>
+			
+				
+				
+				
+				
 				<div class="row">
 					<div class="col-xs-offset-2 col-xs-8">
 						<div class="form-group">
@@ -175,8 +172,8 @@
 				</div>
 			</div>
 		</div>
-		</form>
-
+	</div>
+		</form:form>
 	</div>
 	<!-- end container -->
 	<script
