@@ -35,13 +35,17 @@ public class UserRepository {
 	 * メールアドレスからユーザ情報を検索する.
 	 * 
 	 * @param email 検索条件のメールアドレス
-	 * @return User 照合したユーザ情報
+	 * @return User 照合したユーザ情報 なければ null
 	 */
 	public User findByMailAddress(String email){
-		return template.queryForObject(
-				"select id, name, email, password, address, telephone from users where email = :email", 
-				new MapSqlParameterSource().addValue("email", email), 
-				userRowMapper);
+		try{
+			return template.queryForObject(
+					"select id, name, email, password, address, telephone from users where email = :email", 
+					new MapSqlParameterSource().addValue("email", email), 
+					userRowMapper);
+		}catch(Exception e){
+			return null;
+		}
 	}
 	
 	/**

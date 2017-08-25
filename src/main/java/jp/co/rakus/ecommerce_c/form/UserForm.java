@@ -1,5 +1,8 @@
 package jp.co.rakus.ecommerce_c.form;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * ユーザ登録情報を受け取るフォーム.
  * 
@@ -8,16 +11,23 @@ package jp.co.rakus.ecommerce_c.form;
  */
 public class UserForm {
 	/** 名前 */
+	@NotBlank(message="名前を入力してください")
 	private String name;
 	/** メールアドレス */
+	@NotBlank(message="メールアドレスを入力してください")
+	@Email(message="アドレスが不正です")
 	private String email;
 	/** 住所 */
+	@NotBlank(message="住所を入力してください")
 	private String address;
 	/** 電話番号 */
+	@NotBlank(message="電話番号を入力してください")
 	private String telephone;
 	/** パスワード */
+	@NotBlank(message="パスワードを入力してください")
 	private String password;
 	/** 再入力パスワード */
+	@NotBlank(message="確認用パスワードを入力してください")
 	private String reInputPassword;
 	
 	public String getName() {

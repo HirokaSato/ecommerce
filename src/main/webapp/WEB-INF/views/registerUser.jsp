@@ -47,41 +47,41 @@
 		<div class="row">
 			<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 				<div class="well">
-					<form:form modelAttribute="userForm" action="${pageContext.request.contextPath}/registerUser/submit" method="post">
+					<form:form modelAttribute="userForm" action="${pageContext.request.contextPath}/registerUser/submit" method="post" id="userForm">
 						<fieldset>
 							<legend>ユーザ登録</legend>
 							<div class="form-group">
-								<label for="inputName">名前:</label><label class="control-label" style="color: red" for="inputError">名前を入力してください</label>
+								<label for="inputName">名前:</label><label class="control-label" style="color: red" for="inputError"><form:errors path="name"/></label>
 								<form:input path="name" placeholder="Name" class="form-control" id="inputName"/>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail">メールアドレス:</label><label class="control-label" style="color: red" for="inputError">メールアドレスを入力してください</label>
+								<label for="inputEmail">メールアドレス:</label><label class="control-label" style="color: red" for="inputError"><form:errors path="email"/></label>
 								<form:input path="email" class="form-control" placeholder="Email" id=""/>
 							</div>
 							<div class="form-group">
 								<label for="inputAddress">住所:</label>
-								<label class="control-label" style="color: red" for="inputError">住所を入力してください</label>
+								<label class="control-label" style="color: red" for="inputError"><form:errors path="address"/></label>
 								<form:input path="address" placeholder="Address" class="form-control" id="inputAddress"/>
 							</div>
 							<div class="form-group">
 								<label for="inputTel">電話番号:</label>
-								<label class="control-label" style="color: red" for="inputError">電話番号を入力してください</label>
+								<label class="control-label" style="color: red" for="inputError"><form:errors path="telephone"/></label>
 								<form:input path="telephone" id="inputTel" class="form-control" placeholder="Tel"/>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>
-								<label class="control-label" style="color: red" for="inputError">パスワードを入力してください</label>
+								<label class="control-label" style="color: red" for="inputError"><form:errors path="password"/></label>
 								<form:input path="password" id="inputPassword" class="form-control" placeholder="Password"/>
 							</div>
 							<div class="form-group">
 								<label for="inputConfirmationPassword">確認用パスワード:</label>
 								<label
-									class="control-label" style="color: red" for="inputError">確認用パスワードを入力してください</label>
+									class="control-label" style="color: red" for="inputError"><form:errors path="reInputPassword"/></label>
 								<form:input path="reInputPassword" id="inputConfirmationPassword" class="form-control" placeholder="Confirmation Password"/>
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary">登録</button>
-								<button type="reset" class="btn btn-primary">クリア</button>
+								<button type="submit" class="btn btn-primary" form="userForm">登録</button>
+								<button type="reset" class="btn btn-primary" form="userForm">クリア</button>
 							</div>
 						</fieldset>
 					</form:form>
