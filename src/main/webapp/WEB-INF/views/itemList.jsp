@@ -1,8 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -88,15 +86,10 @@
 								<tr>							
 							</c:if>
 									<th>
-										
-										<a href="${pageContext.request.contextPath}/baseball-controller/execute?id=${baseball.id}">
-										
+										<!-- 詳細画面にとぶようにする、-->										
 										<a href="item_detail.html">
 											<img src="${item.imagePath}" class="img-responsive img-rounded" width="200" height="600">
-										</a><br>
-										
-										
-										
+										</a><br>	
 										<!-- 詳細画面にとぶようにする、-->
 										<a href="item_detail.html"><c:out value="${item.name}"/></a><br>
 											<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)<br>

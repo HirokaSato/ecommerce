@@ -30,6 +30,12 @@ public class ToppingRepository {
 		return topping;
 	};
 
+	
+	/**
+	 * トッピング情報を全件表示する
+	 * 
+	 * @return toppingList toppingsテーブル全てのデータ
+	 */
 	public List<Topping> findAllTopping(){
 		
 		String findAllToppingSql ="select id,name,price_m,price_l from toppings";

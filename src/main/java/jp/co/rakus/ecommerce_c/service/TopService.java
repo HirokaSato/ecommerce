@@ -16,14 +16,17 @@ import jp.co.rakus.ecommerce_c.repository.ItemRepository;
 
 @Service
 @Transactional
-public class ItemService {
+public class TopService {
 
 	@Autowired
 	private ItemRepository itemRepository;
 
+	/**
+	 * 商品内容を全件表示
+	 * @return 取得した全てのデータ
+	 */
 	public List<Item> findAll() {
 		return itemRepository.findAll();
 
 	}
-
 }
