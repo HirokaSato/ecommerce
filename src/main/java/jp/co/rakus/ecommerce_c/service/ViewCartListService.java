@@ -44,11 +44,11 @@ public class ViewCartListService {
 		List<OrderItem> orderItemlist = orderItemRepository.findByOrderId(order.getId());
 		
 		//item_idを基にorder_toppingsテーブルからトッピングを取得 -> 
-//		List<Topping> toppingList = ToppingRepository.findByOrderItemId(orderItem.getId());
+		List<Topping> toppingList = ToppingRepository.findByOrderItemId(orderItem.getId());
 	
 		//各注文ピザにトッピングリストを追加する
 		for(OrderItem piza : orderItemlist){
-//			piza.setOrderToppingList(toppingList);
+			piza.setOrderToppingList(toppingList);
 		}
 		
 		//注文商品をorderオブジェクトに詰める
