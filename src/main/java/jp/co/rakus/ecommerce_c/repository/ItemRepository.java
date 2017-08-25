@@ -45,4 +45,12 @@ public class ItemRepository {
 		return itemList; 
 
 	}
+	
+	
+	public Item load(Integer id){
+		
+		
+		return null;
+	}
+	
 }

@@ -88,10 +88,15 @@
 								<tr>							
 							</c:if>
 									<th>
-										<!-- 詳細画面にとぶようにする -->
+										
+										<a href="${pageContext.request.contextPath}/baseball-controller/execute?id=${baseball.id}">
+										
 										<a href="item_detail.html">
 											<img src="${item.imagePath}" class="img-responsive img-rounded" width="200" height="600">
 										</a><br>
+										
+										
+										
 										<!-- 詳細画面にとぶようにする、-->
 										<a href="item_detail.html"><c:out value="${item.name}"/></a><br>
 											<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)<br>
