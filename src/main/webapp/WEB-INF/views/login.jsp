@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -47,26 +48,25 @@
 		<div class="row">
 			<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 				<div class="well">
-					<form method="post" action="${pageContext.request.contextPath}/loginSubmit">
+					<form:form modelAttribute="userForm" method="post" action="${pageContext.request.contextPath}/loginSubmit">
 						<fieldset>
 							<legend>
 								ログイン
 							</legend>
 							<div class="form-group">
-								<label for="inputEmail">メールアドレス:</label><label class="control-label" style="color: red" for="inputError"><c:out value="${error}"/></label>
-								<input type="text" id="inputEmail" class="form-control" name="email"
-									placeholder="Email">
+								<label for="inputEmail">メールアドレス:</label>
+								<label class="control-label" style="color: red" for="inputError"><c:out value="${error}"/></label>
+								<form:input path="email" id="inputEmail" class="form-control" placeholder="Email"/>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>
-								<input type="text" id="inputPassword" class="form-control" name="password"
-									placeholder="Password">
+								<form:input path="password" id="inputPassword" class="form-control" placeholder="Password"/>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">ログイン</button>
 							</div>
 						</fieldset>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>
