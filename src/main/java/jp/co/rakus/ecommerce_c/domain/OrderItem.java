@@ -23,7 +23,7 @@ public class OrderItem {
 	/** 商品 **/
 	private Item item;
 	/** トッピングリスト**/
-	private List<Topping> orderToppingList;
+	private List<OrderTopping> orderToppingList;
 	
 	//未実装
 	public void getSubTotal(){
@@ -66,13 +66,16 @@ public class OrderItem {
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	public List<Topping> getOrderToppingList() {
+
+	public List<OrderTopping> getOrderToppingList() {
 		return orderToppingList;
 	}
-	public void setOrderToppingList(List<Topping> orderToppingList) {
+
+	public void setOrderToppingList(List<OrderTopping> orderToppingList) {
 		this.orderToppingList = orderToppingList;
 	}
 
+	
 
 	
 	
