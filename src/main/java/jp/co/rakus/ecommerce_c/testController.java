@@ -18,5 +18,11 @@ public class testController {
 		return "itemDetail";
 	}
 	
+	@RequestMapping("/viewOrderFinish")
+	public String viewOrderFinish(){
+		
+		return "orderFinished";
+	}
+	
 
 }

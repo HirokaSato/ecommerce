@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ピザ屋のネット注文</title>
@@ -27,7 +26,7 @@
 							class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="item_list.html"> <!-- 企業ロゴ -->
-						<img alt="main log" src="img/header_logo.png" height="35">
+						<img alt="main log" src="${pageContext.request.contextPath}/img/header_logo.png" height="35">
 					</a>
 				</div>
 
