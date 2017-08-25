@@ -52,9 +52,8 @@
 							<legend>
 								ログイン
 							</legend>
-							<label class="control-label" style="color: red" for="inputError"><c:out value="${error}"/></label>
 							<div class="form-group">
-								<label for="inputEmail">メールアドレス:</label>
+								<label for="inputEmail">メールアドレス:</label><label class="control-label" style="color: red" for="inputError"><c:out value="${error}"/></label>
 								<input type="text" id="inputEmail" class="form-control" name="email"
 									placeholder="Email">
 							</div>
