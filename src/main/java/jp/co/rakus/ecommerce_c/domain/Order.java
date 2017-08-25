@@ -4,6 +4,11 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 注文データ
+ * @author atsuko.yoshino	
+ *
+ */
 public class Order {
 	
 	/**id*/
