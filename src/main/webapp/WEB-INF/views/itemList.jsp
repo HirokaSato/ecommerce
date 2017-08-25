@@ -30,7 +30,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="item_list.html"> <!-- 企業ロゴ --> <img
+					<a class="navbar-brand" href="${pageContext.request.contextPath}/top"> <!-- 企業ロゴ --> <img
 						alt="main log" src="${pageContext.request.contextPath}/img/header_logo.png" height="35">
 					</a>
 				</div>
