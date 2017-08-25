@@ -40,7 +40,7 @@ public class OrderRepository {
 	};
 	
 	/**
-	 * 注文内容をIdごとに確認.
+	 * 注文内容をIdごとに注文データを取得.
 	 * @param id 注文Id
 	 * @return　取得した注文データ
 	 */
