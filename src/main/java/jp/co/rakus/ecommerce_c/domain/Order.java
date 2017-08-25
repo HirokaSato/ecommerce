@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Oreder {
+public class Order {
 	
 	/**id*/
 	private Long id;
