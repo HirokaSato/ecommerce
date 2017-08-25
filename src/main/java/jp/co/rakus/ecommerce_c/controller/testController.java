@@ -18,6 +18,12 @@ public class testController {
 		return "itemDetail";
 	}
 	
+	@RequestMapping("/viewCartListTest")
+	public String viewCartListTest(){
+		
+		return "cartList";
+	}
+	
 	@RequestMapping("/viewOrderFinish")
 	public String viewOrderFinish(){
 		
