@@ -2,6 +2,7 @@ package jp.co.rakus.ecommerce_c.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -41,5 +42,17 @@ public class UserRepository {
 				"select id, name, email, password, address, telephone from users where email = :email", 
 				new MapSqlParameterSource().addValue("email", email), 
 				userRowMapper);
+	}
+	
+	/**
+	 * ユーザ情報を登録する.
+	 * 
+	 * @param user 登録するユーザ情報
+	 * @return ユーザ情報
+	 */
+	public User insert(User user){
+		template.update("insert into users (name, email, password, address, telephone) values (:name, :email, :password, :address, :telephone)", 
+				new BeanPropertySqlParameterSource(user));
+		return user;
 	}
 }
