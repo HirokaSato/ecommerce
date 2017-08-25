@@ -10,7 +10,9 @@ public class loginController {
 
 	@RequestMapping
 	public String login(String error, Model model){
-		model.addAttribute("error", "メールアドレス、またはパスワードが間違っています");
+		if(Boolean.getBoolean(error) == true){			
+			model.addAttribute("error", "メールアドレス、またはパスワードが間違っています");
+		}
 		return "login";
 	}
 }
