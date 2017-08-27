@@ -23,61 +23,64 @@ import jp.co.rakus.ecommerce_c.repository.ToppingRepository;
  */
 @Service
 public class ViewCartListService {
-	
-	@Autowired
-	private OrderRepository orderRepository;
-	
-	@Autowired
-	private OrderItemRepository orderItemRepository;
-	
-	@Autowired
-	private OrderToppingRepository orderToppingRepository;
-	
-	@Autowired
-	private ItemRepository itemRepository;
-	
-	@Autowired ToppingRepository toppingRepository;
 
-	/**
-	 * 実行メソッド
-	 * @return
-	 */
-	public Order execute(Integer userId){
-		//userId[1]の人のオーダー情報をオブジェクトへ入れる
-		Order order = new Order();
-		order = orderRepository.findByUserId(userId);
-		
-		//userId[1]の人のidから注文商品リストを取得
-		List<OrderItem> orderItemList = orderItemRepository.findByOrderId(order.getId());
-		
-		//各注文ピザにトッピングリストを追加する
-		for(OrderItem orderItem : orderItemList){
-			orderItem.setItem(itemRepository.load(orderItem.getItemId()));
-			orderItem.setOrderToppingList(orderToppingRepository.findByOrderItemId(orderItem.getId()));
-			//個々の注文商品が持つトッピングリストを取得
-			for(int i = 0; i < orderItemList.size(); i++){
-				List<OrderTopping> toppingList = orderItem.getOrderToppingList();
-				for(OrderTopping orderTopping : toppingList){
-					Topping topping = toppingRepository.findByToppingId(orderTopping.getToppingId());
-					orderTopping.setTopping(topping);
-				}
-			}
-		}
+ @Autowired
+ private OrderRepository orderRepository;
 
-		//注文商品をorderオブジェクトに詰める
-		order.setOrderItemList(orderItemList);	
-		
-		return order;
-	}
-	
+ @Autowired
+ private OrderItemRepository orderItemRepository;
+
+ @Autowired
+ private OrderToppingRepository orderToppingRepository;
+
+ @Autowired
+ private ItemRepository itemRepository;
+
+ @Autowired
+ ToppingRepository toppingRepository;
+ 
+ private int subTotalPrice = 0;
+
+ /**
+  * 実行メソッド
+  * 
+  * @return
+  */
+ public Order execute(Integer userId) {
+  // userId[1]の人のオーダー情報をオブジェクトへ入れる
+  Order order = new Order();
+  order = orderRepository.findByUserId(userId);
+
+  // userId[1]の人のidから注文商品リストを取得
+  List<OrderItem> orderItemList = orderItemRepository.findByOrderId(order.getUserId());
+
+  // 各注文ピザにトッピングリストを追加する
+  for (OrderItem orderItem : orderItemList) {
+   orderItem.setItem(itemRepository.load(orderItem.getItemId()));
+   orderItem.setOrderToppingList(orderToppingRepository.findByOrderItemId(orderItem.getId()));
+   // 個々の注文商品が持つトッピングリストを取得
+   for (int i = 0; i < orderItemList.size(); i++) {
+    List<OrderTopping> toppingList = orderItem.getOrderToppingList();
+    for (OrderTopping orderTopping : toppingList) {
+     Topping topping = toppingRepository.findByToppingId(orderTopping.getToppingId());
+     orderTopping.setTopping(topping);
+    }
+   }
+   subTotalPrice = orderItem.getSubTotal();
+  }
+
+  // 注文商品をorderオブジェクトに詰める
+  order.setOrderItemList(orderItemList);
+  return order;
+ }
+
+ public int getSubTotalPrice() {
+  return subTotalPrice;
+ }
+
+ public void setSubTotalPrice(int subTotalPrice) {
+  this.subTotalPrice = subTotalPrice;
+ }
+ 
+ 
 }
-
-
-
-//item_idを基にorder_toppingsテーブルからトッピングリストを取得 -> 
-//List<OrderTopping> orderToppingList = orderToppingRepository.findByOrderItemId(orderItem.getId());
-//
-//orderItemList.get(0).setOrderToppingList(orderToppingList.get(0).getTopping());
-
-
-

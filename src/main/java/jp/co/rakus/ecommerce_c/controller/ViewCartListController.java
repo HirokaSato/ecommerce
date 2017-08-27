@@ -17,16 +17,19 @@ import jp.co.rakus.ecommerce_c.service.ViewCartListService;
 @Controller
 @RequestMapping("/veiwCartList")
 public class ViewCartListController {
-	
-	@Autowired
-	private ViewCartListService viewCartListservice;
-	
-	@RequestMapping("/execute")
-	public String execute(Integer userId, Model model){
-		Order order = new Order();
-		order = viewCartListservice.execute(1);
-		model.addAttribute("order",order);
-		return "cartList";
-	}
-	
+ 
+ @Autowired
+ private ViewCartListService viewCartListservice;
+ 
+ @RequestMapping("/execute")
+ public String execute(Integer userId, Model model){
+  Order order = new Order();
+  order = viewCartListservice.execute(1); 
+  model.addAttribute("subTotal",viewCartListservice.getSubTotalPrice());
+  model.addAttribute("tax",order.getTax());
+  model.addAttribute("totalPrice",order.getCalcTotalPrice());
+  model.addAttribute("order",order);
+  return "cartList";
+ }
+ 
 }
