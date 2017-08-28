@@ -24,9 +24,9 @@ public class DeleteItemFromCartListController {
 	private DeleteItemFromCartListService service;
 
 	@RequestMapping("/delete")
-	public String delete(Integer userId,Model model,Integer itemId){
+	public String delete(Integer userId,Model model,Integer id,Integer itemId){
 		userId = 1;//仮で
-		service.execute(itemId);// orderItemId,itemId
+		service.execute(id,itemId);// orderItemId,itemId
 		return controller.execute(userId,model);
 	}
 }

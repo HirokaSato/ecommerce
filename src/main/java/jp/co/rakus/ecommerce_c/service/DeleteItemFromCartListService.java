@@ -24,9 +24,9 @@ public class DeleteItemFromCartListService {
 	/**
 	 * 実行メソッド.
 	 */
-	public void execute(Integer itemId){ //(Integer orderItemId,Integer itemId)
-		orderToppingRepository.deleteByOrderItemId(itemId);
-		orderItemRepository.deleteByItemId(itemId);
+	public void execute(Integer id,Integer orderItemId){ //(Integer orderItemId,Integer itemId)
+		orderToppingRepository.deleteByOrderItemId(orderItemId);
+		orderItemRepository.deleteByItemId(id);
 	}
 	
 }

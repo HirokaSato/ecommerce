@@ -65,9 +65,9 @@ public class OrderItemRepository {
 	 * 
 	 * @param itemId 商品ID
 	 */
-	public void deleteByItemId(Integer itemId){
-		String sql = "delete from order_items where item_id = :itemId";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
+	public void deleteByItemId(Integer id){
+		String sql = "delete from order_items where id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		template.update(sql, param);
 	}
 	
