@@ -32,9 +32,18 @@ public class SearchItemController {
 	
 	@RequestMapping("/searchItem")
 	public String searchItem(String keyword,Model model){
-				
+						
 		List<Item> searchItem = searchItemService.searchItem(keyword);
 		model.addAttribute("itemList",searchItem);		
+		
+		if(searchItem.isEmpty()){
+			model.addAttribute("error","該当する商品がありません");	
+			keyword = "";
+			List<Item> searchItem2 = searchItemService.searchItem(keyword);
+			model.addAttribute("itemList",searchItem2);
+		}
+		
 		return "itemList" ;
+		
 	}
 }
