@@ -41,6 +41,14 @@ public class Order {
 	/** 注文内容 */
 	private List<OrderItem> orderItemList;
 
+	
+	//テスト用
+	public Order(int i, int j, int k, int l) {
+
+	}
+
+	public Order(){}
+
 	public long getId() {
 		return id;
 	}
