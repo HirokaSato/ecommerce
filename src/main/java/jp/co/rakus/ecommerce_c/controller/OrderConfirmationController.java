@@ -6,8 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
-import org.springframework.security.web.header.writers.frameoptions.StaticAllowFromStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +39,7 @@ public class OrderConfirmationController {
 	 * @return　注文確認画面
 	 */
 	@RequestMapping("/")
-	public String index(){
+	public String index(Model model){
 		session.setAttribute("userId", 00000000000000000000);
 		Order order= orderConfirmationService.findByUserIdAndStatus((Integer)session.getAttribute("userId"));		
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
@@ -49,16 +47,19 @@ public class OrderConfirmationController {
 		for(OrderItem orderItem : orderItemList){
 			Item item = orderConfirmationService.findByItemId(orderItem.getItemId());
 			orderItem.setItem(item);//商品の詳細格納
-			/*List<OrderTopping> orderToppingList = orderConfirmationService.toppingfindByOrderId(orderId);*/
-
+			List<OrderTopping> orderToppingList = orderConfirmationService.toppingFindByOrderItemId(orderItem.getId());
+			for(OrderTopping orderTopping :orderToppingList){
+				
+				orderTopping.setTopping(orderConfirmationService.toppingFindByToppingId(orderTopping.getToppingId()));
 			
+				orderToppingList.add(orderTopping);
 			}
-		return null;
+			
+			doOrderItemList.add(orderItem);
+			}
+		
+		model.addAttribute("orderItemList",orderItemList);
+		return "orderList";
 	}
-		/*}
-		model.addAttribute(orderItemList);
-		return "orderList";		 
-		 
-	}*/
 
 }
