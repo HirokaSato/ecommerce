@@ -57,7 +57,7 @@ public class ViewCartListService {
 		// 各注文ピザにトッピングリストを追加する
 		for (OrderItem orderItem : orderItemList) {
 			orderItem.setItem(itemRepository.load(orderItem.getItemId()));
-			orderItem.setOrderToppingList(orderToppingRepository.findByOrderItemId(orderItem.getId()));
+			orderItem.setOrderToppingList(orderToppingRepository.findByOrderItemId(orderItem.getItemId()));
 			// 個々の注文商品が持つトッピングリストを取得
 			for (int i = 0; i < orderItemList.size(); i++) {
 				List<OrderTopping> toppingList = orderItem.getOrderToppingList();
