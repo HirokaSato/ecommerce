@@ -1,14 +1,21 @@
 package jp.co.rakus.ecommerce_c.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
+import org.springframework.security.web.header.writers.frameoptions.StaticAllowFromStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.rakus.ecommerce_c.domain.Item;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
+import jp.co.rakus.ecommerce_c.domain.OrderTopping;
 import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 
 /**
@@ -20,7 +27,11 @@ import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 @RequestMapping("OrderConfirmationController")
 public class OrderConfirmationController {
 	@Autowired
-	private OrderConfirmationService confirmationService;
+	private OrderConfirmationService orderConfirmationService;
+	
+	@Autowired
+	private HttpSession session;
+	
 
 	
 	/**
@@ -30,20 +41,24 @@ public class OrderConfirmationController {
 	 * @return　注文確認画面
 	 */
 	@RequestMapping("/")
-	public String index(Long userId, Model model){
-		
-		 List<Order> orderList= confirmationService.findById(userId, 0);
-		 List<OrderItem> orderItemList = null;
-		 for(Order order:orderList){
-			 
-			 orderItemList = confirmationService.findByOrderId(order.getId());
+	public String index(){
+		session.setAttribute("userId", 00000000000000000000);
+		Order order= orderConfirmationService.findByUserIdAndStatus((Integer)session.getAttribute("userId"));		
+		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
+		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト
+		for(OrderItem orderItem : orderItemList){
+			Item item = orderConfirmationService.findByItemId(orderItem.getItemId());
+			orderItem.setItem(item);//商品の詳細格納
+			/*List<OrderTopping> orderToppingList = orderConfirmationService.toppingfindByOrderId(orderId);*/
+
 			
-		 }
-		 
-		 model.addAttribute("orderItemList", orderItemList);
-		 return "orderList";
-		 
-		 
+			}
+		return null;
 	}
+		/*}
+		model.addAttribute(orderItemList);
+		return "orderList";		 
+		 
+	}*/
 
 }

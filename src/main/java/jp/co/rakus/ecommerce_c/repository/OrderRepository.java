@@ -86,5 +86,22 @@ public class OrderRepository {
 		return order;
 	}
 	
+	/**
+	 * 注文データをユーザーIDと状態で検索.
+	 * @param userId ユーザーID
+	 * @param status　取引状態
+	 * @return　取得した注文データ
+	 */
+	public Order finfByUserIdAndStatus(long userId, int status){
+		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
+				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
+				+ "delivery_time, payment_method "
+				+ "from orders where user_id = :userId and status = status;";
+		System.out.println("sql :  " + sql);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("status", status);
+		Order order = template.queryForObject(sql, param, orderRowMapper);
+		return order;
+	}
+	
 	
 }

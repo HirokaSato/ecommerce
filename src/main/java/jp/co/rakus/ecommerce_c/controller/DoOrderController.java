@@ -1,13 +1,10 @@
 package jp.co.rakus.ecommerce_c.controller;
 
-import java.text.ParseException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.form.AddToCartForm;
 import jp.co.rakus.ecommerce_c.form.OrderForm;
 import jp.co.rakus.ecommerce_c.service.doOrderService;
@@ -23,6 +20,7 @@ public class DoOrderController {
 	@Autowired
 	private doOrderService service;
 	
+	
 	@ModelAttribute
 	private OrderForm setUp(){	
 		return new OrderForm();
@@ -32,8 +30,7 @@ public class DoOrderController {
 	private AddToCartForm setUpaddToCart(){
 		return new AddToCartForm();
 	}
-	
-	
+
 	/**
 	 * 注文情報を受け取ります.
 	 * @return 完了したら、orderFinishへ

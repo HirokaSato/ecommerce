@@ -80,8 +80,7 @@
 						<tr>
 							<td>
 								<div class="center">
-									<img src="img/1.jpg"
-										class="img-responsive img-rounded" width="100" height="300"><br>
+									<c:out value="${orderItem.itemId.imagePath}"/>
 									写真！！！
 								</div>
 							</td>
