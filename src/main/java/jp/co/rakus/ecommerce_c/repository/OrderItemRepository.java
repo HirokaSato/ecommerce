@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -45,6 +46,17 @@ public class OrderItemRepository {
 		return orderItemList;
 	}
 	
-	
+	/**
+	 * 注文された商品を追加する.<br>
+	 * by shun.nakano
+	 * 
+	 * @param orderItem 注文された商品
+	 * @return 注文したかった商品
+	 */
+	public OrderItem insert(OrderItem orderItem){
+		template.update("insert into order_items (item_id,order_id,quantity,size) values (:itemId,:orderId,:quantity,:size)", 
+				new BeanPropertySqlParameterSource(orderItem));
+		return orderItem;
+	}
 	
 }

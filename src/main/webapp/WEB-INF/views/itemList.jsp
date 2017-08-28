@@ -66,6 +66,7 @@
 								</div>
 							</div>
 							<div class="text-center">
+								<c:out value="${sessionId}"/>
 								<button type="submit" value="検索" class="btn btn-primary">検索</button>
 								<button type="reset" value="クリア" class="btn btn-default">クリア</button>
 							</div>
