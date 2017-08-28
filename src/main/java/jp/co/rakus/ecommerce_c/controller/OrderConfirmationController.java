@@ -16,6 +16,7 @@ import jp.co.rakus.ecommerce_c.domain.LoginUser;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
+import jp.co.rakus.ecommerce_c.domain.Topping;
 import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 
 /**
@@ -49,14 +50,16 @@ public class OrderConfirmationController {
 			Item item = orderConfirmationService.findByItemId(orderItem.getItemId());
 			orderItem.setItem(item);//商品の詳細格納
 			List<OrderTopping> orderToppingList = orderConfirmationService.toppingFindByOrderItemId(orderItem.getId());
+			System.out.println("注文の商品Id"+orderItem.getId()+"データの数"+orderToppingList.size());
+			List<OrderTopping> doOrderToppingList = new ArrayList<>();
 			for(OrderTopping orderTopping :orderToppingList){
-				
-				orderTopping.setTopping(orderConfirmationService.toppingFindByToppingId(orderTopping.getToppingId()));
-			
-				orderToppingList.add(orderTopping);
+					
+					int toppingId = orderTopping.getToppingId();
+					Topping topping = orderConfirmationService.toppingFindByToppingId(toppingId);
+					orderTopping.setTopping(topping);
+					doOrderToppingList.add(orderTopping);
 			}
-			
-			doOrderItemList.add(orderItem);
+			orderItem.setOrderToppingList(doOrderToppingList);
 			}
 		
 		model.addAttribute("orderItemList",orderItemList);

@@ -76,7 +76,7 @@
 								</div>
 							</th>
 						</tr>
-						<c:forEach var="orderItem" items="${order.orderItemList}">
+						<c:forEach var="orderItem" items="${orderItemList}">
 							<tr>
 								<td>
 									<div class="center">
@@ -86,10 +86,10 @@
 									</div>
 								</td>
 								<td><span class="price"> <c:out value="${orderItem.size}" />&nbsp;</span>
-								&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;
 								<c:if test="${orderItem.size == 'M'}"><c:out value="${orderItem.item.priceM}" /></c:if>
-								<c:if test="${orderItem.size == 'L'}"><c:out value="${orderItem.item.priceL}" />
-								</c:if>円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個</td>
+								<c:if test="${orderItem.size == 'L'}"><c:out value="${orderItem.item.priceL}" /></c:if>
+								円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個</td>
 								<td>
 									<ul>
 										<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">
@@ -105,6 +105,7 @@
 										</c:forEach>
 									</ul>
 								</td>
+		
 								<td>
 									<div class="text-center">
 										<c:out value="${orderItem.subTotalPrice}" />

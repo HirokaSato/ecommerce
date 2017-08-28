@@ -83,6 +83,11 @@ public class OrderConfirmationService {
 		return orderToppingRepository.findByOrderItemId(orderItemId); 
 	}
 	
+	/**
+	 * トッピングIdでトッピングの詳細情報を取得.
+	 * @param toppingId トッピングId
+	 * @return　取得したデータ
+	 */
 	public Topping toppingFindByToppingId(Integer toppingId){
 	
 		return toppingRepository.findByToppingId(toppingId);
