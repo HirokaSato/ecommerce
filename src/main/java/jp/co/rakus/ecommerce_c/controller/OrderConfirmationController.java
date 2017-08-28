@@ -6,11 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommerce_c.domain.Item;
+import jp.co.rakus.ecommerce_c.domain.LoginUser;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
@@ -39,9 +41,8 @@ public class OrderConfirmationController {
 	 * @return　注文確認画面
 	 */
 	@RequestMapping("/")
-	public String index(Model model){
-		session.setAttribute("userId", 00000000000000000000);
-		Order order= orderConfirmationService.findByUserIdAndStatus((Integer)session.getAttribute("userId"));		
+	public String index(@AuthenticationPrincipal LoginUser loginUser,Model model){
+		Order order= orderConfirmationService.findByUserIdAndStatus(2);		
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
 		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト
 		for(OrderItem orderItem : orderItemList){
@@ -59,6 +60,10 @@ public class OrderConfirmationController {
 			}
 		
 		model.addAttribute("orderItemList",orderItemList);
+		order.setOrderItemList(doOrderItemList);
+		model.addAttribute("order",order);
+		System.out.println(order.getId()+"aaaaaaaaaaaa");
+		
 		return "orderList";
 	}
 

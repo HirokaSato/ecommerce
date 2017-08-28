@@ -76,31 +76,47 @@
 								</div>
 							</th>
 						</tr>
-						<c:forEach var="orderItem" items="${orderItemList}">
-						<tr>
-							<td>
-								<div class="center">
-									<c:out value="${orderItem.itemId.imagePath}"/>
-									写真！！！
-								</div>
-							</td>
-							<td>
-								<span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-								&nbsp;&nbsp;1個
-							</td>
-							<td>
-								<ul>
-									<li>ピーマン300円</li>
-									<li>オニオン300円</li>
-									<li>あらびきソーセージ300円</li>
-								</ul>
-							</td>
-							<td>
-								<div class="text-center">
-									3,280円
-								</div>
-							</td>
-						</tr>
+						<c:forEach var="orderItem" items="${order.orderItemList}">
+							<tr>
+								<td>
+									<div class="center">
+										<img src="${orderItem.item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br>
+										<c:out value="${orderItem.item.name}" />
+										<br>
+									</div>
+								</td>
+								<td><span class="price"> <c:out value="${orderItem.size}" />&nbsp;</span>
+								&nbsp;&nbsp;
+								<c:if test="${orderItem.size == 'M'}"><c:out value="${orderItem.item.priceM}" /></c:if>
+								<c:if test="${orderItem.size == 'L'}"><c:out value="${orderItem.item.priceL}" />
+								</c:if>円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個</td>
+								<td>
+									<ul>
+										<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">
+											<li><c:out value="${orderTopping.topping.name}" />
+											<c:if test="${orderItem.size=='M'}">
+												<c:out value="${orderTopping.topping.priceM}" />
+											</c:if> 
+											<c:if test="${orderItem.size=='L'}">
+												<c:out value="${orderTopping.topping.priceL}" />
+											</c:if>
+											円
+											</li>
+										</c:forEach>
+									</ul>
+								</td>
+								<td>
+									<div class="text-center">
+										<c:out value="${orderItem.subTotalPrice}" />
+										円
+									</div>
+								</td>
+								<td>
+									<div class="text-center">
+										<button type="submit" class="btn btn-primary">削除</button>
+									</div>
+								</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -110,12 +126,13 @@
 		<div class="row">
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
-					<span id="total-price">消費税：8,000円</span><br>
-					<span id="total-price">ご注文金額合計：38,000 (税込)</span>
+					<span id="total-price">
+					消費税：<c:out value="${tax}" />円</span><br>
+					<span id="total-price">ご注文金額合計：<c:out value="${totalPrice}" />円(税込)</span>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- table -->
 		<div class="row">
 			<div
@@ -312,7 +329,7 @@
 	<!-- end container -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </body>
 </html>
 </body>
