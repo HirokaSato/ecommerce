@@ -68,8 +68,6 @@ public class OrderItemRepository {
 	 */
 	public OrderItem insert(OrderItem orderItem){
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
-		template.update("insert into order_items (item_id,order_id,quantity,size) values (:itemId,:orderId,:quantity,:size)", 
-						param);
 		Number key = insert.executeAndReturnKey(param);
 		orderItem.setId(key.intValue());
 		return orderItem;
@@ -85,6 +83,24 @@ public class OrderItemRepository {
 		String sql = "delete from order_items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		template.update(sql, param);
+	}
+	
+	/**
+	 * IDで注文商品を検索する.
+	 * 
+	 * @param id 検索対象ID
+	 * @return 照合された注文商品情報、なければnull
+	 */
+	public OrderItem findById(long id){
+		String sql = "select id,item_id,order_id,quantity,size from order_items where id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		OrderItem orderItem = new OrderItem();
+		try{			
+			orderItem = template.queryForObject(sql, param, orderItemRowmapper);
+		}catch(Exception e){
+			orderItem = null;
+		}
+		return orderItem;
 	}
 	
 }

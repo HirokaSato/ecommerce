@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jp.co.rakus.ecommerce_c.domain.Item;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
@@ -27,7 +26,7 @@ public class AddItemToCartService {
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
-	private OrderItemRepository oderItemRepository;
+	private OrderItemRepository orderItemRepository;
 	@Autowired
 	private OrderToppingRepository orderToppingRepository;
 	@Autowired
@@ -36,56 +35,75 @@ public class AddItemToCartService {
 	private ToppingRepository toppingRepository;
 	
 	/**
-	 * 受け取った商品情報をそれぞれのテーブルに追加する.
+	 * 注文情報を追加する.
 	 * 
-	 * @param order
-	 * @param orderItem
+	 * @param order 追加する注文情報
+	 * @return 追加時に採番されたIDを含んだOrderクラス
 	 */
-	public void execute(Order order, OrderItem orderItem){
-		// このメソッドは未テストです
-		orderRepository.save(order);
-		oderItemRepository.insert(orderItem);
-		for(OrderTopping orderTopping : orderItem.getOrderToppingList()){
+	public Order saveOrder(Order order){
+		 return orderRepository.save(order);
+	}
+	
+	/**
+	 * 注文された商品を追加する.
+	 * 
+	 * @param orderItem 注文された商品情報
+	 * @return 追加したときに採番されたid情報を加えたOrderItem
+	 */
+	public OrderItem saveOrderItem(OrderItem orderItem){
+		return orderItemRepository.insert(orderItem);
+	}
+	
+	/**
+	 * 注文されたトッピング情報を追加する.
+	 * 
+	 * @param orderToppingList トッピング情報リスト
+	 */
+	public void saveOrderToppings(List<OrderTopping> orderToppingList){
+		for(OrderTopping orderTopping : orderToppingList){
 			orderToppingRepository.insert(orderTopping);
 		}
 	}
 	
 	/**
-	 * カートに追加された商品の値段をこれまでの合計金額に加算する.
+	 * 注文データをユーザーIDと状態で検索.
 	 * 
-	 * @param orderItem 追加された商品
-	 * @return 追加分を加算した合計金額
+	 * @param userId ユーザーID
+	 * @param status　取引状態
+	 * @return　取得した注文データ、取得できなければnull
 	 */
-	public Integer getTotalPrice(OrderItem orderItem){
-		Item item = itemRepository.load(orderItem.getItemId());
-		List<OrderTopping> orderToppingList = orderToppingRepository.findByOrderItemId(orderItem.getId());
-		Integer itemPrice = 0;
+	public Order findByUserIdAndStatus(long userId, Integer status){
+		return orderRepository.finfByUserIdAndStatus(userId, status);
+	}
+	
+	/**
+	 * 追加された商品ぶんを合わせた合計金額を求める.
+	 * 
+	 * @param orderId 注文ID
+	 * @return 合計金額
+	 */
+	public Integer getTotalPrice(long orderId, long orderItemId, List<OrderTopping> orderToppingList){
+		Integer totalPrice = 0;
+		List<Order> orderList = orderRepository.findbyId(orderId, 0);
+		totalPrice = orderList.get(0).getTotalPrice();
 		
-		// 追加された商品の価格を取得
-		if(orderItem.getSize().equals('M')){
-			itemPrice = item.getPriceM();
-		}else if(orderItem.getSize().equals('L')){
-			itemPrice = item.getPriceL();
+		OrderItem orderItem = orderItemRepository.findById(orderItemId);
+		Integer itemPrice = 0;
+		if(orderItem.getSize().equals("M")){			
+			itemPrice = itemRepository.load(orderItem.getItemId()).getPriceM();
+		}else if(orderItem.getSize().equals("L")){
+			itemPrice = itemRepository.load(orderItem.getItemId()).getPriceL();
 		}
 		
-		// トッピング分の価格を加算
 		for(OrderTopping orderTopping : orderToppingList){
 			Topping topping = toppingRepository.findByToppingId(orderTopping.getToppingId());
-			if(orderItem.getSize().equals('M')){
+			if(orderItem.getSize().equals("M")){			
 				itemPrice += topping.getPriceM();
-			}else if(orderItem.getSize().equals('L')){
+			}else if(orderItem.getSize().equals("L")){
 				itemPrice += topping.getPriceL();
 			}
 		}
-		
-		// OrderItemオブジェクトのOrderIdを利用してカートの合計金額を取得
-		Integer totalPrice = 0;
-		Order order = orderRepository.findByUserId(orderItem.getOrderId());
-		// カートが存在するならば、まずその合計金額を取得する
-		if(order != null){
-			totalPrice = order.getTotalPrice();
-		}
-		totalPrice += itemPrice;		
+		totalPrice += itemPrice;
 		return totalPrice;
 	}
 }

@@ -3,6 +3,9 @@ package jp.co.rakus.ecommerce_c.controller;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,8 @@ public class DetailController {
 
 	@Autowired
 	private DetailService detailService;
+	@Autowired
+	private HttpSession session;
 	
 	@ModelAttribute
 	public AddToCartForm setUpForm(){
@@ -42,6 +47,9 @@ public class DetailController {
 
 	@RequestMapping("/detail")
 	public String detailOfItem(Integer id, Model model) {
+		if(session.getAttribute("randomSessionId") == null){
+			session.setAttribute("randomSessionId", new Random().nextInt(1147483640)+1000000000);
+		}
 
 		//idを元に商品詳細を表示
 		Item item = detailService.load(id);

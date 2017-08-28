@@ -85,16 +85,12 @@ public class OrderRepository {
 		// カートにひとつも商品が追加されていなければ新しくorderを追加する
 		// カートが存在するならそれを更新する
 		if(order.getId() == 0){			
-			String sql = "insert into orders(user_id,status,total_price,order_date,destination_name,destination_email,destination_zipcode,destination_address,"
-					+ "destination_tel,delivery_time,payment_method)"
-					+ "values(:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode,:destinationAddress,:destinationTel,:deliveryTime,:paymentMethod);";
-			template.update(sql, param);
 			Number key = insert.executeAndReturnKey(param);
 			order.setId(key.intValue());
 		}else{
 			template.update("update orders set user_id=:userId, status=:status, total_price=:totalPrice, order_date=:orderDate, "
-					+ "destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipcode "
-					+ "destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod where user_id = :userId", 
+					+ "destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipcode, "
+					+ "destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod where id = :id", 
 					param);
 		}
 		return order;
