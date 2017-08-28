@@ -114,6 +114,7 @@
 									<div class="text-center">
 										<form action="${pageContext.request.contextPath}/delteCartItem/delete">
 											<button type="submit" class="btn btn-primary">削除</button>
+											<input type="hidden" name="id" value="${orderItem.id}"/>
 											<input type="hidden" name="itemId" value="${orderItem.itemId}"/>
 										</form>
 									</div>
