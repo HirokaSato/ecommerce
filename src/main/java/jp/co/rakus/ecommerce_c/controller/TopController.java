@@ -30,7 +30,6 @@ public class TopController {
 	 */
 	@RequestMapping("/top")
 	public String top(Model model) {
-
 		List<Item> itemList = itemService.findAll();
 		model.addAttribute("itemList", itemList);
 		return "itemList";
