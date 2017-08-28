@@ -86,8 +86,8 @@ public class OrderRepository {
 	/**
 	 * 注文情報をuserIdで取得.
 	 * 
-	 * @param userId
-	 * @return
+	 * @param userId 検索条件のuserId
+	 * @return 取得したOrder情報、照合しなければnull
 	 */
 	public Order findByUserId(long userId){
 		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
@@ -96,7 +96,12 @@ public class OrderRepository {
 				+ "from orders where user_id = :userId;";
 		System.out.println("sql :  " + sql);
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
-		Order order = template.queryForObject(sql, param, orderRowMapper);
+		Order order = new Order();
+		try{			
+			order = template.queryForObject(sql, param, orderRowMapper);
+		}catch(Exception e){
+			order = null;
+		}
 		return order;
 	}
 	
@@ -104,7 +109,7 @@ public class OrderRepository {
 	 * 注文データをユーザーIDと状態で検索.
 	 * @param userId ユーザーID
 	 * @param status　取引状態
-	 * @return　取得した注文データ
+	 * @return　取得した注文データ、取得できなければnull
 	 */
 	public Order finfByUserIdAndStatus(long userId, int status){
 		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
@@ -113,7 +118,12 @@ public class OrderRepository {
 				+ "from orders where user_id = :userId and status = :status;";
 		System.out.println("sql :  " + sql);
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("status", status);
-		Order order = template.queryForObject(sql, param, orderRowMapper);
+		Order order = new Order();
+		try{
+			order = template.queryForObject(sql, param, orderRowMapper);
+		}catch(Exception e){
+			order = null;
+		}
 		return order;
 	}
 	
