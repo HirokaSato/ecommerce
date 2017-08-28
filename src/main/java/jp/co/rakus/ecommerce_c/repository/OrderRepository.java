@@ -3,13 +3,17 @@ package jp.co.rakus.ecommerce_c.repository;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommerce_c.domain.Order;
@@ -23,6 +27,15 @@ import jp.co.rakus.ecommerce_c.domain.Order;
 public class OrderRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	
+	private SimpleJdbcInsert insert;
+	
+	@PostConstruct
+	public void init(){
+		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert((JdbcTemplate)template.getJdbcOperations());
+		SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("orders");
+		insert = withTableName.usingGeneratedKeyColumns("id");
+	}
 	
 	public static final RowMapper<Order> orderRowMapper=(rs,i)->{
 		Order order = new Order();
@@ -65,22 +78,26 @@ public class OrderRepository {
 	/**
 	 * 注文情報をDBに追加、または更新する.
 	 * @param order 記入された注文情報
+	 * @return 追加したときに採番されたid情報を加えたOrderItem
 	 */
-	public void save(Order order){
+	public Order save(Order order){
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		// カートにひとつも商品が追加されていなければ新しくorderを追加する
 		// カートが存在するならそれを更新する
 		if(order.getId() == 0){			
-			String sql = "insert into orders(id, user_id,status,total_price,order_date,destination_name,destination_email,destination_zipcode,destination_address,"
+			String sql = "insert into orders(user_id,status,total_price,order_date,destination_name,destination_email,destination_zipcode,destination_address,"
 					+ "destination_tel,delivery_time,payment_method)"
-					+ "values(:id, :userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode,:destinationAddress,destinationTel,:deliveryTime,:paymentMethod);";
+					+ "values(:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode,:destinationAddress,:destinationTel,:deliveryTime,:paymentMethod);";
 			template.update(sql, param);
+			Number key = insert.executeAndReturnKey(param);
+			order.setId(key.intValue());
 		}else{
 			template.update("update orders set user_id=:userId, status=:status, total_price=:totalPrice, order_date=:orderDate, "
 					+ "destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipcode "
-					+ "destination_address=:destinationAddress, destination_tel=destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod where user_id = :userId", 
+					+ "destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod where user_id = :userId", 
 					param);
 		}
+		return order;
 	}
 	
 	/**
