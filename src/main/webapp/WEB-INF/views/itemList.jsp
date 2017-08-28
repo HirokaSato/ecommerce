@@ -60,6 +60,7 @@
 					<div class="panel-body">
 						<form:form method="post" action="${pageContext.request.contextPath}/searchItem" class="form-horizontal">
 							<div class="form-group">
+								<div class="text-center" style="color:red"><c:out value="${error}"/></div>
 								<label for="code" class="control-label col-sm-2">商品名</label>								
 								<div class="col-sm-9">
 									<input type="text" name="keyword" id="code"
@@ -77,6 +78,7 @@
 			</div>
 		</div>
 		<!-- table -->
+		
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
