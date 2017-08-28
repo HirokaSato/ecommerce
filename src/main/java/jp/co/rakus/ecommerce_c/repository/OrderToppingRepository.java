@@ -57,4 +57,17 @@ public class OrderToppingRepository {
 				new BeanPropertySqlParameterSource(orderTopping));
 		return orderTopping;
 	}
+	
+
+	/**
+	 * 注文トッピング情報を削除するメソッド.
+	 * by rui.toguchi
+	 * 
+	 * @param orderItemId 注文商品ID
+	 */
+	public void deleteByOrderItemId(Integer orderItemId){
+		String sql = "delete from order_toppings where order_item_id = :orderItemId";
+		MapSqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
+		template.update(sql, param);
+	}
   }
