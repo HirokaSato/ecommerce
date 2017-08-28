@@ -40,7 +40,7 @@ public class OrderItemRepository {
 	 * @return　商品リスト
 	 */
 	public List<OrderItem> findByOrderId(long orderId){
-		String sql = "select id,item_id,order_id,quantity,size from order_items where order_id = :orderId";
+		String sql = "select id,item_id,order_id,quantity,size from order_items where order_id = :orderId and status;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderId",orderId);
 		List<OrderItem> orderItemList = template.query(sql, param, orderItemRowmapper);
 		return orderItemList;
