@@ -37,10 +37,10 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<p class="navbar-text navbar-right">
-						<a href="cart_list.html" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
-						<a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
-						<a href="login.html" class="navbar-link">ログイン</a>&nbsp;&nbsp;
-						<a href="item_list.html" class="navbar-link">ログアウト</a>
+						<a href="${pageContext.request.contextPath}/viewCartList" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/login" class="navbar-link">ログイン</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/logout" class="navbar-link">ログアウト</a>
 					</p>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -100,9 +100,7 @@
 										<span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
 									</label>
 										<div class="col-sm-12">
-											<label class="checkbox-inline">
 											<form:checkboxes items="${toppingMap}" path="toppingList"/>
-											</label>
 										</div>									
 							</div>
 						</div>
