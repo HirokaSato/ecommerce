@@ -28,7 +28,23 @@ public class OrderForm {
 	private String paymentMethod;
 	/**ユーザーID*/
 	private String userId;
+	/**注文ID*/
+	private String id;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	/**
+	 * 注文IDをLong型に直す.
+	 * @return Long型の注文ID
+	 */
+	public Long getLongId(){
+		
+		return Long.parseLong(id);
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -90,7 +106,7 @@ public class OrderForm {
 		this.deliveryTime = deliveryTime;
 	}
 	
-	/**	DeliveryDateとTimeをDateに直す*/
+	/**	DeliveryDateとTimeをTimestampに直す*/
 	public Timestamp getTimeStampDeliveryDate() throws ParseException{
 		String deliverydate = deliveryDate+deliveryTime;
 		Timestamp timestamp = Timestamp.valueOf(deliverydate);
