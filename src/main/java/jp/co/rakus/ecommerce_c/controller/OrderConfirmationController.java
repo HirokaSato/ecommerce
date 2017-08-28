@@ -3,17 +3,19 @@ package jp.co.rakus.ecommerce_c.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommerce_c.domain.Item;
+import jp.co.rakus.ecommerce_c.domain.LoginUser;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
+import jp.co.rakus.ecommerce_c.domain.Topping;
 import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 
 /**
@@ -27,8 +29,6 @@ public class OrderConfirmationController {
 	@Autowired
 	private OrderConfirmationService orderConfirmationService;
 	
-	@Autowired
-	private HttpSession session;
 	
 
 	
@@ -39,26 +39,33 @@ public class OrderConfirmationController {
 	 * @return　注文確認画面
 	 */
 	@RequestMapping("/")
-	public String index(Model model){
-		session.setAttribute("userId", 00000000000000000000);
-		Order order= orderConfirmationService.findByUserIdAndStatus((Integer)session.getAttribute("userId"));		
+	public String index(@AuthenticationPrincipal LoginUser loginUser,Model model){
+		Order order= orderConfirmationService.findByUserIdAndStatus(0);	
+		System.out.println("注文のIDは"+order.getId());
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
 		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト
 		for(OrderItem orderItem : orderItemList){
 			Item item = orderConfirmationService.findByItemId(orderItem.getItemId());
 			orderItem.setItem(item);//商品の詳細格納
 			List<OrderTopping> orderToppingList = orderConfirmationService.toppingFindByOrderItemId(orderItem.getId());
+			System.out.println("注文の商品Id"+orderItem.getId()+"データの数"+orderToppingList.size());
+			List<OrderTopping> doOrderToppingList = new ArrayList<>();
 			for(OrderTopping orderTopping :orderToppingList){
-				
-				orderTopping.setTopping(orderConfirmationService.toppingFindByToppingId(orderTopping.getToppingId()));
-			
-				orderToppingList.add(orderTopping);
+					
+					int toppingId = orderTopping.getToppingId();
+					Topping topping = orderConfirmationService.toppingFindByToppingId(toppingId);
+					orderTopping.setTopping(topping);
+					doOrderToppingList.add(orderTopping);
 			}
-			
-			doOrderItemList.add(orderItem);
+			orderItem.setOrderToppingList(doOrderToppingList);
 			}
 		
 		model.addAttribute("orderItemList",orderItemList);
+		order.setOrderItemList(doOrderItemList);
+		model.addAttribute("order",order);
+		model.addAttribute("tax", order.getTax());
+		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
+		
 		return "orderList";
 	}
 

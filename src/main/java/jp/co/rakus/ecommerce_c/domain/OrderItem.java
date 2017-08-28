@@ -11,11 +11,11 @@ import java.util.List;
 public class OrderItem {
 
 	/** ID **/
-	private Long id;
+	private long id;
 	/** 商品ID **/
-	private Long itemId;
+	private long itemId;
 	/** 注文ID **/
-	private Long orderId;
+	private long orderId;
 	/** 注文数 **/
 	private Integer quantity;
 	/** サイズ **/
@@ -70,27 +70,27 @@ public class OrderItem {
 
 
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public Long getItemId() {
+	public long getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(Long itemId) {
+	public void setItemId(long itemId) {
 		this.itemId = itemId;
 	}
 
-	public Long getOrderId() {
+	public long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(Long orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 

@@ -2,12 +2,16 @@ package jp.co.rakus.ecommerce_c.repository;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
@@ -22,6 +26,15 @@ import jp.co.rakus.ecommerce_c.domain.OrderItem;
 public class OrderItemRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template; 
+	
+	private SimpleJdbcInsert insert;
+	
+	@PostConstruct
+	public void init(){
+		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert((JdbcTemplate)template.getJdbcOperations());
+		SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("order_items");
+		insert = withTableName.usingGeneratedKeyColumns("id");
+	}
 	
 	private final static RowMapper<OrderItem> orderItemRowmapper = (rs,i) -> {
 		OrderItem orderItem = new OrderItem();
@@ -40,7 +53,7 @@ public class OrderItemRepository {
 	 * @return　商品リスト
 	 */
 	public List<OrderItem> findByOrderId(long orderId){
-		String sql = "select id,item_id,order_id,quantity,size from order_items where order_id = :orderId;";
+		String sql = "select id,item_id,order_id,quantity,size from order_items where order_id = :orderId";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderId",orderId);
 		List<OrderItem> orderItemList = template.query(sql, param, orderItemRowmapper);
 		return orderItemList;
@@ -51,11 +64,14 @@ public class OrderItemRepository {
 	 * by shun.nakano
 	 * 
 	 * @param orderItem 注文された商品情報
-	 * @return 注文したかった商品
+	 * @return 追加したときに採番されたid情報を加えたOrderItem
 	 */
 	public OrderItem insert(OrderItem orderItem){
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
 		template.update("insert into order_items (item_id,order_id,quantity,size) values (:itemId,:orderId,:quantity,:size)", 
-				new BeanPropertySqlParameterSource(orderItem));
+						param);
+		Number key = insert.executeAndReturnKey(param);
+		orderItem.setId(key.intValue());
 		return orderItem;
 	}
 	
@@ -65,9 +81,9 @@ public class OrderItemRepository {
 	 * 
 	 * @param itemId 商品ID
 	 */
-	public void deleteByItemId(Integer itemId){
-		String sql = "delete from order_items where item_id = :itemId";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
+	public void deleteByItemId(Integer id){
+		String sql = "delete from order_items where id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		template.update(sql, param);
 	}
 	

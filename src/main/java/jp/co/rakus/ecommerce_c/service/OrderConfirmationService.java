@@ -49,7 +49,7 @@ public class OrderConfirmationService {
 	 */
 	public Order findByUserIdAndStatus(long userId){
 		
-		int status = 0;//未注文状態
+		int status =0;//未注文状態
 		return orderRepository.finfByUserIdAndStatus(userId, status);
 	}
 	
@@ -83,9 +83,16 @@ public class OrderConfirmationService {
 		return orderToppingRepository.findByOrderItemId(orderItemId); 
 	}
 	
+	/**
+	 * トッピングIdでトッピングの詳細情報を取得.
+	 * @param toppingId トッピングId
+	 * @return　取得したデータ
+	 */
 	public Topping toppingFindByToppingId(Integer toppingId){
 	
 		return toppingRepository.findByToppingId(toppingId);
 	}
+	
+	
 	
 }

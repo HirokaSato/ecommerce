@@ -161,12 +161,20 @@ public class Order {
 		this.orderItemList = orderItemList;
 	}
 
-	// 未実装（/**支払税額*/)
+	
+	/**
+	 * 消費税を計算するメソッド.
+	 * @return 消費税金額
+	 */
 	public int getTax() {
 		return (int) (this.totalPrice * 0.08);
 	}
 
-	// 未実装(/**支払額合計*/)
+	
+	/**
+	 * 税込合計金額.
+	 * @return 税込金額合計
+	 */
 	public int getCalcTotalPrice() {
 		return this.totalPrice + getTax();
 	}

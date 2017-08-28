@@ -22,6 +22,26 @@ public class AddToCartForm {
 	public String getItemId() {
 		return itemId;
 	}
+	
+	public Integer getIntItemId(){
+		Integer id = 0;
+		try{
+			id = Integer.parseInt(this.itemId);
+		}catch(NumberFormatException e){
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
+	public Integer getIntQuantity(){
+		Integer quantity = 0;
+		try{
+			quantity = Integer.parseInt(this.quantity);
+		}catch(NumberFormatException e){
+			e.printStackTrace();
+		}
+		return quantity;
+	}
 
 	public void setItemId(String itemId) {
 		this.itemId = itemId;

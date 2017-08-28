@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -111,7 +112,11 @@
 								</td>
 								<td>
 									<div class="text-center">
-										<button type="submit" class="btn btn-primary">削除</button>
+										<form action="${pageContext.request.contextPath}/delteCartItem/delete">
+											<button type="submit" class="btn btn-primary">削除</button>
+											<input type="hidden" name="id" value="${orderItem.id}"/>
+											<input type="hidden" name="itemId" value="${orderItem.itemId}"/>
+										</form>
 									</div>
 								</td>
 							</tr>
