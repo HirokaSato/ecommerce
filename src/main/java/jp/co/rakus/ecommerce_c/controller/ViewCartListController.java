@@ -21,7 +21,7 @@ public class ViewCartListController {
 	@Autowired
 	private ViewCartListService viewCartListservice;
 
-	@RequestMapping("/execute")
+	@RequestMapping("/view")
 	public String execute(Integer userId, Model model) {
 		Order order = new Order();
 		order = viewCartListservice.execute(1);
