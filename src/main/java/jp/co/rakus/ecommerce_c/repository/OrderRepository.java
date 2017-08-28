@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -112,7 +113,7 @@ public class OrderRepository {
 		Order order = new Order();
 		try{			
 			order = template.queryForObject(sql, param, orderRowMapper);
-		}catch(Exception e){
+		}catch(DataAccessException e){
 			order = null;
 		}
 		return order;
@@ -134,7 +135,7 @@ public class OrderRepository {
 		Order order = new Order();
 		try{
 			order = template.queryForObject(sql, param, orderRowMapper);
-		}catch(Exception e){
+		}catch(DataAccessException e){
 			order = null;
 		}
 		return order;

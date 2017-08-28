@@ -25,6 +25,8 @@ import jp.co.rakus.ecommerce_c.repository.UserRepository;
 public class UserDetailServiceImpl implements UserDetailsService{
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private LoginOrderChangeService loginOrderChangeService;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -36,6 +38,8 @@ public class UserDetailServiceImpl implements UserDetailsService{
 		// user権限を付与
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
 		
+		// ログイン時にカートに商品が入っていれば情報を書き換える
+		loginOrderChangeService.execute(user);
 		return new LoginUser(user, authorityList);
 	}
 
