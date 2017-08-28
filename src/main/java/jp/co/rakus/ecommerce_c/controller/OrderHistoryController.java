@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class OrderHistoryController {
 	
-	@RequestMapping("/orderhistory")
+	@RequestMapping("/orderHistory")
 	public String orderHistory(){
 		
 		return "orderHistory" ;
