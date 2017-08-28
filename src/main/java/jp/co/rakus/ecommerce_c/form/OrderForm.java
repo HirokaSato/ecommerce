@@ -10,15 +10,15 @@ import java.text.ParseException;
  */
 public class OrderForm {
 	
-	/**名前*/
+	/**宛名名前*/
 	private String name;
-	/**メールアドレス*/
+	/**宛先メールアドレス*/
 	private String email;
-	/**郵便番号*/
+	/**宛先郵便番号*/
 	private String zipcode;
-	/**住所*/
+	/**宛名*/
 	private String address;
-	/**電話番号*/
+	/**宛先電話番号*/
 	private String telNumber;
 	/**配達日*/
 	private String deliveryDate;
@@ -26,7 +26,25 @@ public class OrderForm {
 	private String deliveryTime;
 	/**お支払い方法*/
 	private String paymentMethod;
-
+	/**ユーザーID*/
+	private String userId;
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	/**
+	 * ユーザーのIDをLongに変換.
+	 * @return Long型ユーザーId
+	 */
+	public Long getLongUserId(){
+		
+		return Long.parseLong(userId);
+	}
+	
 	public String getName() {
 		return name;
 	}
