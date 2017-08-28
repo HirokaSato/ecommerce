@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommerce_c.domain.Order;
-import jp.co.rakus.ecommerce_c.form.AddToCartForm;
 import jp.co.rakus.ecommerce_c.form.OrderForm;
 import jp.co.rakus.ecommerce_c.service.doOrderService;
 
@@ -26,25 +25,6 @@ public class DoOrderController {
 	@ModelAttribute
 	private OrderForm setUp(){	
 		return new OrderForm();
-	}
-	
-	@ModelAttribute
-	private AddToCartForm setUpaddToCart(){
-		return new AddToCartForm();
-	}
-	
-	
-	/**
-	 * 注文情報を受け取ります.
-	 * @return 完了したら、orderFinishへ
-	 *			入力ミス等はorderListへ 
-	 */
-
-	@RequestMapping("/addToCart")
-	public String addToCart(AddToCartForm form){
-		
-		return null;
-		
 	}
 	
 	//未完成

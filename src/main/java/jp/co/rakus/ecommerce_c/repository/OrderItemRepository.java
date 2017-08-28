@@ -50,7 +50,7 @@ public class OrderItemRepository {
 	 * 注文された商品を追加する.<br>
 	 * by shun.nakano
 	 * 
-	 * @param orderItem 注文された商品
+	 * @param orderItem 注文された商品情報
 	 * @return 注文したかった商品
 	 */
 	public OrderItem insert(OrderItem orderItem){
