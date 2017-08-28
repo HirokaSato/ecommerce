@@ -49,7 +49,7 @@ public class OrderConfirmationService {
 	 */
 	public Order findByUserIdAndStatus(long userId){
 		
-		int status =1;//未注文状態
+		int status =0;//未注文状態
 		return orderRepository.finfByUserIdAndStatus(userId, status);
 	}
 	
@@ -92,5 +92,7 @@ public class OrderConfirmationService {
 	
 		return toppingRepository.findByToppingId(toppingId);
 	}
+	
+	
 	
 }

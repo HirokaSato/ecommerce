@@ -108,7 +108,7 @@
 		
 								<td>
 									<div class="text-center">
-										<c:out value="${orderItem.subTotalPrice}" />
+										<c:out value="${order.totalPrice}" />
 										円
 									</div>
 								</td>
@@ -129,7 +129,7 @@
 				<div class="form-group text-center">
 					<span id="total-price">
 					消費税：<c:out value="${tax}" />円</span><br>
-					<span id="total-price">ご注文金額合計：<c:out value="${totalPrice}" />円(税込)</span>
+					<span id="total-price">ご注文金額合計：<c:out value="${taxIncludedAmount}" />円(税込)</span>
 				</div>
 			</div>
 		</div>
