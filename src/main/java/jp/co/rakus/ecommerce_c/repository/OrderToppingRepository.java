@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
-import jp.co.rakus.ecommerce_c.domain.Topping;
 
 /**
  * order_toppingsテーブルを操作するクラス.
@@ -43,5 +43,18 @@ public class OrderToppingRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("orderItemId", orderItemId);
 		List<OrderTopping> toppingList = template.query(sql, param,orderToppingRowMapper);
 		return toppingList;
+	}
+	
+	/**
+	 * 注文されたトッピングを追加する.<br>
+	 * by shun.nakano
+	 * 
+	 * @param orderTopping 注文されたトッピング情報
+	 * @return 追加したトッピング情報
+	 */
+	public OrderTopping insert(OrderTopping orderTopping){
+		template.update("insert into order_toppings (topping_id, order_item_id) values (:toppingId, :orderItemId)", 
+				new BeanPropertySqlParameterSource(orderTopping));
+		return orderTopping;
 	}
   }
