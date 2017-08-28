@@ -59,4 +59,16 @@ public class OrderItemRepository {
 		return orderItem;
 	}
 	
+	/**
+	 * カート内の注文商品を削除する.
+	 * by rui.toguchi
+	 * 
+	 * @param itemId 商品ID
+	 */
+	public void deleteByItemId(Integer itemId){
+		String sql = "delete from order_items where item_id = :itemId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("itemId", itemId);
+		template.update(sql, param);
+	}
+	
 }
