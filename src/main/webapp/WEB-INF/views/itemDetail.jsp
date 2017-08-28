@@ -47,7 +47,7 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
-		<form:form action="${pageContext.request.contextPath}/doOrderController/addToCart" modelAttribute="addToCartForm">
+		<form:form action="${pageContext.request.contextPath}/addToCart" modelAttribute="addToCartForm">
 		<div class="row">
 			<div class="col-xs-offset-2 col-xs-8">
 				<h3 class="text-center">商品詳細</h3>
