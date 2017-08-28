@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -57,25 +58,24 @@
 						<div class="panel-title">商品を検索する</div>
 					</div>
 					<div class="panel-body">
-						<form method="post" action="#" class="form-horizontal">
+						<form:form method="post" action="${pageContext.request.contextPath}/searchItem" class="form-horizontal">
 							<div class="form-group">
-								<label for="code" class="control-label col-sm-2">商品名</label>
+								<label for="code" class="control-label col-sm-2">商品名</label>								
 								<div class="col-sm-9">
-									<input type="text" name="code" id="code"
+									<input type="text" name="keyword" id="code"
 										class="form-control input-sm" />
 								</div>
 							</div>
 							<div class="text-center">
-								<c:out value="${sessionId}"/>
+								<c:out value="${sessionId}"/>								
 								<button type="submit" value="検索" class="btn btn-primary">検索</button>
 								<button type="reset" value="クリア" class="btn btn-default">クリア</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
 		</div>
-
 		<!-- table -->
 		<div class="row">
 			<div
@@ -101,9 +101,8 @@
 						</c:forEach>	
 					</tbody>
 				</table>
-
 			</div>
-		</div>
+		</div>		
 	</div>
 	<!-- end container -->
 	<script

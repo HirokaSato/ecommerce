@@ -37,7 +37,7 @@ public class ItemRepository {
 	/**
 	 * 商品情報を全件表示する.
 	 * 
-	 * @return itemList　itemsテーブル全てのデータ
+	 * @return itemList itemsテーブル全てのデータ
 	 */
 	public List<Item> findAll() {
 
@@ -50,16 +50,34 @@ public class ItemRepository {
 	/**
 	 * 商品IDを元に商品情報を検索する.
 	 * 
-	 * @param id 商品ID
+	 * @param id
+	 *            商品ID
 	 * @return item 検索した商品データ
 	 */
 
 	public Item load(long id) {
-		
+
 		String loadSql = "select id,name,description,price_m,price_l,image_path,deleted from items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Item item = template.queryForObject(loadSql, param, itemRowMapper);
 		return item;
+
+	}
+
+	/**
+	 * 入力情報を元に曖昧検索をする.
+	 * 
+	 * @param keyword 入力ワード
+	 *         
+	 * @return searchItemList 検索した商品データ
+	 */
+	
+	public List<Item> searchItem(String keyword) {
+				
+		String searchSql = "select id,name,description,price_m,price_l,image_path,deleted from items where name like :keyword ";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("keyword", "%" + keyword + "%");
+		List<Item> searchItemList = template.query(searchSql, param, itemRowMapper);
+		return searchItemList;
 
 	}
 
