@@ -46,38 +46,52 @@ public class AddItemToCartController {
 	 */
 	@RequestMapping
 	public String addToCart(AddToCartForm form, @AuthenticationPrincipal LoginUser loginUser){
-		Order order = new Order();
+		Order order = null;;
 		// ユーザがログインしていればOrderテーブルにそのユーザIDを挿入する
 		// ゲスト状態のときはセッションIDを仮に入れる
 		if(loginUser == null){
-			order.setUserId((long)session.getAttribute("randomSessionId"));
+			order = addItemToService.findByUserIdAndStatus((int)session.getAttribute("randomSessionId"), 0);
+			// ゲスト状態のユーザーが未注文状態(カート内商品)を持たない場合は新しく未注文Orderをつくる
+			if(order == null){
+				order = new Order();
+				order.setUserId((int)session.getAttribute("randomSessionId"));
+				order.setStatus(0);
+				order.setTotalPrice(0);
+			}
 		}else{
-			order.setUserId(loginUser.getUser().getId());
+			order = addItemToService.findByUserIdAndStatus(loginUser.getUser().getId(), 0);
+			// ログイン状態のユーザーが未注文状態(カート内商品)を持たない場合は新しく未注文Orderをつくる
+			if(order == null){
+				order = new Order();
+				order.setUserId(loginUser.getUser().getId());
+				order.setStatus(0);
+				order.setTotalPrice(0);
+			}
 		}
-		
-		order.setStatus(0);
+		order = addItemToService.saveOrder(order);
 		
 		// フォームから注文情報を受け取る
 		OrderItem orderItem = new OrderItem();
+		orderItem.setOrderId(order.getId());
 		orderItem.setItemId(form.getIntItemId());
 		orderItem.setSize(form.getSize());
 		orderItem.setQuantity(form.getIntQuantity());
-		
-		// 合計金額を取得、セット
-		Integer totalPrice = addItemToService.getTotalPrice(orderItem);
-		order.setTotalPrice(totalPrice);
+		orderItem = addItemToService.saveOrderItem(orderItem);
 		
 		// 注文されたトッピング情報からトッピングのListをつくる
 		List<OrderTopping> orderToppingList = new ArrayList<>();
 		for(Integer orderToppingId : form.getToppingList()){
 			OrderTopping orderTopping = new OrderTopping();
 			orderTopping.setToppingId(orderToppingId);
-			orderTopping.setOrderItemId(form.getIntItemId());
+			orderTopping.setOrderItemId(orderItem.getId());
 			orderToppingList.add(orderTopping);
 		}
-		orderItem.setOrderToppingList(orderToppingList);
+		addItemToService.saveOrderToppings(orderToppingList);
 		
-		addItemToService.execute(order, orderItem);
+		Integer totalPrice = addItemToService.getTotalPrice(order.getId(), orderItem.getId(), orderToppingList);
+		order.setTotalPrice(totalPrice);
+		addItemToService.saveOrder(order);
+		
 		return "redirect:/viewCartList";
 	}
 }

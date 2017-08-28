@@ -46,13 +46,13 @@ public class ViewCartListService {
 	 * 
 	 * @return
 	 */
-	public Order execute(Integer userId) {
+	public Order execute(long userId) {
 		// userId[1]の人のオーダー情報をオブジェクトへ入れる
 		Order order = new Order();
-		order = orderRepository.findByUserId(userId);
+		order = orderRepository.finfByUserIdAndStatus(userId, 0);
 
 		// userId[1]の人のidから注文商品リストを取得
-		List<OrderItem> orderItemList = orderItemRepository.findByOrderId(order.getUserId());
+		List<OrderItem> orderItemList = orderItemRepository.findByOrderId(order.getId());
 
 		// 各注文ピザにトッピングリストを追加する
 		for (OrderItem orderItem : orderItemList) {
