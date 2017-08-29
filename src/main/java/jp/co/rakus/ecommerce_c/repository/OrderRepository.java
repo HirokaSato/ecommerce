@@ -109,7 +109,7 @@ public class OrderRepository {
 		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
 				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
 				+ "delivery_time, payment_method "
-				+ "from orders where user_id = :userId;";
+				+ "from orders where user_id = :userId order by id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
 		Order order = new Order();
 		try{			
@@ -130,8 +130,7 @@ public class OrderRepository {
 		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
 				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
 				+ "delivery_time, payment_method "
-				+ "from orders where user_id = :userId and status = :status;";
-		System.out.println("sql :  " + sql);
+				+ "from orders where user_id = :userId and status = :status order by id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("status", status);
 		Order order = new Order();
 		try{
@@ -165,7 +164,7 @@ public class OrderRepository {
 		String sql = "select id, user_id, status,total_price, order_date, destination_name,"
 				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
 				+ "delivery_time, payment_method "
-				+ "from orders where user_id =:userId and status = 3 ";
+				+ "from orders where user_id =:userId and status = 3 order by id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
 		List<Order> order = null;
 		try{
