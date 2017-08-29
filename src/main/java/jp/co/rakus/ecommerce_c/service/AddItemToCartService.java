@@ -83,10 +83,12 @@ public class AddItemToCartService {
 	 * @return 合計金額
 	 */
 	public Integer getTotalPrice(long orderId, long orderItemId, List<OrderTopping> orderToppingList){
+		// 元の合計金額を取得する
 		Integer totalPrice = 0;
 		List<Order> orderList = orderRepository.findbyId(orderId, 0);
 		totalPrice = orderList.get(0).getTotalPrice();
 		
+		// MかLを判別して、それぞれの価格を取得する
 		OrderItem orderItem = orderItemRepository.findById(orderItemId);
 		Integer itemPrice = 0;
 		if(orderItem.getSize().equals("M")){			
@@ -95,6 +97,7 @@ public class AddItemToCartService {
 			itemPrice = itemRepository.load(orderItem.getItemId()).getPriceL();
 		}
 		
+		// トッピング分を商品価格に加算する
 		for(OrderTopping orderTopping : orderToppingList){
 			Topping topping = toppingRepository.findByToppingId(orderTopping.getToppingId());
 			if(orderItem.getSize().equals("M")){			
@@ -103,6 +106,10 @@ public class AddItemToCartService {
 				itemPrice += topping.getPriceL();
 			}
 		}
+		
+		// 商品数を乗算する
+		itemPrice *= orderItem.getQuantity();
+		
 		totalPrice += itemPrice;
 		return totalPrice;
 	}

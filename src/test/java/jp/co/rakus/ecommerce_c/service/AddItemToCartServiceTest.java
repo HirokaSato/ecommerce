@@ -2,11 +2,11 @@ package jp.co.rakus.ecommerce_c.service;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+//import static org.junit.Assert.fail;
 
-import java.sql.Timestamp;
+//import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -14,30 +14,27 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 
-import jp.co.rakus.ecommerce_c.domain.Item;
+//import jp.co.rakus.ecommerce_c.domain.Item;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
-import jp.co.rakus.ecommerce_c.domain.User;
-import jp.co.rakus.ecommerce_c.repository.OrderItemRepository;
-import jp.co.rakus.ecommerce_c.repository.OrderRepository;
-import jp.co.rakus.ecommerce_c.repository.OrderToppingRepository;
+//import jp.co.rakus.ecommerce_c.domain.User;
+//import jp.co.rakus.ecommerce_c.repository.OrderItemRepository;
+//import jp.co.rakus.ecommerce_c.repository.OrderRepository;
+//import jp.co.rakus.ecommerce_c.repository.OrderToppingRepository;
 
 public class AddItemToCartServiceTest {
 
-	@Autowired
-	private AddItemToCartService addItemToCartService;
-
-	@Autowired
-	private OrderRepository orderRepository;
-
-	@Autowired
-	private OrderItemRepository orderItemRepository;
-	
-	@Autowired
-	private OrderToppingRepository orderToppingRepository;
+//	@Autowired
+//	private AddItemToCartService addItemToCartService;
+//	@Autowired
+//	private OrderRepository orderRepository;
+//	@Autowired
+//	private OrderItemRepository orderItemRepository;
+//	@Autowired
+//	private OrderToppingRepository orderToppingRepository;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
