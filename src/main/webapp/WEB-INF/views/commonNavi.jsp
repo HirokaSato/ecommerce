@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -20,9 +21,13 @@
 					id="bs-example-navbar-collapse-1">
 					<p class="navbar-text navbar-right">
 						<a href="${pageContext.request.contextPath}/viewCartList" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/orderHistory" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/login" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
-						<a href="${pageContext.request.contextPath}/logout" class="navbar-link">ログアウト</a>
+						<sec:authorize access="isAnonymous()">
+							<a href="${pageContext.request.contextPath}/login" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<a href="${pageContext.request.contextPath}/orderHistory" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+							<a href="${pageContext.request.contextPath}/logout" class="navbar-link">ログアウト</a>
+						</sec:authorize>
 					</p>
 				</div>
 				<!-- /.navbar-collapse -->
