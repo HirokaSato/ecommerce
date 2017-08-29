@@ -33,12 +33,12 @@ public class LoginOrderChangeService {
 		order = orderRepository.finfByUserIdAndStatus((int)session.getAttribute("randomSessionId"), 0);
 		if(order != null){
 			// ログインユーザが未注文状態のOrderをもたなければ情報の上書き、もっていれば追加する
-			if(orderRepository.finfByUserIdAndStatus(user.getId(), 0) == null){				
+//			if(orderRepository.finfByUserIdAndStatus(user.getId(), 0) == null){				
 				order.setUserId(user.getId());
 				orderRepository.save(order);
-			}else{
-				addCartFromGuestCart(order, user);
-			}
+//			}else{
+//				addCartFromGuestCart(order, user);
+//			}
 		}
 	}
 	
