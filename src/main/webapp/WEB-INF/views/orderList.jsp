@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 	<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -15,7 +16,38 @@
 </head>
 <body>
 	<div class="container">
-	<%@ include file="./commonNavi.jsp"  %>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> 
+							<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="item_list.html"> <!-- 企業ロゴ --> <img
+						alt="main log" src="${pageContext.request.contextPath}/img/header_logo.png" height="35">
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<p class="navbar-text navbar-right">
+						<a href="cart_list.html" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
+						<a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+						<a href="login.html" class="navbar-link">ログイン</a>&nbsp;&nbsp;
+						<a href="item_list.html" class="navbar-link">ログアウト</a>
+					</p>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+
+
 		<!-- table -->
 		<div class="row">
 			<div
@@ -92,8 +124,6 @@
 				</table>
 			</div>
 		</div>
-	<!-- <form:form modelAttribute="orderForm" action="${pageContext.request.contextPath}/doOrderController/order">-->
-
 		<div class="row">
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
@@ -103,8 +133,12 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<!-- table -->
+	<form:form modelAttribute="orderForm" action="${pageContext.request.contextPath}/doOrderController/order">
+	<form:hidden path="userId" value="${order.userId}"/>
+	<form:hidden path="id" value="${order.id}"/> 
+	<form:hidden path="totalPrice" value="${taxIncludedAmount}"/>
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
@@ -118,7 +152,7 @@
 								</div>
 							</td>
 							<td>
-								<input type="text">
+								<form:input path="name"/>
 							</td>
 						</tr>
 						<tr>
@@ -128,7 +162,7 @@
 								</div>
 							</td>
 							<td>
-								<input type="text">
+								<form:input path="email"/>
 							</td>
 						</tr>
 						<tr>
@@ -138,7 +172,7 @@
 								</div>
 							</td>
 							<td>
-								<input type="text">&nbsp;&nbsp;<button>住所検索</button>
+								<form:input path="zipcode"/>&nbsp;&nbsp;<button>住所検索</button>
 							</td>
 						</tr>
 						<tr>
@@ -148,7 +182,7 @@
 								</div>
 							</td>
 							<td>
-								<input type="text">
+								<form:input path="address"/>
 							</td>
 						</tr>
 						<tr>
@@ -158,73 +192,61 @@
 								</div>
 							</td>
 							<td>
-								<input type="text">
+								<form:input path="telNumber"/>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">
-									配達日時
+									希望配達日時
 								</div>
 							</td>
 							<td>
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-12">
-											<label
-												class="control-label" style="color: red" for="inputPeriod">配達日時を入力してください</label>
 										</div>
 										<div class="col-sm-5">
-											<input type="date" name="name" id="name"
-												class="form-control input-sm" />
+											<form:input type="date" path="deliveryDate"/>
 										</div>
 										
 									</div>
 									<div class="row">
 										<div class="col-sm-12">
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany" checked="checked">
+												<form:radiobutton path="deliveryTime" value="10:00:00"/>
 												10時
 											</label>
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany"> 
+												<form:radiobutton path="deliveryTime" value="11:00:00"/>
 												11時
 											</label>
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany"> 
+												<form:radiobutton path="deliveryTime" value="12:00:00"/>
 												12時
 											</label><br>
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany"> 
+												<form:radiobutton path="deliveryTime" value="13:00:00"/>
 												13時
 											</label>
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany"> 
+												<form:radiobutton path="deliveryTime" value="14:00:00"/>
 												14時
 											</label>
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany"> 
+												<form:radiobutton path="deliveryTime" value="15:00:00"/>
 												15時
 											</label><br>
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany"> 
+												<form:radiobutton path="deliveryTime" value="16:00:00"/>
 												16時
 											</label>
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany"> 
+												<form:radiobutton path="deliveryTime" value="17:00:00"/>
 												17時
 											</label>
 											<label class="radio-inline"> 
-												<input type="radio"
-													name="responsibleCompany"> 
+												<form:radiobutton path="deliveryTime" value="18:00:00"/>
 												18時
 											</label><br>
 										</div>
@@ -250,14 +272,12 @@
 									代金引換
 								</div>
 							</td>
-							<td>
+							<td align="center">
 								<div class="row">
 									<div class="col-sm-12">
 										<label class="radio-inline"> 
-											<input type="radio"
-												name="responsibleCompany" checked="checked">
-											代金引換
-										</label>
+												<form:radiobutton path="paymentMethod" value="1"/>
+										</label><br><br>
 									</div>
 								</div>
 							</td>
@@ -272,9 +292,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<label class="radio-inline"> 
-											<input type="radio"
-												name="responsibleCompany" checked="checked">
-											クレジットカード
+												<form:radiobutton path="paymentMethod" value="2"/>
 										</label><br><br>
 									</div>
 								</div>
@@ -285,24 +303,22 @@
 				</table>
 			</div>
 		</div>
-		</form:form>
+		
 		<div class="row">
 			<div class="col-xs-offset-4 col-xs-4">
 				<div class="form-group">
-					<form action="order_finished.html">
-						<input class="form-control btn btn-warning btn-block"
+						<input  class="form-control btn btn-warning btn-block"
 							type="submit" value="この内容で注文する">
-					</form>
 				</div>
 			</div>
 		</div>
+		</form:form>
 		<br><br><br><br><br><br>
+
 	</div>
 	<!-- end container -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-</body>
-</html>
 </body>
 </html>
