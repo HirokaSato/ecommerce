@@ -11,6 +11,7 @@
 <title>ピザ屋のネット注文</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/piza.css" rel="stylesheet">
+<link href="css/piza.css" rel="stylesheet">
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -98,8 +99,10 @@
 										<span>&nbsp;М&nbsp;</span>&nbsp;&nbsp;200円(税抜)
 										<span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
 									</label>
-										<div class="col-sm-12">
-											<form:checkboxes items="${toppingMap}" path="toppingList"/>
+										<div class="col-sm-12" >
+										<label class="checkboxes" >
+											<form:checkboxes items="${toppingMap}" path="toppingList" element="label" />
+										</label>
 										</div>									
 							</div>
 						</div>
