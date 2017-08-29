@@ -113,11 +113,6 @@
 										円
 									</div>
 								</td>
-								<td>
-									<div class="text-center">
-										<button type="submit" class="btn btn-primary">削除</button>
-									</div>
-								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -304,7 +299,7 @@
 										</label><br><br>
 									</div>
 								</div>
-								<script src="https://checkout.webpay.jp/v3/" class="webpay-button" data-key="test_public_87Aa3Pe1r1XffA3dwB8TH690" data-lang="ja" data-partial="true"></script>
+								<%---<script src="https://checkout.webpay.jp/v3/" class="webpay-button" data-key="test_public_87Aa3Pe1r1XffA3dwB8TH690" data-lang="ja" data-partial="true"/>--%>
 							</td>
 						</tr>
 					</tbody>
@@ -328,5 +323,6 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/searchZipCode.js"></script>
 </body>
 </html>

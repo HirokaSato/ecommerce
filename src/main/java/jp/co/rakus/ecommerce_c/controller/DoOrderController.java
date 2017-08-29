@@ -70,7 +70,7 @@ public class DoOrderController {
 		order.setDestinationTel(form.getTelNumber());
 		service.save(order);
 		
-		return "redirect:/orderFinish";
+		return "orderFinish";
 	}
 	
 	/**

@@ -25,8 +25,7 @@ public class OrderForm {
 	@Email(message="メールアドレスの入力が不正です")
 	private String email;
 	/**宛先郵便番号*/
-	@NotNull(message="郵便番号を入力してください")
-	@Range(min=7,max=7,message="郵便番号を入力してください")
+	@NotEmpty(message="郵便番号を入力してください")
 	private String zipcode;
 	/**宛先住所*/
 	@NotEmpty(message="住所入力は必須です")
