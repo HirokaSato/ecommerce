@@ -8,6 +8,13 @@ spring:
     url: jdbc:postgresql://localhost:5432/201707C
     username: postgres
     password: postgres
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: nakanon.41@gmail.com
+    password: djzrpsembfnfwsbgs
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.starttls.enable: true
 server:
   context-path: /ec-pizza
   
