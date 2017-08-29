@@ -17,6 +17,7 @@ import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
 import jp.co.rakus.ecommerce_c.domain.Topping;
+import jp.co.rakus.ecommerce_c.domain.User;
 import jp.co.rakus.ecommerce_c.form.OrderForm;
 import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 
@@ -45,10 +46,9 @@ public class OrderConfirmationController {
 	 * @return　注文確認画面
 	 */
 	@RequestMapping("/")
-	public String index(String userId,@AuthenticationPrincipal LoginUser loginUser,Model model){
-		System.out.println(userId+"aaaaaaaaaaaaaaaaaa");
-		Long userLongId = Long.parseLong(userId);
-		Order order= orderConfirmationService.findByUserIdAndStatus(userLongId);	
+	public String index(@AuthenticationPrincipal LoginUser loginUser,Model model){
+		User user = loginUser.getUser();
+		Order order= orderConfirmationService.findByUserIdAndStatus(user.getId());	
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
 		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト
 		for(OrderItem orderItem : orderItemList){
