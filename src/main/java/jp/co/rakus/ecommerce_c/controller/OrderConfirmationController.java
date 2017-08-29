@@ -45,15 +45,16 @@ public class OrderConfirmationController {
 	 * @return　注文確認画面
 	 */
 	@RequestMapping("/")
-	public String index(@AuthenticationPrincipal LoginUser loginUser,Model model){
-		Order order= orderConfirmationService.findByUserIdAndStatus(0);	
+	public String index(String userId,@AuthenticationPrincipal LoginUser loginUser,Model model){
+		System.out.println(userId+"aaaaaaaaaaaaaaaaaa");
+		Long userLongId = Long.parseLong(userId);
+		Order order= orderConfirmationService.findByUserIdAndStatus(userLongId);	
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
 		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト
 		for(OrderItem orderItem : orderItemList){
 			Item item = orderConfirmationService.findByItemId(orderItem.getItemId());
 			orderItem.setItem(item);//商品の詳細格納
 			List<OrderTopping> orderToppingList = orderConfirmationService.toppingFindByOrderItemId(orderItem.getId());
-			System.out.println("注文の商品Id"+orderItem.getId()+"データの数"+orderToppingList.size());
 			List<OrderTopping> doOrderToppingList = new ArrayList<>();
 			for(OrderTopping orderTopping :orderToppingList){
 					
