@@ -110,8 +110,8 @@ public class DoOrderController {
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
-		// 注文完了メールを送信する
-		sendMail(order);
+		// 注文完了メールを送信する(機能していないのでコメントアウトします)
+//		sendMail(order); 
 		return "orderList";
 	}
 	
