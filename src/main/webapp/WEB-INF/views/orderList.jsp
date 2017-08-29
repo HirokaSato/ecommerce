@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="js/ajaxzip3.js" charset="UTF-8"></script>
 <title>ピザ屋のネット注文</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/piza.css" rel="stylesheet">
@@ -165,12 +166,13 @@
 						<tr>
 							<td>
 								<div class="text-center">
-									郵便番号
+									郵便番号(ハイフンなし)
 								</div>
 							</td>
 							<td>
 								<form:errors path="zipcode" cssStyle="color:red" element="div"/>
-								<form:input path="zipcode" id="zipcode"/>&nbsp;&nbsp;<button id="searchZipcode" >住所検索</button>
+								<form:input path="zipcode" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');"/>
+								&nbsp;&nbsp;<button id="searchZipcode" >住所検索</button>
 							</td>
 						</tr>
 						<tr>
@@ -181,7 +183,7 @@
 							</td>
 							<td>
 								<form:errors path="address" cssStyle="color:red" element="div"/>
-								<form:input path="address" id="address"/>
+								<form:input  path="address"/>
 							</td>
 						</tr>
 						<tr>
@@ -323,7 +325,5 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-	<script src="https://jpostal-1006.appspot.com/jquery.jpostal.js"></script>
-	<script src="${pageContext.request.contextPath}/js/searchZipCode.js"></script>
 </body>
 </html>
