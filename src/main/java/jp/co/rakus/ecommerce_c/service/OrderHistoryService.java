@@ -9,10 +9,12 @@ import jp.co.rakus.ecommerce_c.domain.Item;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
+import jp.co.rakus.ecommerce_c.domain.Topping;
 import jp.co.rakus.ecommerce_c.repository.ItemRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderItemRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderToppingRepository;
+import jp.co.rakus.ecommerce_c.repository.ToppingRepository;
 
 /**
  * 注文履歴を表示するサービスクラス
@@ -36,12 +38,13 @@ public class OrderHistoryService {
 	
 	@Autowired
 	private ItemRepository itemRepository;
+	
+	@Autowired
+	private ToppingRepository toppingRepository;
 
 	/**
 	 * 注文履歴をユーザーIDで検索.
-	 * 
-	 * @param userId ユーザーID
-	 *            
+	 * @param userId ユーザーID          
 	 * @return 取得した注文履歴のデータ、取得できなければnull
 	 */
 	public List<Order> finfByUserId(long userId) {
@@ -51,9 +54,7 @@ public class OrderHistoryService {
 
 	/**
 	 * IDで注文商品を検索する.
-	 * 
 	 * @param id 検索対象ID
-	 *            
 	 * @return 照合された注文商品情報、なければnull
 	 */
 	public OrderItem findById(long id) {
@@ -62,9 +63,7 @@ public class OrderHistoryService {
 
 	/**
 	 * 注文商品IDからトッピングリストを取得.
-	 * 
 	 * @param orderItemId 注文商品ID
-	 *           
 	 * @return 注文商品に紐づけられたトッピングリスト
 	 */
 
@@ -75,9 +74,7 @@ public class OrderHistoryService {
 	
 	/**
 	 * 商品IDを元に商品情報を検索する.
-	 * 
 	 * @param id　商品ID
-	 *            
 	 * @return item 検索した商品データ
 	 */
 	
@@ -85,4 +82,12 @@ public class OrderHistoryService {
 		return itemRepository.load(itemId);
 	}
 	
+	/**
+	 * idでトッピング情報を取得する.
+	 * @param toppingId トッピングID
+	 * @return トッピング情報
+	 */
+	public Topping findByToppingId(Integer toppingId){
+		return toppingRepository.findByToppingId(toppingId);
+	}
 }

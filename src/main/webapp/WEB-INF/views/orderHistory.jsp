@@ -97,59 +97,51 @@
 								</div>
 							</th>
 						</tr>
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						<c:forEach var="orderHistory" items="${orderHistory}">
 							<tr>
 								<td>
 									<div class="center">
-										<img src="${orderItem.item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br>
+										<img src="${item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br>
 										<c:out value="${item.name}" />
 									
 										<br>
 									</div>
 								</td>
-								
-								
-								
-								
 								<td><span class="price">
-								<c:out value="${orderItemHistory.size}" />&nbsp;</span>
-								&nbsp;&nbsp;&nbsp;
-								
-								円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個
+									<c:out value="${orderItemHistory.size}" />&nbsp;</span>&nbsp;&nbsp;&nbsp;
+									<c:if test="${orderItemHistory.size=='M'}">
+										<c:out value="${item.priceM}" />
+									</c:if> 
+									<c:if test="${orderItemHistory.size=='L'}">
+										<c:out value="${item.priceL}" />
+									</c:if>
+										円 &nbsp;&nbsp;
+									<c:out value="${orderItemHistory.quantity}" />個
 								</td>
-								
-								
-								
-								
-								
+
+
 								<td>
 									<ul>
 										<c:forEach var="orderToppingHistory" items="${orderToppingHistory}">
-											<c:out value="${orderToppingHistory.topping}"/>
+											<c:out value="${orderToppingHistory.toppingId}"/>
 										</c:forEach>
+											<c:if test="${orderItemHistory.size=='M'}">
+												<c:out value="${topping.priceM}"/>
+											</c:if>
+											<c:if test="${orderItemHistory.size=='L'}">
+												<c:out value="${topping.priceM}" />
+											</c:if>											
 									</ul>
-								</td>
-		
+								</td>		
 								<td>
 									<div class="text-center">
+										<c:forEach var="orderHistory" items="${orderHistory}">
 										<c:out value="${orderHistory.totalPrice}" />
+										</c:forEach>
 										円
 									</div>
 								</td>
 								
 							</tr>
-						</c:forEach>
 					</tbody>
 				</table>
 			</div>

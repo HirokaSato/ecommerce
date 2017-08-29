@@ -49,7 +49,7 @@ public class ToppingRepository {
 	/**
 	 * idでトッピング情報を取得する.
 	 * @param toppingId トッピングID
-	 * @return 一つのトッピング情報
+	 * @return トッピング情報
 	 */
 	public Topping findByToppingId(Integer toppingId){
 		String sql = "select id, name, price_m,price_l from toppings where id = :toppingId";
