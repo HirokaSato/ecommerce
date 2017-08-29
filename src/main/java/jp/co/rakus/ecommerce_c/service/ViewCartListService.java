@@ -47,17 +47,17 @@ public class ViewCartListService {
 	 * @return
 	 */
 	public Order execute(long userId) {
-		// userId[1]の人のオーダー情報をオブジェクトへ入れる
+		// オーダー情報をオブジェクトへ入れる
 		Order order = new Order();
 		order = orderRepository.finfByUserIdAndStatus(userId, 0);
 
-		// userId[1]の人のidから注文商品リストを取得
+		// idから注文商品リストを取得
 		List<OrderItem> orderItemList = orderItemRepository.findByOrderId(order.getId());
 
 		// 各注文ピザにトッピングリストを追加する
 		for (OrderItem orderItem : orderItemList) {
 			orderItem.setItem(itemRepository.load(orderItem.getItemId()));
-			orderItem.setOrderToppingList(orderToppingRepository.findByOrderItemId(orderItem.getItemId()));
+			orderItem.setOrderToppingList(orderToppingRepository.findByOrderItemId(orderItem.getId()));//getId()かな
 			// 個々の注文商品が持つトッピングリストを取得
 			for (int i = 0; i < orderItemList.size(); i++) {
 				List<OrderTopping> toppingList = orderItem.getOrderToppingList();
@@ -67,6 +67,7 @@ public class ViewCartListService {
 				}
 			}
 			orderItem.setSubTotalPrice(orderItem.getSubTotal());
+			System.out.println(orderItem.getSubTotal()+"あああああああああああああ");
 		}
 
 		// 注文商品をorderオブジェクトに詰める

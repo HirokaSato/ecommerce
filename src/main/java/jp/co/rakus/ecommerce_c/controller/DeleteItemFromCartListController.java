@@ -20,8 +20,9 @@ public class DeleteItemFromCartListController {
 	private DeleteItemFromCartListService service;
 
 	@RequestMapping("/delete")
-	public String delete(Integer userId,Integer id,Integer itemId,Integer subTotalPrice){
-		service.execute(userId,id,itemId,subTotalPrice);
+						//　　　　　　ﾕｰｻﾞID　　　注文商品ID　　　　　　　商品ID　　　　　　　　　　　　　小計       
+	public String delete(Integer userId,Integer id,/*Integer itemId,*/Integer subTotalPrice){
+		service.execute(userId,id,/*itemId,*/subTotalPrice);
 		return "redirect:/viewCartList";
 	}
 }

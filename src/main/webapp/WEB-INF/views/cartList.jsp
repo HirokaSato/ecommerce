@@ -85,7 +85,7 @@
 											<button type="submit" class="btn btn-primary">削除</button>
 											<input type="hidden" name="userId" value="${order.userId}"/>											
 											<input type="hidden" name="id" value="${orderItem.id}"/>
-											<input type="hidden" name="itemId" value="${orderItem.itemId}"/>
+										<%--	<input type="hidden" name="itemId" value="${orderItem.itemId}"/> --%>
 											<input type="hidden" name="subTotalPrice" value="${orderItem.subTotalPrice}"/>
 										</form:form>
 									</div>

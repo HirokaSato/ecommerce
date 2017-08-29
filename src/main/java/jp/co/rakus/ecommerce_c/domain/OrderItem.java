@@ -40,12 +40,15 @@ public class OrderItem {
 	 */
 	public Integer getSubTotal() {
 		int subtotal = 0;
+		
+		//ピザ本体の小計の計算
 		if (this.size.equals("M")) {
 			subtotal += this.item.getPriceM() * this.quantity;
 		} else if (this.size.equals("L")) {
 			subtotal += this.item.getPriceL() * this.quantity;
 		}
-
+		
+		//トッピング代金を小計に加える
 		for (OrderTopping orderTopping : orderToppingList) {
 			if (this.size.equals("M")) {
 				subtotal += orderTopping.getTopping().getPriceM();

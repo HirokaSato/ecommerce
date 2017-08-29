@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommerce_c.domain.Order;
-import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.repository.OrderItemRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderToppingRepository;
@@ -30,7 +29,9 @@ public class DeleteItemFromCartListService {
 	/**
 	 * 実行メソッド.
 	 */
-	public void execute(Integer userId,Integer id,Integer orderItemId,Integer subTotalPrice){ //(Integer orderItemId,Integer itemId)
+	
+							//　　ﾕｰｻﾞID　　注文商品ID　　　　　　　　　商品ID　　　　　　　　　　　　　小計  
+	public void execute(Integer userId,Integer id,/*Integer orderItemId,*/Integer subTotalPrice){ 
 		
 		//orderテーブルの金額合計を取得
 		Order order = new Order();
@@ -43,7 +44,9 @@ public class DeleteItemFromCartListService {
 		//削除後の金額をセット
 		order.setTotalPrice(totalPrice);
 		
-		orderToppingRepository.deleteByOrderItemId(orderItemId);
+		//トッピング削除
+		orderToppingRepository.deleteByOrderItemId(id);
+		//商品削除
 		orderItemRepository.deleteByItemId(id);
 
 		//orderテーブルの情報をアップデート
