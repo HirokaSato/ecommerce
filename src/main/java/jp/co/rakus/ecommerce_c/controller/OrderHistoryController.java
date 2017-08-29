@@ -13,6 +13,7 @@ import jp.co.rakus.ecommerce_c.domain.LoginUser;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
+import jp.co.rakus.ecommerce_c.domain.Topping;
 import jp.co.rakus.ecommerce_c.service.OrderHistoryService;
 
 /**
@@ -44,21 +45,31 @@ public class OrderHistoryController {
 		List<Order> orderHistory = orderHistoryService.finfByUserId(userId);
 		model.addAttribute("orderHistory", orderHistory);
 
-		// ユーザーIDをオーダーIDに代入して検索
+		//オーダーtableのIDとオーダーアイテムtableのオーダーIDをリンクさせて検索
 		long id = userId;
 		OrderItem orderItemHistory = orderHistoryService.findById(id);
 		model.addAttribute("orderItemHistory", orderItemHistory);
 
-		// オーダーIDをオーダーアイテムIDに代入して検索
+		// オーダーアイテムtableのIDとオーダートッピングtableのオーダーアイテムIDをリンクさせて検索
 		long orderItemId = id;
 		List<OrderTopping> orderToppingHistory = orderHistoryService.findByOrderItemId(orderItemId);
 		model.addAttribute("orderToppingHistory", orderToppingHistory);
 
-		// オーダーアイテムIDをアイテムIDに代入して検索
+		// オーダーアイテムtableのアイテムIDとアイテムtableのIDをリンクさせて検索
 		long itemId = orderItemHistory.getItemId();
 		Item item = orderHistoryService.load(itemId);
 		model.addAttribute("item", item);
+				
+		// オーダートッピングtableのトッピングIDとトッピングtableのIDをリンクさせて検索
+		for(OrderTopping orderTopping:orderToppingHistory){
+	  		Topping topping = orderHistoryService.findByToppingId(orderTopping.getToppingId());
+	  		model.addAttribute("topping",topping);
+		}
 
+			
+		
+		
+		
 		if (orderHistory == null) {
 			model.addAttribute("nothing", "注文履歴がありません");
 		}
