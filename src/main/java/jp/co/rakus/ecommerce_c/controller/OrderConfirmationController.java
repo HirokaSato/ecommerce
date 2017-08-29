@@ -24,7 +24,7 @@ import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
  *
  */
 @Controller
-@RequestMapping("OrderConfirmationController")
+@RequestMapping("/OrderConfirmationController")
 public class OrderConfirmationController {
 	@Autowired
 	private OrderConfirmationService orderConfirmationService;
