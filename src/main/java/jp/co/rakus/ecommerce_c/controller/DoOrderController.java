@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +24,8 @@ import jp.co.rakus.ecommerce_c.domain.Topping;
 import jp.co.rakus.ecommerce_c.domain.User;
 import jp.co.rakus.ecommerce_c.form.AddToCartForm;
 import jp.co.rakus.ecommerce_c.form.OrderForm;
+import jp.co.rakus.ecommerce_c.service.DoOrderService;
 import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
-import jp.co.rakus.ecommerce_c.service.doOrderService;
 
 /**
  * 注文を確定するクラス（注文情報を受け取るクラス).
@@ -35,11 +37,13 @@ import jp.co.rakus.ecommerce_c.service.doOrderService;
 @RequestMapping("/doOrderController")
 public class DoOrderController {
 	@Autowired
-	private doOrderService service;
+	private DoOrderService service;
 	
 	@Autowired
 	private OrderConfirmationService orderConfirmationService;
 	
+	@Autowired
+	private MailSender mailSender;
 
 	@ModelAttribute
 	public AddToCartForm setUpaddToCart(){
@@ -106,7 +110,8 @@ public class DoOrderController {
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
-		
+		// 注文完了メールを送信する
+		sendMail(order);
 		return "orderList";
 	}
 	
@@ -119,5 +124,25 @@ public class DoOrderController {
 		
 		return "orderFinish";
 	}
-
+	
+	/**
+	 * 注文完了確認メールを送信する.<br>
+	 * by shun.nakano
+	 * 
+	 * @param order 注文情報
+	 */
+	public void sendMail(Order order){
+		SimpleMailMessage msg = new SimpleMailMessage();
+		
+		msg.setFrom("nakanon.41@gmail.com");
+		msg.setTo(order.getDestinationEmail());
+		msg.setSubject("ラクラクピザ：ご注文ありがとうございます！");
+		msg.setText(order.getDestinationName()+"様\n"
+				  + "ご注文ありがとうございます！\n"
+				  + "--------------------\n"
+				  + "【ご注文情報】\n"
+				  + "お名前："+order.getDestinationName()+"\n"
+				  + "ご住所："+order.getDestinationAddress());
+		mailSender.send(msg);
+	}
 }
