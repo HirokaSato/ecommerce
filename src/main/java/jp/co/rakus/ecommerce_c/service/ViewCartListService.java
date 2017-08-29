@@ -81,5 +81,25 @@ public class ViewCartListService {
 	public void setSubTotalPrice(int subTotalPrice) {
 		this.subTotalPrice = subTotalPrice;
 	}
+	
+	/**
+	 * 注文データをユーザーIDと状態で検索.
+	 * @param userId ユーザーID
+	 * @param status　取引状態
+	 * @return　取得した注文データ、取得できなければnull
+	 */
+	public Order finfByUserIdAndStatus(long userId, int status){
+		return orderRepository.finfByUserIdAndStatus(userId, status);
+	}
+	
+	/**
+	 * userIdが対応するOrderが存在しない場合に新規に追加する.
+	 * 
+	 * @param order 追加する情報
+	 * @return 追加されたIDをもったOrder情報
+	 */
+	public Order save(Order order){
+		return orderRepository.save(order);
+	}
 
 }

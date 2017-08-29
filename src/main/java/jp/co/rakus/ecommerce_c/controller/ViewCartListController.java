@@ -1,5 +1,7 @@
 package jp.co.rakus.ecommerce_c.controller;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +29,36 @@ public class ViewCartListController {
 	@Autowired
 	private HttpSession session;
 
+	/**
+	 * 実行メソッド.
+	 * 
+	 * @param model リクエストパラメータ
+	 * @param loginUser ログイン情報
+	 * @return ショッピングカート表示画面
+	 */
 	@RequestMapping
 	public String execute(Model model, @AuthenticationPrincipal LoginUser loginUser) {
 		Order order = new Order();
-		if(loginUser == null){
+		
+		// ゲストユーザーがランダムIDを持たなければ持たせる処理
+		Integer random = 0;
+		if(session.getAttribute("randomSessionId") == null){
+			random = new Random().nextInt(1147483640)+1000000000;
+			order.setUserId(random);
+			session.setAttribute("randomSessionId", random);
+		}else{				
 			order.setUserId((int)session.getAttribute("randomSessionId"));
-		}else{
+		}
+		if(loginUser != null){
 			order.setUserId(loginUser.getUser().getId());
 		}
+		
+		if(viewCartListservice.finfByUserIdAndStatus(order.getUserId(), 0) == null){
+			order.setStatus(0);
+			order.setTotalPrice(0);
+			viewCartListservice.save(order);
+		}
+		
 		order = viewCartListservice.execute(order.getUserId());
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("totalPrice", order.getCalcTotalPrice());
