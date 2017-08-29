@@ -60,7 +60,7 @@ public class OrderItemRepository {
 	}
 	
 	/**
-	 * 注文された商品を追加する.<br>
+	 * 注文された商品を追加、更新する.<br>
 	 * by shun.nakano
 	 * 
 	 * @param orderItem 注文された商品情報
@@ -68,8 +68,13 @@ public class OrderItemRepository {
 	 */
 	public OrderItem insert(OrderItem orderItem){
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
-		Number key = insert.executeAndReturnKey(param);
-		orderItem.setId(key.intValue());
+		if(orderItem.getId() == 0){			
+			Number key = insert.executeAndReturnKey(param);
+			orderItem.setId(key.intValue());
+		}else{
+			template.update("update order_items set item_id=:itemId,order_id=:orderId,quantity=:quantity,size=:size where id=:id", 
+							param);
+		}
 		return orderItem;
 	}
 	
