@@ -11,11 +11,9 @@ import jp.co.rakus.ecommerce_c.repository.OrderRepository;
 
 @Service
 @Transactional
-public class doOrderService {
+public class DoOrderService {
 	@Autowired
 	private OrderRepository repository;
-	
-	
 	
 	/**
 	 * 注文情報をDBに格納.
@@ -36,6 +34,4 @@ public class doOrderService {
 			
 			repository.save(order);
 	}
-		
-		
-	}
+}
