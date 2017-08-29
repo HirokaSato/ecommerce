@@ -81,11 +81,13 @@
 								</td>
 								<td>
 									<div class="text-center">
-										<form action="${pageContext.request.contextPath}/delteCartItem/delete">
+										<form:form action="${pageContext.request.contextPath}/delteCartItem/delete" method="post">
 											<button type="submit" class="btn btn-primary">削除</button>
+											<input type="hidden" name="userId" value="${order.userId}"/>											
 											<input type="hidden" name="id" value="${orderItem.id}"/>
 											<input type="hidden" name="itemId" value="${orderItem.itemId}"/>
-										</form>
+											<input type="hidden" name="subTotalPrice" value="${orderItem.subTotalPrice}"/>
+										</form:form>
 									</div>
 								</td>
 							</tr>

@@ -2,7 +2,6 @@ package jp.co.rakus.ecommerce_c.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommerce_c.service.DeleteItemFromCartListService;
@@ -21,9 +20,8 @@ public class DeleteItemFromCartListController {
 	private DeleteItemFromCartListService service;
 
 	@RequestMapping("/delete")
-	public String delete(Integer userId,Model model,Integer id,Integer itemId){
-		userId = 1;//仮で
-		service.execute(id,itemId);// orderItemId,itemId
+	public String delete(Integer userId,Integer id,Integer itemId,Integer subTotalPrice){
+		service.execute(userId,id,itemId,subTotalPrice);
 		return "redirect:/viewCartList";
 	}
 }
