@@ -1,5 +1,9 @@
 package jp.co.rakus.ecommerce_c.controller;
 
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +31,8 @@ public class RegisterUserController {
 	private RegisterUserService regiseterUserService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private HttpSession session;
 	
 	@ModelAttribute
 	public UserForm setUserForm(){
@@ -41,6 +47,9 @@ public class RegisterUserController {
 	 */
 	@RequestMapping
 	public String registerUser(Model model){
+		if(session.getAttribute("randomSessionId") == null){
+			session.setAttribute("randomSessionId", new Random().nextInt(1147483640)+1000000000);
+		}
 		return "registerUser";
 	}
 	

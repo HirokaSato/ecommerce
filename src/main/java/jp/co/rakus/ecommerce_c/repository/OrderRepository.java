@@ -78,6 +78,8 @@ public class OrderRepository {
 	
 	/**
 	 * 注文情報をDBに追加、または更新する.
+	 * by shun.nakano
+	 * 
 	 * @param order 記入された注文情報
 	 * @return 追加したときに採番されたid情報を加えたOrderItem
 	 */
@@ -141,5 +143,14 @@ public class OrderRepository {
 		return order;
 	}
 	
-	
+	/**
+	 * 注文データを削除する.
+	 * by shun.nakano
+	 * 
+	 * @param id 削除したい注文のID
+	 */
+	public void deleteByOrderId(long id){
+		template.update("delete from orders where id = :id", 
+				new MapSqlParameterSource().addValue("id", id));
+	}
 }
