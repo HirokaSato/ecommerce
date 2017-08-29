@@ -71,13 +71,13 @@
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>
 								<label class="control-label" style="color: red" for="inputError"><form:errors path="password"/></label>
-								<form:input path="password" id="inputPassword" class="form-control" placeholder="Password"/>
+								<form:input path="password" id="inputPassword" class="form-control" placeholder="Password" type="password"/>
 							</div>
 							<div class="form-group">
 								<label for="inputConfirmationPassword">確認用パスワード:</label>
 								<label
 									class="control-label" style="color: red" for="inputError"><form:errors path="reInputPassword"/></label>
-								<form:input path="reInputPassword" id="inputConfirmationPassword" class="form-control" placeholder="Confirmation Password"/>
+								<form:input path="reInputPassword" id="inputConfirmationPassword" class="form-control" placeholder="Confirmation Password" type="password"/>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary" form="userForm">登録</button>

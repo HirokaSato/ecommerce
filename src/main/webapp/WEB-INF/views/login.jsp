@@ -60,7 +60,7 @@
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>
-								<form:input path="password" id="inputPassword" class="form-control" placeholder="Password"/>
+								<form:input path="password" id="inputPassword" class="form-control" placeholder="Password" type="password"/>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">ログイン</button>
