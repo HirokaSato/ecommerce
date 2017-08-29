@@ -51,9 +51,9 @@ public class OrderItem {
 		//トッピング代金を小計に加える
 		for (OrderTopping orderTopping : orderToppingList) {
 			if (this.size.equals("M")) {
-				subtotal += orderTopping.getTopping().getPriceM();
+				subtotal += orderTopping.getTopping().getPriceM() * this.quantity;
 			} else if (this.size.equals("L")) {
-				subtotal += orderTopping.getTopping().getPriceL();
+				subtotal += orderTopping.getTopping().getPriceL() * this.quantity;
 			}
 		}
 		return subtotal;

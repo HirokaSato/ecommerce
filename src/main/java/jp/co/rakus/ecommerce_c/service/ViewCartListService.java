@@ -67,7 +67,6 @@ public class ViewCartListService {
 				}
 			}
 			orderItem.setSubTotalPrice(orderItem.getSubTotal());
-			System.out.println(orderItem.getSubTotal()+"あああああああああああああ");
 		}
 
 		// 注文商品をorderオブジェクトに詰める
