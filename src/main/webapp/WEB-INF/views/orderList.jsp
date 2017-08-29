@@ -170,7 +170,7 @@
 							</td>
 							<td>
 								<form:errors path="zipcode" cssStyle="color:red" element="div"/>
-								<form:input path="zipcode"/>&nbsp;&nbsp;<button>住所検索</button>
+								<form:input path="zipcode" id="zipcode"/>&nbsp;&nbsp;<button id="searchZipcode" >住所検索</button>
 							</td>
 						</tr>
 						<tr>
@@ -181,7 +181,7 @@
 							</td>
 							<td>
 								<form:errors path="address" cssStyle="color:red" element="div"/>
-								<form:input path="address"/>
+								<form:input path="address" id="address"/>
 							</td>
 						</tr>
 						<tr>
@@ -323,6 +323,7 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="https://jpostal-1006.appspot.com/jquery.jpostal.js"></script>
 	<script src="${pageContext.request.contextPath}/js/searchZipCode.js"></script>
 </body>
 </html>

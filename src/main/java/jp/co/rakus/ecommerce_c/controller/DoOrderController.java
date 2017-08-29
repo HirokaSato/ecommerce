@@ -70,7 +70,7 @@ public class DoOrderController {
 		order.setDestinationTel(form.getTelNumber());
 		service.save(order);
 		
-		return "orderFinish";
+		return "redirect:/doOrderController/finish";
 	}
 	
 	/**
@@ -108,6 +108,16 @@ public class DoOrderController {
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
 		
 		return "orderList";
+	}
+	
+	/**
+	 * 注文完了画面へ遷移.
+	 * @return 注文完了画面
+	 */
+	@RequestMapping("/finish")
+	public String finish(){
+		
+		return "orderFinish";
 	}
 
 }
