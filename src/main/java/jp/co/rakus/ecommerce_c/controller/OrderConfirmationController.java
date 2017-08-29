@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommerce_c.domain.Item;
@@ -16,6 +17,7 @@ import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
 import jp.co.rakus.ecommerce_c.domain.Topping;
+import jp.co.rakus.ecommerce_c.form.OrderForm;
 import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 
 /**
@@ -24,11 +26,15 @@ import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
  *
  */
 @Controller
-@RequestMapping("OrderConfirmationController")
+@RequestMapping("/OrderConfirmationController")
 public class OrderConfirmationController {
 	@Autowired
 	private OrderConfirmationService orderConfirmationService;
 	
+	@ModelAttribute
+	public OrderForm setUp(){	
+		return new OrderForm();
+	}
 	
 
 	
@@ -41,7 +47,6 @@ public class OrderConfirmationController {
 	@RequestMapping("/")
 	public String index(@AuthenticationPrincipal LoginUser loginUser,Model model){
 		Order order= orderConfirmationService.findByUserIdAndStatus(0);	
-		System.out.println("注文のIDは"+order.getId());
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
 		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト
 		for(OrderItem orderItem : orderItemList){
