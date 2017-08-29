@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -49,6 +50,7 @@
 				
 				<table class="table table-striped">
 					<tbody>
+						<c:forEach var="orderHistory" items="${orderHistory}">
 						<tr>
 							<th>
 								<div class="text-center">
@@ -57,16 +59,50 @@
 							</th>
 							<th>
 								<div class="text-center">
-									~~.orderDate
+									<c:out value="${nothing}"/>
+									<fmt:formatDate value="${orderHistory.orderDate}" pattern="yyyy年MM月dd日"/>								
 								</div>
 							</th>							
 						</tr>
-						
+						</c:forEach>							
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	
+	
+	
+	
+		<div class="row">
+			<div
+				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+			
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<th>
+								<div class="text-center">
+									商品名
+								</div>
+							</th>
+							<th>
+								<div class="text-center">
+									サイズ、価格(税抜)、数量
+								</div>
+							</th>
+							<th>
+								<div class="text-center">
+									トッピング、価格(税抜)
+								</div>
+							</th>
+							<th>
+								<div class="text-center">
+									小計
+								</div>
+							</th>
+						</tr>
 						<c:forEach var="orderItem" items="${orderItemList}">
-							
-							
-							
-							
 							<tr>
 								<td>
 									<div class="center">
@@ -111,18 +147,10 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				
 			</div>
 		</div>
 
-	
 
-
-
-
-
-
-			
 </div>
 </body>
 </html>

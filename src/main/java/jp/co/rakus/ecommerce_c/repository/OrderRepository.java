@@ -61,7 +61,7 @@ public class OrderRepository {
 	 * @param id 注文Id
 	 * @return　取得した注文データ
 	 */
-	public List<Order> findbyId(Long id,Integer status){
+	public List<Order> findbyId(long id,Integer status){
 		String sql = "select id, user_id, status, total_price, order_date, destination_name,"
 				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
 				+ "delivery_time, payment_method "
@@ -142,4 +142,25 @@ public class OrderRepository {
 	}
 	
 	
+	/**
+	 * 注文履歴をユーザーIDで検索.
+	 * @param userId ユーザーID
+	 * @return　取得した注文履歴のデータ、取得できなければnull
+	 */
+	
+	public List<Order> finfByUserId(long userId){
+		String sql = "select id, user_id, status,total_price, order_date, destination_name,"
+				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
+				+ "delivery_time, payment_method "
+				+ "from orders where user_id =:userId and status = 3 ";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
+		List<Order> order = null;
+		try{
+			order = template.query(sql,param, orderRowMapper);			
+		}catch(DataAccessException e){
+			return null ;			
+		}
+			return order ;
+		
+	}	
 }
