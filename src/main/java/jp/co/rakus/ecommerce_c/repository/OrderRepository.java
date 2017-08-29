@@ -21,7 +21,7 @@ import jp.co.rakus.ecommerce_c.domain.Order;
 
 /**
  * 注文リポジトリ
- * @author rakus
+ * @author atsuko.yoshino
  *
  */
 @Repository
@@ -110,7 +110,6 @@ public class OrderRepository {
 				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
 				+ "delivery_time, payment_method "
 				+ "from orders where user_id = :userId;";
-		System.out.println("sql :  " + sql);
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
 		Order order = new Order();
 		try{			

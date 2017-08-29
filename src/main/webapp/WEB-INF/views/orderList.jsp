@@ -152,6 +152,7 @@
 								</div>
 							</td>
 							<td>
+								<form:errors path="name" cssStyle="color:red" element="div"/>
 								<form:input path="name"/>
 							</td>
 						</tr>
@@ -162,6 +163,7 @@
 								</div>
 							</td>
 							<td>
+								<form:errors path="email" cssStyle="color:red" element="div"/>
 								<form:input path="email"/>
 							</td>
 						</tr>
@@ -172,6 +174,7 @@
 								</div>
 							</td>
 							<td>
+								<form:errors path="zipcode" cssStyle="color:red" element="div"/>
 								<form:input path="zipcode"/>&nbsp;&nbsp;<button>住所検索</button>
 							</td>
 						</tr>
@@ -182,6 +185,7 @@
 								</div>
 							</td>
 							<td>
+								<form:errors path="address" cssStyle="color:red" element="div"/>
 								<form:input path="address"/>
 							</td>
 						</tr>
@@ -192,6 +196,7 @@
 								</div>
 							</td>
 							<td>
+								<form:errors path="telNumber" cssStyle="color:red" element="div"/>
 								<form:input path="telNumber"/>
 							</td>
 						</tr>
@@ -207,6 +212,8 @@
 										<div class="col-sm-12">
 										</div>
 										<div class="col-sm-5">
+											<form:errors path="deliveryDate" cssStyle="color:red" element="div"/>
+											<form:errors path="deliveryTime" cssStyle="color:red" element="div"/>
 											<form:input type="date" path="deliveryDate"/>
 										</div>
 										
@@ -264,6 +271,7 @@
 			<div
 				class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<h3 class="text-center">お支払い方法</h3>
+				<form:errors path="paymentMethod" cssStyle="color:red" element="div"/>
 				<table class="table table-striped">
 					<tbody>
 						<tr>

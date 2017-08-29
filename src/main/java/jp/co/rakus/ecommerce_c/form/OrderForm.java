@@ -1,8 +1,14 @@
 package jp.co.rakus.ecommerce_c.form;
 
 import java.sql.Timestamp;
-
 import java.text.ParseException;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 /**
  * 注文情報を受け取るフォーム.
@@ -12,20 +18,30 @@ import java.text.ParseException;
 public class OrderForm {
 	
 	/**宛名名前*/
+	@NotEmpty(message="名前入力は必須です")
 	private String name;
 	/**宛先メールアドレス*/
+	@NotBlank(message="メールアドレスを入力してください")
+	@Email(message="メールアドレスの入力が不正です")
 	private String email;
 	/**宛先郵便番号*/
+	@NotNull(message="郵便番号を入力してください")
+	@Range(min=7,max=7,message="郵便番号を入力してください")
 	private String zipcode;
 	/**宛先住所*/
+	@NotEmpty(message="住所入力は必須です")
 	private String address;
 	/**宛先電話番号*/
+	@NotEmpty(message="電話番号は必須です")
 	private String telNumber;
 	/**配達日*/
+	@NotEmpty(message="配達希望日を入力してください")
 	private String deliveryDate;
 	/**配達時間*/
+	@NotEmpty(message="配達希望時間を入力してください")
 	private String deliveryTime;
 	/**お支払い方法*/
+	@NotEmpty(message="お支払方法を選択してください")
 	private String paymentMethod;
 	/**ユーザーID*/
 	private String userId;
@@ -112,7 +128,6 @@ public class OrderForm {
 		return deliveryDate;
 	}
 	public void setDeliveryDate(String deliveryDate) {
-		System.out.println("配達希望日は"+deliveryDate);
 		this.deliveryDate = deliveryDate;
 	}
 	
@@ -121,14 +136,12 @@ public class OrderForm {
 		return deliveryTime;
 	}
 	public void setDeliveryTime(String deliveryTime) {
-		System.out.println("配達時間は"+deliveryTime);
 		this.deliveryTime = deliveryTime;
 	}
 	
 	/**	DeliveryDateとTimeをTimestampに直す*/
 	public Timestamp getTimeStampDeliveryDate() throws ParseException{
 		String deliverydate = this.deliveryDate+" "+this.deliveryTime;
-		System.out.println("配達指定日は"+deliverydate);
 		Timestamp timestamp = Timestamp.valueOf(deliverydate);
 		return timestamp;
 	}
