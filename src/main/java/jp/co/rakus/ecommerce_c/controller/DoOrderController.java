@@ -28,14 +28,11 @@ public class DoOrderController {
 	private doOrderService service;
 	
 	
-	@ModelAttribute
-	private OrderForm setUp(){	
-		return new OrderForm();
-	}
+	
 	
 
 	@ModelAttribute
-	private AddToCartForm setUpaddToCart(){
+	public AddToCartForm setUpaddToCart(){
 		return new AddToCartForm();
 	}
 
@@ -69,7 +66,10 @@ public class DoOrderController {
 		order.setDeliveryTime(form.getTimeStampDeliveryDate());
 		order.setPaymentMethod(form.getIntPaymentMethod());
 		order.setUserId(form.getLongUserId());
+		order.setTotalPrice(form.getIntTotalPrice());
 		order.setId(form.getLongId());
+		order.setDestinationAddress(form.getAddress());
+		order.setDestinationTel(form.getTelNumber());
 		service.save(order);
 		
 		return "orderFinish";

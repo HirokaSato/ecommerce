@@ -1,6 +1,7 @@
 package jp.co.rakus.ecommerce_c.form;
 
 import java.sql.Timestamp;
+
 import java.text.ParseException;
 
 /**
@@ -16,7 +17,7 @@ public class OrderForm {
 	private String email;
 	/**宛先郵便番号*/
 	private String zipcode;
-	/**宛名*/
+	/**宛先住所*/
 	private String address;
 	/**宛先電話番号*/
 	private String telNumber;
@@ -30,6 +31,22 @@ public class OrderForm {
 	private String userId;
 	/**注文ID*/
 	private String id;
+	/**合計金額*/
+	private String totalPrice;
+	
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	/**
+	 * 合計金額をInt型に直す.
+	 * @return 合計金額
+	 */
+	public Integer getIntTotalPrice(){
+		return Integer.parseInt(totalPrice);
+	}
 	
 	public String getId() {
 		return id;
@@ -95,6 +112,7 @@ public class OrderForm {
 		return deliveryDate;
 	}
 	public void setDeliveryDate(String deliveryDate) {
+		System.out.println("配達希望日は"+deliveryDate);
 		this.deliveryDate = deliveryDate;
 	}
 	
@@ -103,12 +121,14 @@ public class OrderForm {
 		return deliveryTime;
 	}
 	public void setDeliveryTime(String deliveryTime) {
+		System.out.println("配達時間は"+deliveryTime);
 		this.deliveryTime = deliveryTime;
 	}
 	
 	/**	DeliveryDateとTimeをTimestampに直す*/
 	public Timestamp getTimeStampDeliveryDate() throws ParseException{
-		String deliverydate = deliveryDate+deliveryTime;
+		String deliverydate = this.deliveryDate+" "+this.deliveryTime;
+		System.out.println("配達指定日は"+deliverydate);
 		Timestamp timestamp = Timestamp.valueOf(deliverydate);
 		return timestamp;
 	}
