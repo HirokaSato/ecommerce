@@ -69,11 +69,6 @@
 				</table>
 			</div>
 		</div>
-
-	
-	
-	
-	
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
@@ -98,51 +93,61 @@
 							</th>
 							<th>
 								<div class="text-center">
-									小計
+									合計(税込み)
 								</div>
 							</th>
 						</tr>
-						<c:forEach var="orderItem" items="${orderItemList}">
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<c:forEach var="orderHistory" items="${orderHistory}">
 							<tr>
 								<td>
 									<div class="center">
 										<img src="${orderItem.item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br>
-										<c:out value="${orderItem.item.name}" />
+										<c:out value="${item.name}" />
+									
 										<br>
 									</div>
 								</td>
-								<td><span class="price"> <c:out value="${orderItem.size}" />&nbsp;</span>
+								
+								
+								
+								
+								<td><span class="price">
+								<c:out value="${orderItemHistory.size}" />&nbsp;</span>
 								&nbsp;&nbsp;&nbsp;
-								<c:if test="${orderItem.size == 'M'}"><c:out value="${orderItem.item.priceM}" /></c:if>
-								<c:if test="${orderItem.size == 'L'}"><c:out value="${orderItem.item.priceL}" /></c:if>
-								円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個</td>
+								
+								円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個
+								</td>
+								
+								
+								
+								
+								
 								<td>
 									<ul>
-										<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">
-											<li><c:out value="${orderTopping.topping.name}" />
-											<c:if test="${orderItem.size=='M'}">
-												<c:out value="${orderTopping.topping.priceM}" />
-											</c:if> 
-											<c:if test="${orderItem.size=='L'}">
-												<c:out value="${orderTopping.topping.priceL}" />
-											</c:if>
-											円
-											</li>
+										<c:forEach var="orderToppingHistory" items="${orderToppingHistory}">
+											<c:out value="${orderToppingHistory.topping}"/>
 										</c:forEach>
 									</ul>
 								</td>
 		
 								<td>
 									<div class="text-center">
-										<c:out value="${order.totalPrice}" />
+										<c:out value="${orderHistory.totalPrice}" />
 										円
 									</div>
 								</td>
-								<td>
-									<div class="text-center">
-										<button type="submit" class="btn btn-primary">削除</button>
-									</div>
-								</td>
+								
 							</tr>
 						</c:forEach>
 					</tbody>

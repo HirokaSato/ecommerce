@@ -50,8 +50,8 @@ public class ItemRepository {
 	/**
 	 * 商品IDを元に商品情報を検索する.
 	 * 
-	 * @param id
-	 *            商品ID
+	 * @param id　商品ID
+	 *            
 	 * @return item 検索した商品データ
 	 */
 
