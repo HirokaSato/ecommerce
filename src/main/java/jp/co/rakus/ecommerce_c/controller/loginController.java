@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.rakus.ecommerce_c.form.UserForm;
 
+/**
+ * ログイン画面を表示するコントローラ.
+ * 
+ * @author shun.nakano
+ *
+ */
 @Controller
 @RequestMapping("/login")
 public class loginController {
@@ -23,6 +29,13 @@ public class loginController {
 		return new UserForm();
 	}
 
+	/**
+	 * ログイン画面を表示する.
+	 * 
+	 * @param error ログイン失敗時に"true"
+	 * @param model リクエストパラメータ
+	 * @return ログイン画面
+	 */
 	@RequestMapping
 	public String login(String error, Model model){
 		if(session.getAttribute("randomSessionId") == null){

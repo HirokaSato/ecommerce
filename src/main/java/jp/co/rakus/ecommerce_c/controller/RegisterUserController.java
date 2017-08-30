@@ -56,16 +56,18 @@ public class RegisterUserController {
 	/**
 	 * 渡された情報でユーザ登録処理を行う.
 	 * 
-	 * @param form
-	 * @param result
-	 * @param model
-	 * @return
+	 * @param form 入力情報
+	 * @param result エラーチェック
+	 * @param model リクエストパラメータ
+	 * @return 登録成功すればログイン画面、エラー時は登録画面
 	 */
 	@RequestMapping("/submit")
 	private String submit(@Validated UserForm form, BindingResult result, Model model){
 		// 入力値チェック
-		if(!form.getPassword().equals(form.getReInputPassword())){
-			result.rejectValue("password", null, "確認欄と異なるパスワードが入力されました");
+		if(!form.getPassword().isEmpty()){			
+			if(!form.getPassword().equals(form.getReInputPassword())){
+				result.rejectValue("password", null, "確認欄と異なるパスワードが入力されました");
+			}
 		}
 		if(regiseterUserService.findByEmail(form.getEmail()) != null){
 			result.rejectValue("email", null, "そのメールアドレスはすでに使われています");
