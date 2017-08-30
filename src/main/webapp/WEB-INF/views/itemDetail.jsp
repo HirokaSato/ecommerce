@@ -18,8 +18,8 @@
     <![endif]--> 
 
 
-<%--<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/itemDetail.js"></script> --%>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/itemDetail.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -50,13 +50,16 @@
 									<label for="inputResponsibleCompany">サイズ</label>
 								</div>
 								<div class="col-sm-12">
-									<label class="radio-inline"> 
+									<label class="radio-inline priceM" data-price="<c:out value="${item.priceM}"/>"> 
 										<input type="radio" name="size" value="M"  checked="checked">
-										<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)
+										<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;
+										<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)
+																	
 									</label>									
-									<label class="radio-inline"> 
+									<label class="radio-inline priceL" data-price="<c:out value="${item.priceL}"/>"> 
 										<input type="radio" name="size" value="L" > 
 										<span class="price">&nbsp;L&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceL}" pattern="###,###"/>円(税抜)
+										
 									</label>
 								</div>
 							</div>
@@ -64,31 +67,31 @@
 					</div>
 				</div><br>
 				<div class="row">
-					<div class="col-xs-offset-2 col-xs-8">
+					<div class="col-xs-offset-2 col-xs-8" id="toppingCheck">
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-12">
 									<label for="inputResponsibleCompany">
-										トッピング：&nbsp;1つにつき
-										<span>&nbsp;М&nbsp;</span>&nbsp;&nbsp;200円(税抜)
-										<span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
+									トッピング：&nbsp;1つにつき
+									<span>&nbsp;М&nbsp;</span>&nbsp;&nbsp;200円(税抜)
+									<span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
 									</label>
-										<div class="col-sm-12" >
-										<label class="checkboxes" >
-											<form:checkboxes items="${toppingMap}" path="toppingList" element="label" />
-										</label>
-										</div>									
+									<div class="col-sm-12" >
+									<label class="checkboxes" >
+										<form:checkboxes items="${toppingMap}" path="toppingList" element="label" />
+									</label>
+									</div>									
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 				<div class="row">
 					<div class="col-xs-offset-2 col-xs-8">
 						<div class="form-group">
 							<div class="row">
 								<div class="col-xs-5 col-sm-5">
 									<label class="control-label" style="color: red" for="inputError">数量を選択してください</label>
-									<select name="quantity" class="form-control">
+									<select name="quantity" class="form-control" id="select">
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -99,7 +102,7 @@
 										<option value="8">8</option>
 										<option value="9">9</option>
 										<option value="10">10</option>
-									</select>
+									</select>	
 								</div>
 							</div>
 						</div>
@@ -110,9 +113,10 @@
 				<div class="row">
 					<div class="col-xs-offset-2 col-xs-8">
 						<div class="form-group">
-<%-- 						<span id="total-price">この商品金額：
-							<span id="totalPrice"></span>円(税抜)</span>   --%>
+ 						<span id="total-price">この商品金額：
+							<span id="totalPrice"></span>円(税抜)</span>
 						</div>
+						<p id="numofpizza"></p>
 					</div>
 				</div>
 			<div class="row">
@@ -127,7 +131,7 @@
 			</div>
 		</div>
 	</div>
-		</form:form>
+	</form:form>
 	</div>
 	<!-- end container -->
 	<script
@@ -140,5 +144,6 @@
 			});
 		});
 	</script>
+	
 </body>
 </html>

@@ -1,54 +1,53 @@
-//ピザサイズ
 
-totalPrice = 0;
+pizaPrice = 0;
+toppingPrice = 0;
+quantity = 1;
 
 
 $(function() {
 	
-	// 初期値
-	$('#totalPrice').text("1,490");
-
-	// ラジオボタンをチェックしたら変わる
-	$('input[type="radio"]').change(function() {
-
-		// 選択したvalue値を変数に格納
-		 totalPrice = $(this).val();
-		if (totalPrice === "M") {
-			totalPrice = 1490;
-		} else {
-			totalPrice = 2570;
-		}
-
-//		// 数字をString型に変換し、3桁区切りのコンマを挿入
-//		let num = String(totalPrice).replace(/(\d)(?=(\d\d\d)+$)/g, "$1,");
-//		totalPrice = num;
-
-		// 選択したvalue値を出力
-		$('#totalPrice').text(totalPrice);
-		$('#totalPrice').val(totalPrice);
+	//初期値
+		pizaPrice = $(".priceM").data("price");
+	
+		initialValue = $(".priceM").data("price");
+		let num = String(initialValue).replace(/(\d)(?=(\d\d\d)+$)/g, "$1,");
+		initialValue = num;
 		
+		$('#totalPrice').html("<span>" + initialValue + "</span>");
 
-
+	//ピザ料金設定
+	$('.priceM').on('click',function(){
+		var priceM = $(".priceM").data("price");
+		pizaPrice = priceM;
+	});
+	
+	$('.priceL').on('click',function(){
+		var priceL = $(".priceL").data("price");	
+		pizaPrice = priceL;
 	});
 
-// トッピング
-	// チェックボックスをチェックしたら発動	
-	$('input[name="toppingList"]').change(function() {
+	
+	//トッピング計算
+	$('.checkboxes').on('click',function(){
+		toppingPrice = $("#toppingCheck :checked").length * 200;
+	});
+	
+	
+	//枚数取得
+	$('#select').on('click',function(){
+		quantity = $(this).val();
+	});
+	
+	
+	//合計金額計算
+	$('body').on('click',function(){
+		var totalPrice = (pizaPrice + toppingPrice) * quantity;
 		
-		// prop()でチェックの状態を取得
-		let checkboxes = $('#checkboxes').val('checked');
-		
-//		str = $('#totalPrice').val();
-//		totalPrice = parseInt(totalPrice);
-		
-		if (checkboxes) {
-			totalPrice = totalPrice + 200;
-		} else {
-			totalPrice = totalPrice - 200;
-		}
+		let num = String(totalPrice).replace(/(\d)(?=(\d\d\d)+$)/g, "$1,");
+		totalPrice = num;
 		
 		$('#totalPrice').text(totalPrice);
 		
 	});
-		
+	
 });
