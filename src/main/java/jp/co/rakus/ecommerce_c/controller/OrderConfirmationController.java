@@ -1,8 +1,9 @@
 package jp.co.rakus.ecommerce_c.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -75,6 +76,9 @@ public class OrderConfirmationController {
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		System.out.println(today);
+		model.addAttribute("today",today);
 		
 		
 		return "orderList";
