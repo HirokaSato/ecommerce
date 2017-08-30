@@ -52,32 +52,32 @@
 							<legend>ユーザ登録</legend>
 							<div class="form-group">
 								<label for="inputName">名前:</label><label class="control-label" style="color: red" for="inputError"><form:errors path="name"/></label>
-								<form:input path="name" placeholder="Name" class="form-control" id="inputName"/>
+								<form:input path="name" placeholder="名前" class="form-control" id="inputName"/>
 							</div>
 							<div class="form-group">
 								<label for="inputEmail">メールアドレス:</label><label class="control-label" style="color: red" for="inputError"><form:errors path="email"/></label>
-								<form:input path="email" class="form-control" placeholder="Email" id=""/>
+								<form:input path="email" class="form-control" placeholder="メールアドレス" id=""/>
 							</div>
 							<div class="form-group">
 								<label for="inputAddress">住所:</label>
 								<label class="control-label" style="color: red" for="inputError"><form:errors path="address"/></label>
-								<form:input path="address" placeholder="Address" class="form-control" id="inputAddress"/>
+								<form:input path="address" placeholder="住所" class="form-control" id="inputAddress"/>
 							</div>
 							<div class="form-group">
 								<label for="inputTel">電話番号:</label>
 								<label class="control-label" style="color: red" for="inputError"><form:errors path="telephone"/></label>
-								<form:input path="telephone" id="inputTel" class="form-control" placeholder="Tel"/>
+								<form:input path="telephone" id="inputTel" class="form-control" placeholder="ハイフンなしで入力してください"/>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>
 								<label class="control-label" style="color: red" for="inputError"><form:errors path="password"/></label>
-								<form:input path="password" id="inputPassword" class="form-control" placeholder="Password" type="password"/>
+								<form:input path="password" id="inputPassword" class="form-control" placeholder="8文字以上で登録してください" type="password"/>
 							</div>
 							<div class="form-group">
 								<label for="inputConfirmationPassword">確認用パスワード:</label>
 								<label
 									class="control-label" style="color: red" for="inputError"><form:errors path="reInputPassword"/></label>
-								<form:input path="reInputPassword" id="inputConfirmationPassword" class="form-control" placeholder="Confirmation Password" type="password"/>
+								<form:input path="reInputPassword" id="inputConfirmationPassword" class="form-control" placeholder="パスワード再入力" type="password"/>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary" form="userForm">登録</button>

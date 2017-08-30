@@ -64,9 +64,12 @@ public class RegisterUserController {
 	@RequestMapping("/submit")
 	private String submit(@Validated UserForm form, BindingResult result, Model model){
 		// 入力値チェック
-		if(!form.getPassword().isEmpty()){			
-			if(!form.getPassword().equals(form.getReInputPassword())){
-				result.rejectValue("password", null, "確認欄と異なるパスワードが入力されました");
+		if(!form.getPassword().isEmpty()){
+			// パスワードが8文字以上か
+			if(form.getPassword().length() >= 8){
+				if(!form.getPassword().equals(form.getReInputPassword())){
+					result.rejectValue("password", null, "確認欄と異なるパスワードが入力されました");
+				}
 			}
 		}
 		if(regiseterUserService.findByEmail(form.getEmail()) != null){

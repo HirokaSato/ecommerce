@@ -21,7 +21,7 @@
 					id="bs-example-navbar-collapse-1">
 					<p class="navbar-text navbar-right">
 						<sec:authorize access="isAuthenticated()">
-							<sec:authentication property="principal.user.name"/>&nbsp;さん、いらっしゃいませ！&nbsp;&nbsp;||&nbsp;&nbsp;
+							<strong><sec:authentication property="principal.user.name"/>&nbsp;さん、いらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
 						</sec:authorize>
 						<a href="${pageContext.request.contextPath}/viewCartList" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
 						<sec:authorize access="isAnonymous()">

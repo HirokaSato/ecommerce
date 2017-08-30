@@ -29,6 +29,7 @@ public class UserForm {
 	private String telephone;
 	/** パスワード */
 	@NotBlank(message="パスワードを入力してください")
+	@Length(min=8,message="パスワードは8文字以上で登録してください")
 	private String password;
 	/** 再入力パスワード */
 	@NotBlank(message="確認用パスワードを入力してください")
