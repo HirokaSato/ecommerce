@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -60,18 +61,18 @@
 								</td>
 								<td><span class="price"> <c:out value="${orderItem.size}" />&nbsp;</span>
 								&nbsp;&nbsp;&nbsp;
-								<c:if test="${orderItem.size == 'M'}"><c:out value="${orderItem.item.priceM}" /></c:if>
-								<c:if test="${orderItem.size == 'L'}"><c:out value="${orderItem.item.priceL}" /></c:if>
+								<c:if test="${orderItem.size == 'M'}"><fmt:formatNumber value="${orderItem.item.priceM}" pattern="###,###"/></c:if>
+								<c:if test="${orderItem.size == 'L'}"><fmt:formatNumber value="${orderItem.item.priceL}" pattern="###,###"/></c:if>
 								円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個</td>
 								<td>
 									<ul>
 										<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">
 											<li><c:out value="${orderTopping.topping.name}" />
 											<c:if test="${orderItem.size=='M'}">
-												<c:out value="${orderTopping.topping.priceM}" />
+												<fmt:formatNumber value="${orderTopping.topping.priceM}" pattern="###,###"/>
 											</c:if> 
 											<c:if test="${orderItem.size=='L'}">
-												<c:out value="${orderTopping.topping.priceL}" />
+												<fmt:formatNumber value="${orderTopping.topping.priceL}" pattern="###,###"/>
 											</c:if>
 											円
 											</li>
@@ -81,7 +82,7 @@
 		
 								<td>
 									<div class="text-center">
-										<c:out value="${order.totalPrice}" />
+										<fmt:formatNumber value="${order.totalPrice}" pattern="###,###" />
 										円
 									</div>
 								</td>
@@ -95,8 +96,8 @@
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
 					<span id="total-price">
-					消費税：<c:out value="${tax}" />円</span><br>
-					<span id="total-price">ご注文金額合計：<c:out value="${taxIncludedAmount}" />円(税込)</span>
+					消費税：<fmt:formatNumber value="${tax}" pattern="###,###"/>円</span><br>
+					<span id="total-price">ご注文金額合計：<fmt:formatNumber value="${taxIncludedAmount}" pattern="###,###"/>円(税込)</span>
 				</div>
 			</div>
 		</div>
@@ -182,19 +183,7 @@
 										<div class="col-sm-5">
 											<form:errors path="deliveryDate" cssStyle="color:red" element="div"/>
 											<form:errors path="deliveryTime" cssStyle="color:red" element="div"/>
-											<script>var hiduke=new Date(); 
-
-											//年・月・日・曜日を取得する
-											var year = hiduke.getFullYear();
-											var month = hiduke.getMonth()+1;
-											var week = hiduke.getDay();
-											var day = hiduke.getDate();
-
-											var yobi= new Array("日","月","火","水","木","金","土");
-
-											document.write("西暦"+year+"年"+month+"月"+day+"日 "+yobi[week]+"曜日");
- 											</script>
-											<form:input type="date" path="deliveryDate"/>
+											<form:input type="date" path="deliveryDate" min="${today}" />
 											
 										</div>
 										
