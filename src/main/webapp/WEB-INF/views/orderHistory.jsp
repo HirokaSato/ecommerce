@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,14 +42,32 @@
 			<!-- /.container-fluid -->
 		</nav>
 
+<%-- 注文履歴がない場合 --%>
 
+	<c:if test="${fn:length(orderList) == 0}">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<h3 class="text-center text-danger">注文履歴がありません</h3><br><br>
+					<form:form action="${pageContext.request.contextPath}/top">
+						<button type="submit" class="btn btn-lg btn-block btn-warning">商品一覧へ戻る</button>
+					</form:form>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
+	</c:if>
+
+
+<%-- 注文履歴を表示 --%>
+	<c:if test="${fn:length(orderList) != 0}">
 			<!-- table -->
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<h1 class="text-center">注文履歴</h1>
 				<br>
-			
 			</div>
 		</div>
 		<div class="row">
@@ -69,8 +88,6 @@
 							</th>	
 							<th></th><th></th>						
 						</tr>
-
-
 					<tbody>
 						<tr>
 							<th>
@@ -96,7 +113,7 @@
 						</tr>
 						
 						
-					
+						
 								<c:forEach var="orderItem" items="${order.orderItemList}">
 									
 									<tr>
@@ -140,7 +157,6 @@
 					
 								</c:forEach>	
 							</c:forEach>
-						
 					</tbody>
 				</table>
 			</div>
@@ -156,6 +172,9 @@
 				<div class="col-md-3"></div>
 			</div>
 		</div>
+	</c:if>
+		
+		
 </div>
 </body>
 </html>
