@@ -9,13 +9,23 @@ import org.springframework.stereotype.Service;
 
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
+import jp.co.rakus.ecommerce_c.domain.OrderTopping;
 import jp.co.rakus.ecommerce_c.domain.User;
 import jp.co.rakus.ecommerce_c.repository.OrderItemRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderRepository;
+import jp.co.rakus.ecommerce_c.repository.OrderToppingRepository;
 
 /**
  * ログイン時にカートの内容を操作するサービスクラス.
  * 
+ * @author shun.nakano
+ *
+ */
+/**
+ * @author shun.nakano
+ *
+ */
+/**
  * @author shun.nakano
  *
  */
@@ -25,6 +35,8 @@ public class LoginOrderChangeService {
 	private OrderRepository orderRepository;
 	@Autowired
 	private OrderItemRepository orderItemRepository;
+	@Autowired
+	private OrderToppingRepository orderToppingRepository;
 	@Autowired
 	private HttpSession session;
 	
@@ -44,7 +56,7 @@ public class LoginOrderChangeService {
 				orderRepository.save(order);
 			}else{
 				if(order.getTotalPrice() != 0){
-				addCartFromGuestCart(order, user);
+				this.addCartFromGuestCart(order, user);
 				}
 			}
 		}
@@ -60,12 +72,14 @@ public class LoginOrderChangeService {
 		
 		// ゲスト時のユーザがもっていたOrderを取得する
 		Integer guestCartPrice = guestOrder.getTotalPrice();
-		List<OrderItem> orderItemList = orderItemRepository.findByOrderId(guestOrder.getId());
+		List<OrderItem> guestOrderItemList = orderItemRepository.findByOrderId(guestOrder.getId());
 		
-		// 取得したOrderItemのオーダーIDをログインユーザの未注文Orderのものに書き換える
-		for(OrderItem orderItem : orderItemList){
-			orderItem.setOrderId(userOrder.getId());
-			orderItemRepository.save(orderItem);
+		if(!this.checkDuplicationOrderItem(userOrder, guestOrderItemList)){			
+			// 取得したOrderItemのオーダーIDをログインユーザの未注文Orderのものに書き換える
+			for(OrderItem orderItem : guestOrderItemList){
+				orderItem.setOrderId(userOrder.getId());
+				orderItemRepository.save(orderItem);
+			}
 		}
 		
 		// 合計金額に追加して、データベースを更新する
@@ -75,5 +89,40 @@ public class LoginOrderChangeService {
 		
 		// ゲストがもっていたOrderを削除
 		orderRepository.deleteByOrderId(guestOrder.getId());
+	}
+	
+	/**
+	 * カートごとに完全に重複しているOrderItemがあれば、新規に追加ではなくQuantityを加算する.
+	 * 
+	 * @param userOrder ログインユーザの未注文情報
+	 * @param guestOrderItemList ゲスト状態のカートに入っていた注文商品情報
+	 * @return 重複していればtrue、なければfalse
+	 */
+	public boolean checkDuplicationOrderItem(Order userOrder, List<OrderItem> guestOrderItemList){
+		boolean check = false;
+
+		List<OrderItem> userOrderItemList = orderItemRepository.findByOrderId(userOrder.getId());
+		for(OrderItem userOrderItem : userOrderItemList){
+			for(OrderItem guestOrderItem : guestOrderItemList){
+				if(userOrderItem.getItemId()==guestOrderItem.getItemId() && userOrderItem.getSize().equals(guestOrderItem.getSize())){
+					List<OrderTopping> userOrderToppingList = orderToppingRepository.findByOrderItemId(userOrderItem.getId());
+					List<OrderTopping> guestOrderToppingList = orderToppingRepository.findByOrderItemId(guestOrderItem.getId());
+					if(userOrderToppingList.size()==guestOrderItemList.size()){
+						int duplicateCount = 0;
+						for(int i = 0; i < userOrderToppingList.size(); i++){
+							if(userOrderToppingList.get(i).getToppingId()==guestOrderToppingList.get(i).getToppingId()){
+								duplicateCount ++;
+							}
+						}
+						if(duplicateCount==userOrderItemList.size()){
+							check=true;
+							userOrderItem.setQuantity(userOrderItem.getQuantity()+guestOrderItem.getQuantity());
+							orderItemRepository.save(userOrderItem);
+						}
+					}
+				}
+			}
+		}
+		return check;
 	}
 }
