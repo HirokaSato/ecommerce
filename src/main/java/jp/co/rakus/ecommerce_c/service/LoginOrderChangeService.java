@@ -50,13 +50,14 @@ public class LoginOrderChangeService {
 		// ゲスト状態のカートの中身があればユーザ情報を書き換える
 		order = orderRepository.finfByUserIdAndStatus((int)session.getAttribute("randomSessionId"), 0);
 		if(order != null){
+			Order userOrder = orderRepository.finfByUserIdAndStatus(user.getId(), 0);
 			// ログインユーザが未注文状態のOrderをもたなければ情報の上書き、もっていれば追加する
-			if(orderRepository.finfByUserIdAndStatus(user.getId(), 0) == null){				
+			if(userOrder == null){
 				order.setUserId(user.getId());
 				orderRepository.save(order);
 			}else{
 				if(order.getTotalPrice() != 0){
-				this.addCartFromGuestCart(order, user);
+				this.addCartFromGuestCart(order, userOrder);
 				}
 			}
 		}
@@ -65,9 +66,7 @@ public class LoginOrderChangeService {
 	/**
 	 * ユーザが持つ未注文状態の注文に、ゲスト時のカート内容を追加する.
 	 */
-	public void addCartFromGuestCart(Order guestOrder, User user){
-		// ログインユーザの未注文状態Orderを取得する
-		Order userOrder = orderRepository.finfByUserIdAndStatus(user.getId(), 0);
+	public void addCartFromGuestCart(Order guestOrder, Order userOrder){
 		Integer userOrderTotalPrice = userOrder.getTotalPrice();
 		
 		// ゲスト時のユーザがもっていたOrderを取得する
@@ -107,14 +106,16 @@ public class LoginOrderChangeService {
 				if(userOrderItem.getItemId()==guestOrderItem.getItemId() && userOrderItem.getSize().equals(guestOrderItem.getSize())){
 					List<OrderTopping> userOrderToppingList = orderToppingRepository.findByOrderItemId(userOrderItem.getId());
 					List<OrderTopping> guestOrderToppingList = orderToppingRepository.findByOrderItemId(guestOrderItem.getId());
-					if(userOrderToppingList.size()==guestOrderItemList.size()){
+					if(userOrderToppingList.size()==guestOrderToppingList.size()){
 						int duplicateCount = 0;
-						for(int i = 0; i < userOrderToppingList.size(); i++){
-							if(userOrderToppingList.get(i).getToppingId()==guestOrderToppingList.get(i).getToppingId()){
-								duplicateCount ++;
-							}
+						if(userOrderToppingList.size() != 0){
+							for(int i = 0; i < userOrderToppingList.size(); i++){
+								if(userOrderToppingList.get(i).getToppingId()==guestOrderToppingList.get(i).getToppingId()){
+									duplicateCount ++;
+								}
+							}							
 						}
-						if(duplicateCount==userOrderItemList.size()){
+						if(duplicateCount==userOrderToppingList.size()){
 							check=true;
 							userOrderItem.setQuantity(userOrderItem.getQuantity()+guestOrderItem.getQuantity());
 							orderItemRepository.save(userOrderItem);
