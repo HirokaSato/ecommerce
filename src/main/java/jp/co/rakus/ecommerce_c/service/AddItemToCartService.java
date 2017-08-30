@@ -1,5 +1,6 @@
 package jp.co.rakus.ecommerce_c.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
 import jp.co.rakus.ecommerce_c.domain.OrderTopping;
 import jp.co.rakus.ecommerce_c.domain.Topping;
+import jp.co.rakus.ecommerce_c.form.AddToCartForm;
 import jp.co.rakus.ecommerce_c.repository.ItemRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderItemRepository;
 import jp.co.rakus.ecommerce_c.repository.OrderRepository;
@@ -35,34 +37,13 @@ public class AddItemToCartService {
 	private ToppingRepository toppingRepository;
 	
 	/**
-	 * 注文情報を追加する.
+	 * 注文情報をDBに追加する.
 	 * 
 	 * @param order 追加する注文情報
 	 * @return 追加時に採番されたIDを含んだOrderクラス
 	 */
 	public Order saveOrder(Order order){
 		 return orderRepository.save(order);
-	}
-	
-	/**
-	 * 注文された商品を追加する.
-	 * 
-	 * @param orderItem 注文された商品情報
-	 * @return 追加したときに採番されたid情報を加えたOrderItem
-	 */
-	public OrderItem saveOrderItem(OrderItem orderItem){
-		return orderItemRepository.insert(orderItem);
-	}
-	
-	/**
-	 * 注文されたトッピング情報を追加する.
-	 * 
-	 * @param orderToppingList トッピング情報リスト
-	 */
-	public void saveOrderToppings(List<OrderTopping> orderToppingList){
-		for(OrderTopping orderTopping : orderToppingList){
-			orderToppingRepository.insert(orderTopping);
-		}
 	}
 	
 	/**
@@ -74,6 +55,42 @@ public class AddItemToCartService {
 	 */
 	public Order findByUserIdAndStatus(long userId, Integer status){
 		return orderRepository.finfByUserIdAndStatus(userId, status);
+	}
+	
+	/**
+	 * 注文商品情報をDBに追加する.
+	 * 
+	 * @param order 注文情報
+	 * @param form 入力情報
+	 * @return insert時に採番されたIDを持ったorderItem
+	 */
+	public OrderItem saveOrderItem(Order order, AddToCartForm form){
+		OrderItem orderItem = new OrderItem();
+		orderItem.setOrderId(order.getId());
+		orderItem.setItemId(form.getIntItemId());
+		orderItem.setSize(form.getSize());
+		orderItem.setQuantity(form.getIntQuantity());
+		return orderItemRepository.insert(orderItem);
+	}
+	
+	/**
+	 * 注文トッピング情報をDBに追加する.
+	 * 
+	 * @param form 入力情報
+	 * @param orderItem トッピングされている注文商品
+	 */
+	public List<OrderTopping> saveOrderToppings(AddToCartForm form, OrderItem orderItem){
+		List<OrderTopping> orderToppingList = new ArrayList<>();
+		for(Integer orderToppingId : form.getToppingList()){
+			OrderTopping orderTopping = new OrderTopping();
+			orderTopping.setToppingId(orderToppingId);
+			orderTopping.setOrderItemId(orderItem.getId());
+			orderToppingList.add(orderTopping);
+		}
+		for(OrderTopping orderTopping : orderToppingList){
+			orderToppingRepository.insert(orderTopping);
+		}
+		return orderToppingList;
 	}
 	
 	/**
@@ -113,4 +130,18 @@ public class AddItemToCartService {
 		totalPrice += itemPrice;
 		return totalPrice;
 	}
+	
+	/**
+	 * カートに追加された同一トッピングの商品が、すでにカート内に存在するか調べる.
+	 * 
+	 * @param order 注文情報
+	 * @param form 入力情報
+	 * @return 存在すればtrue、なければfalse
+	 */
+	public boolean CheckDuplicationOrderItem(Order order, AddToCartForm form){
+		boolean check = false;
+		
+		return check;
+	}
+	
 }

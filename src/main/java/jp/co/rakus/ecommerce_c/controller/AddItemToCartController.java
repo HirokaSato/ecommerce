@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommerce_c.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -57,6 +56,7 @@ public class AddItemToCartController {
 				order.setUserId((int)session.getAttribute("randomSessionId"));
 				order.setStatus(0);
 				order.setTotalPrice(0);
+				order = addItemToService.saveOrder(order);
 			}
 		}else{
 			order = addItemToService.findByUserIdAndStatus(loginUser.getUser().getId(), 0);
@@ -66,27 +66,15 @@ public class AddItemToCartController {
 				order.setUserId(loginUser.getUser().getId());
 				order.setStatus(0);
 				order.setTotalPrice(0);
+				order = addItemToService.saveOrder(order);
 			}
 		}
-		order = addItemToService.saveOrder(order);
-		
+
 		// フォームから注文情報を受け取る
-		OrderItem orderItem = new OrderItem();
-		orderItem.setOrderId(order.getId());
-		orderItem.setItemId(form.getIntItemId());
-		orderItem.setSize(form.getSize());
-		orderItem.setQuantity(form.getIntQuantity());
-		orderItem = addItemToService.saveOrderItem(orderItem);
+		OrderItem orderItem = addItemToService.saveOrderItem(order, form);
 		
 		// 注文されたトッピング情報からトッピングのListをつくる
-		List<OrderTopping> orderToppingList = new ArrayList<>();
-		for(Integer orderToppingId : form.getToppingList()){
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setToppingId(orderToppingId);
-			orderTopping.setOrderItemId(orderItem.getId());
-			orderToppingList.add(orderTopping);
-		}
-		addItemToService.saveOrderToppings(orderToppingList);
+		List<OrderTopping> orderToppingList = addItemToService.saveOrderToppings(form, orderItem);
 		
 		Integer totalPrice = addItemToService.getTotalPrice(order.getId(), orderItem.getId(), orderToppingList);
 		order.setTotalPrice(totalPrice);

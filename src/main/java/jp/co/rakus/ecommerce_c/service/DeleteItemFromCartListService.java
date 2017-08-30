@@ -35,7 +35,7 @@ public class DeleteItemFromCartListService {
 		
 		//orderテーブルの金額合計を取得
 		Order order = new Order();
-		order = orderRepository.findByUserId(userId);
+		order = orderRepository.finfByUserIdAndStatus(userId, 0);
 		int totalPrice = order.getTotalPrice();
 		
 		//金額合計から小計を引く
