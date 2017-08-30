@@ -32,7 +32,6 @@ public class OrderForm {
 	@NotEmpty(message="住所入力は必須です")
 	private String address;
 	/**宛先電話番号*/
-	@NotNull(message="電話番号を入力してください")
 	@Length(min=10,max=11,message="電話番号を入力してください")
 	private String telNumber;
 	/**配達日*/
