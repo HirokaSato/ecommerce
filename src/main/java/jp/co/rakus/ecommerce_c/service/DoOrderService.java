@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.repository.OrderRepository;
 
+/**
+ * 注文するために必要なデータを操作する.
+ * @author atsuko.yoshino	
+ *
+ */
 @Service
 @Transactional
 public class DoOrderService {

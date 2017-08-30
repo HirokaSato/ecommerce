@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * 注文情報を受け取るフォーム.
- * @author rakus
+ * @author atsuko.yoshino
  *
  */
 public class OrderForm {
