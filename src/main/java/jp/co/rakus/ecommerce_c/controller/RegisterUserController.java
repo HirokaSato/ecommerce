@@ -75,7 +75,9 @@ public class RegisterUserController {
 			}
 		}
 		try{
-			if(!form.getTelephone().isEmpty())Integer.parseInt(form.getTelephone());
+			if(!form.getTelephone().isEmpty()){
+				Long.parseLong(form.getTelephone());
+			}
 		}catch(NumberFormatException e){
 			result.rejectValue("telephone", null, "数字で入力してください");
 		}
