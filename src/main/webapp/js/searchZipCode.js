@@ -1,6 +1,7 @@
 $(function () {
 	
-	$('#searchZipcode').on("click",function(){
+	$("#searchZipcode").on("click",function(){
+		alert("Hellow");
 	$('#zipcode').jpostal({
 		postcode : [
 			'#zipcode'
