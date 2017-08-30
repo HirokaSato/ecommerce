@@ -50,7 +50,7 @@
 				
 				<table class="table table-striped">
 					<tbody>
-						<c:forEach var="orderHistory" items="${orderHistory}">
+						<c:forEach var="orderList" items="${orderList}">
 						<tr>
 							<th>
 								<div class="text-center">
@@ -58,9 +58,8 @@
 								</div>
 							</th>
 							<th>
-								<div class="text-center">
-									<c:out value="${nothing}"/>
-									<fmt:formatDate value="${orderHistory.orderDate}" pattern="yyyy年MM月dd日"/>								
+								<div class="text-center">									
+									<fmt:formatDate value="${orderList.orderDate}" pattern="yyyy年MM月dd日"/>								
 								</div>
 							</th>							
 						</tr>
@@ -97,6 +96,7 @@
 								</div>
 							</th>
 						</tr>
+						<c:forEach var="orderList" items="${orderList}">
 							<tr>
 								<td>
 									<div class="center">
@@ -142,6 +142,7 @@
 								</td>
 								
 							</tr>
+						</c:forEach>	
 					</tbody>
 				</table>
 			</div>

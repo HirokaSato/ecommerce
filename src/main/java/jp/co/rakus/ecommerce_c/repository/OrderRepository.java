@@ -164,13 +164,13 @@ public class OrderRepository {
 		String sql = "select id, user_id, status,total_price, order_date, destination_name,"
 				+ "destination_email, destination_zipcode, destination_address, destination_tel,"
 				+ "delivery_time, payment_method "
-				+ "from orders where user_id =:userId and status = 3 order by id";
+				+ "from orders where user_id =:userId and ( status = 1 or status = 2 ) order by id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
 		List<Order> order = null;
 		try{
 			order = template.query(sql,param, orderRowMapper);			
 		}catch(DataAccessException e){
-			return null ;			
+			return null;			
 		}
 			return order ;
 		
