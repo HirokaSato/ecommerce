@@ -6,6 +6,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jp.co.rakus.ecommerce_c.domain.Item;
 import jp.co.rakus.ecommerce_c.domain.LoginUser;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.service.OrderHistoryService;
@@ -27,7 +29,7 @@ public class OrderHistoryController {
 	/**
 	 * 注文履歴を表示する.
 	 * 
-	 * @param userId  ログインユーザーのId
+	 * @param userId ログインユーザーのId
 	 * @param model モデル
 	 * @return 注文履歴画面
 	 */
