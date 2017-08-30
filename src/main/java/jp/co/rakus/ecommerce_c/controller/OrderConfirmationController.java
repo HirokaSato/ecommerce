@@ -48,14 +48,17 @@ public class OrderConfirmationController {
 	@RequestMapping("/")
 	public String index(@AuthenticationPrincipal LoginUser loginUser,Model model){
 		User user = loginUser.getUser();
+		model.addAttribute("user", user);
 		Order order= orderConfirmationService.findByUserIdAndStatus(user.getId());	
+		
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
-		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト
+		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト(入れなおし用)
 		for(OrderItem orderItem : orderItemList){
 			Item item = orderConfirmationService.findByItemId(orderItem.getItemId());
 			orderItem.setItem(item);//商品の詳細格納
+			
 			List<OrderTopping> orderToppingList = orderConfirmationService.toppingFindByOrderItemId(orderItem.getId());
-			List<OrderTopping> doOrderToppingList = new ArrayList<>();
+			List<OrderTopping> doOrderToppingList = new ArrayList<>();//注文されたトッピングリスト（入れ直し用)	
 			for(OrderTopping orderTopping :orderToppingList){
 					
 					int toppingId = orderTopping.getToppingId();
@@ -63,6 +66,7 @@ public class OrderConfirmationController {
 					orderTopping.setTopping(topping);
 					doOrderToppingList.add(orderTopping);
 			}
+			
 			orderItem.setOrderToppingList(doOrderToppingList);
 			}
 		
@@ -71,6 +75,7 @@ public class OrderConfirmationController {
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
+		
 		
 		return "orderList";
 	}

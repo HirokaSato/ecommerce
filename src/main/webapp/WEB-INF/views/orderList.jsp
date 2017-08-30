@@ -120,7 +120,7 @@
 							</td>
 							<td>
 								<form:errors path="name" cssStyle="color:red" element="div"/>
-								<form:input path="name"/>
+								<form:input path="name" value="${user.name}"/>
 							</td>
 						</tr>
 						<tr>
@@ -131,7 +131,7 @@
 							</td>
 							<td>
 								<form:errors path="email" cssStyle="color:red" element="div"/>
-								<form:input path="email"/>
+								<form:input path="email" value="${user.email}"/>
 							</td>
 						</tr>
 						<tr>
@@ -154,7 +154,7 @@
 							</td>
 							<td>
 								<form:errors path="address" cssStyle="color:red" element="div"/>
-								<form:input  path="address" id="address"/>
+								<form:input  path="address" id="address" value="${user.address}"/>
 							</td>
 						</tr>
 						<tr>
@@ -165,7 +165,7 @@
 							</td>
 							<td>
 								<form:errors path="telNumber" cssStyle="color:red" element="div"/>
-								<form:input path="telNumber"/>
+								<form:input path="telNumber" value="${user.telephone}"/>
 							</td>
 						</tr>
 						<tr>
