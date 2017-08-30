@@ -2,6 +2,7 @@ package jp.co.rakus.ecommerce_c.repository;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -58,7 +59,12 @@ public class ItemRepository {
 
 		String loadItemSql = "select id,name,description,price_m,price_l,image_path,deleted from items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-		Item item = template.queryForObject(loadItemSql, param, itemRowMapper);
+		Item item = null;
+		try{			
+			item = template.queryForObject(loadItemSql, param, itemRowMapper);
+		}catch(DataAccessException e){
+			return null;
+		}
 		return item;
 
 	}

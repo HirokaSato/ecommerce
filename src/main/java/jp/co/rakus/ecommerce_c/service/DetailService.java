@@ -39,7 +39,7 @@ public class DetailService {
 	 * @param id 商品ID
 	 * @return item 検索した商品データ
 	 */
-	public Item loadItem(Integer id) {
+	public Item loadItem(long id) {
 		return itemRepository.loadItem(id);
 	}
 
