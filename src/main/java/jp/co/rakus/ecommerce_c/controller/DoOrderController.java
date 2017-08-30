@@ -30,7 +30,7 @@ import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 /**
  * 注文を確定するクラス（注文情報を受け取るクラス).
  * 
- * @author rakus
+ * @author atsuko.yoshino
  *
  */
 @Controller
