@@ -20,6 +20,26 @@
 <body>
 	<div class="container">
 		<%@ include file="./commonNavi.jsp"  %>
+	
+	<%-- カートに商品がない場合 --%>
+	<c:if test="${orderListSize == 0}">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<h3 class="text-center text-danger">カートに商品がありません</h3><br><br>
+					<form:form action="${pageContext.request.contextPath}/top">
+						<button type="submit" class="btn btn-lg btn-block btn-warning">商品一覧へ戻る</button>
+					</form:form>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
+	</c:if>			
+		
+		
+	<%-- カート内商品を表示 --%>
+	<c:if test="${orderListSize != 0}">
 		<!-- table -->
 		<div class="row">
 			<div
@@ -115,7 +135,10 @@
 					</form:form>
 				</div>
 			</div>
-		</div>
+		</div>	
+		
+	</c:if>
+
 	</div>
 	<!-- end container -->
 	<script
