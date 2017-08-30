@@ -66,7 +66,7 @@ public class OrderItemRepository {
 	 * @param orderItem 注文された商品情報
 	 * @return 追加したときに採番されたid情報を加えたOrderItem
 	 */
-	public OrderItem insert(OrderItem orderItem){
+	public OrderItem save(OrderItem orderItem){
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
 		if(orderItem.getId() == 0){			
 			Number key = insert.executeAndReturnKey(param);

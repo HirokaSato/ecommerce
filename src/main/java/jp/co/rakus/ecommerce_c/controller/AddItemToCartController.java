@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommerce_c.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.rakus.ecommerce_c.domain.LoginUser;
 import jp.co.rakus.ecommerce_c.domain.Order;
 import jp.co.rakus.ecommerce_c.domain.OrderItem;
-import jp.co.rakus.ecommerce_c.domain.OrderTopping;
 import jp.co.rakus.ecommerce_c.form.AddToCartForm;
 import jp.co.rakus.ecommerce_c.service.AddItemToCartService;
 
@@ -69,14 +67,15 @@ public class AddItemToCartController {
 				order = addItemToService.saveOrder(order);
 			}
 		}
-
-		// フォームから注文情報を受け取る
-		OrderItem orderItem = addItemToService.saveOrderItem(order, form);
 		
-		// 注文されたトッピング情報からトッピングのListをつくる
-		List<OrderTopping> orderToppingList = addItemToService.saveOrderToppings(form, orderItem);
+		if(!addItemToService.checkDuplicationOrderItem(order, form)){
+			// 注文された商品情報をDBに登録する
+			OrderItem orderItem = addItemToService.saveOrderItem(order, form);
+			// 注文されたトッピング情報をDBに登録する
+			addItemToService.saveOrderToppings(form, orderItem);
+		}
 		
-		Integer totalPrice = addItemToService.getTotalPrice(order.getId(), orderItem.getId(), orderToppingList);
+		Integer totalPrice = addItemToService.getTotalPrice(order.getId(), form);			
 		order.setTotalPrice(totalPrice);
 		addItemToService.saveOrder(order);
 		

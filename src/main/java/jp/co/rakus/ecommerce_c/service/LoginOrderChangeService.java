@@ -65,7 +65,7 @@ public class LoginOrderChangeService {
 		// 取得したOrderItemのオーダーIDをログインユーザの未注文Orderのものに書き換える
 		for(OrderItem orderItem : orderItemList){
 			orderItem.setOrderId(userOrder.getId());
-			orderItemRepository.insert(orderItem);
+			orderItemRepository.save(orderItem);
 		}
 		
 		// 合計金額に追加して、データベースを更新する
