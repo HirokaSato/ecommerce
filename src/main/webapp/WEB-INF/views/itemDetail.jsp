@@ -74,9 +74,12 @@
 										<span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
 									</label>
 										<div class="col-sm-12" >
-										<label class="checkboxes" >
-											<form:checkboxes items="${toppingMap}" path="toppingList" element="label" />
-										</label>
+											<c:forEach items="${toppingList}" var="topping" varStatus="status">
+												<label class="checkbox-inline">
+													<input type="checkbox" name="toppingList" value="${topping.id}"><c:out value="${topping.name}"/>
+												</label>
+												<c:if test="${(status.count+4)%4 == 0}"><br></c:if>
+											</c:forEach>
 										</div>									
 							</div>
 						</div>

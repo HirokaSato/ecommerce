@@ -1,8 +1,6 @@
 package jp.co.rakus.ecommerce_c.controller;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -63,17 +61,10 @@ public class DetailController {
 		if(item == null){
 			return "notFoundItem";
 		}
-			
 		model.addAttribute("item", item);
 				
-		//toppingリストの詳細を表示
 		List<Topping> toppingList = detailService.findAllTopping();
-		Map<Integer, String> toppingMap = new LinkedHashMap<Integer, String>();
-		
-		for(Topping topping : toppingList){
-			toppingMap.put(topping.getId(), topping.getName());
-		}
-		model.addAttribute("toppingMap", toppingMap);
+		model.addAttribute("toppingList", toppingList);
 		return "itemDetail";
 
 	}
