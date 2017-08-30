@@ -1,6 +1,5 @@
 package jp.co.rakus.ecommerce_c.form;
 
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -24,12 +23,10 @@ public class UserForm {
 	@NotBlank(message="住所を入力してください")
 	private String address;
 	/** 電話番号 */
-	@NotNull(message="電話番号を入力してください")
 	@Length(min=10,max=11,message="電話番号を入力してください")
 	private String telephone;
 	/** パスワード */
 	@NotBlank(message="パスワードを入力してください")
-	@Length(min=8,message="パスワードは8文字以上で登録してください")
 	private String password;
 	/** 再入力パスワード */
 	@NotBlank(message="確認用パスワードを入力してください")

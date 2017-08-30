@@ -66,11 +66,18 @@ public class RegisterUserController {
 		// 入力値チェック
 		if(!form.getPassword().isEmpty()){
 			// パスワードが8文字以上か
-			if(form.getPassword().length() >= 8){
+			if(form.getPassword().length() < 8){
+				result.rejectValue("password", null, "パスワードは8文字以上に設定してください");
+			}else{
 				if(!form.getPassword().equals(form.getReInputPassword())){
 					result.rejectValue("password", null, "確認欄と異なるパスワードが入力されました");
 				}
 			}
+		}
+		try{
+			if(!form.getTelephone().isEmpty())Integer.parseInt(form.getTelephone());
+		}catch(NumberFormatException e){
+			result.rejectValue("telephone", null, "数字で入力してください");
 		}
 		if(regiseterUserService.findByEmail(form.getEmail()) != null){
 			result.rejectValue("email", null, "そのメールアドレスはすでに使われています");

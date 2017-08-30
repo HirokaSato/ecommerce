@@ -81,14 +81,16 @@ public class AddItemToCartService {
 	 */
 	public List<OrderTopping> saveOrderToppings(AddToCartForm form, OrderItem orderItem){
 		List<OrderTopping> orderToppingList = new ArrayList<>();
-		for(Integer orderToppingId : form.getToppingList()){
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setToppingId(orderToppingId);
-			orderTopping.setOrderItemId(orderItem.getId());
-			orderToppingList.add(orderTopping);
-		}
-		for(OrderTopping orderTopping : orderToppingList){
-			orderToppingRepository.insert(orderTopping);
+		if(form.getToppingList() != null){
+			for(Integer orderToppingId : form.getToppingList()){
+				OrderTopping orderTopping = new OrderTopping();
+				orderTopping.setToppingId(orderToppingId);
+				orderTopping.setOrderItemId(orderItem.getId());
+				orderToppingList.add(orderTopping);
+			}
+			for(OrderTopping orderTopping : orderToppingList){
+				orderToppingRepository.insert(orderTopping);
+			}
 		}
 		return orderToppingList;
 	}
@@ -112,23 +114,24 @@ public class AddItemToCartService {
 		
 		Integer itemPrice = 0;
 		// MかLを判別して、それぞれの価格を取得する
-		if(orderItem.getSize().equals("M")){			
+		if(orderItem.getSize().equals("M")){	
 			itemPrice = itemRepository.loadItem(orderItem.getItemId()).getPriceM();
 		}else if(orderItem.getSize().equals("L")){
 			itemPrice = itemRepository.loadItem(orderItem.getItemId()).getPriceL();
 		}
 		
 		List<OrderTopping> orderToppingList = new ArrayList<>();
-		for(Integer orderToppingId : form.getToppingList()){
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setToppingId(orderToppingId);
-			orderToppingList.add(orderTopping);
+		if(form.getToppingList() != null){
+			for(Integer orderToppingId : form.getToppingList()){
+				OrderTopping orderTopping = new OrderTopping();
+				orderTopping.setToppingId(orderToppingId);
+				orderToppingList.add(orderTopping);
+			}
 		}
-		
 		// トッピング分を商品価格に加算する
 		for(OrderTopping orderTopping : orderToppingList){
 			Topping topping = toppingRepository.findByToppingId(orderTopping.getToppingId());
-			if(orderItem.getSize().equals("M")){			
+			if(orderItem.getSize().equals("M")){
 				itemPrice += topping.getPriceM();
 			}else if(orderItem.getSize().equals("L")){
 				itemPrice += topping.getPriceL();
@@ -156,10 +159,12 @@ public class AddItemToCartService {
 		orderItem.setItemId(form.getIntItemId());
 		orderItem.setSize(form.getSize());
 		List<OrderTopping> orderToppingList = new ArrayList<>();
-		for(Integer orderToppingId : form.getToppingList()){
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setToppingId(orderToppingId);
-			orderToppingList.add(orderTopping);
+		if(form.getToppingList() != null){
+			for(Integer orderToppingId : form.getToppingList()){
+				OrderTopping orderTopping = new OrderTopping();
+				orderTopping.setToppingId(orderToppingId);
+				orderToppingList.add(orderTopping);
+			}			
 		}
 		
 		boolean check = false;
