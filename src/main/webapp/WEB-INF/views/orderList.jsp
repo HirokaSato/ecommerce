@@ -7,8 +7,8 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-2.1.0.min.js" type="text/javascript"></script>
-<script src="https://jpostal-1006.appspot.com/jquery.jpostal.js" type="text/javascript"></script><%--郵便自動入力のためのプラグイン--%>
+<%--郵便自動入力のためのプラグイン--%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/searchZipCode.js"></script>
 <title>ピザ屋のネット注文</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
@@ -146,7 +146,7 @@
 								<form:errors path="zipcode" cssStyle="color:red" element="div"/>
 								<div class="errors"><c:out value="${errors3}"/></div>
 								<form:input path="zipcode" id ="zipcode"/>
-								&nbsp;&nbsp;<button id="searchZipcode">住所検索</button>
+								&nbsp;&nbsp;<input type="button" id="searchZipcode" value="住所検索"></input>
 							</td>
 						</tr>
 						<tr>
@@ -158,6 +158,7 @@
 							<td>
 								<form:errors path="address" cssStyle="color:red" element="div"/>
 								<form:input  path="address" id="address" value="${user.address}"/>
+								&nbsp;&nbsp;<input type="button" id="searchAddress" value="郵便番号検索"></input>
 							</td>
 						</tr>
 						<tr>
@@ -299,8 +300,7 @@
 
 	</div>
 	<!-- end container -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </body>
 </html>
