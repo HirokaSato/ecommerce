@@ -20,6 +20,9 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<p class="navbar-text navbar-right">
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.user.name"/>&nbsp;さん、いらっしゃいませ！&nbsp;&nbsp;||&nbsp;&nbsp;
+						</sec:authorize>
 						<a href="${pageContext.request.contextPath}/viewCartList" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
 						<sec:authorize access="isAnonymous()">
 							<a href="${pageContext.request.contextPath}/login" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
