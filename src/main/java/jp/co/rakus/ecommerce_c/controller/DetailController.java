@@ -46,13 +46,24 @@ public class DetailController {
 	 * @return　商品詳細の画面
 	 */	
 	@RequestMapping("/detail")
-	public String detailOfItem(Integer id, Model model) {
+	public String detailOfItem(String id, Model model) {
 		if(session.getAttribute("randomSessionId") == null){
 			session.setAttribute("randomSessionId", new Random().nextInt(1147483640)+1000000000);
 		}
-
+		
+		long intId = 0;
+		try{			
+			intId = Long.parseLong(id);
+		}catch(NumberFormatException e){
+			return "notFoundItem";
+		}
+		
 		//idを元に商品詳細を表示
-		Item item = detailService.loadItem(id);
+		Item item = detailService.loadItem(intId);
+		if(item == null){
+			return "notFoundItem";
+		}
+			
 		model.addAttribute("item", item);
 				
 		//toppingリストの詳細を表示
