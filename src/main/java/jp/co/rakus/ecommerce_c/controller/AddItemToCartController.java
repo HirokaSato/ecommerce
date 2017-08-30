@@ -46,7 +46,7 @@ public class AddItemToCartController {
 	 */
 	@RequestMapping
 	public String addToCart(AddToCartForm form, @AuthenticationPrincipal LoginUser loginUser){
-		Order order = null;;
+		Order order = null;
 		// ユーザがログインしていればOrderテーブルにそのユーザIDを挿入する
 		// ゲスト状態のときはセッションIDを仮に入れる
 		if(loginUser == null){

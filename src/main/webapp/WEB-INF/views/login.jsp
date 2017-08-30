@@ -53,9 +53,11 @@
 							<legend>
 								ログイン
 							</legend>
+							<c:if test="${error != null}">
+								<label class="control-label" style="color: red" for="inputError"><c:out value="${error}"/></label>
+							</c:if>
 							<div class="form-group">
 								<label for="inputEmail">メールアドレス:</label>
-								<label class="control-label" style="color: red" for="inputError"><c:out value="${error}"/></label>
 								<form:input path="email" id="inputEmail" class="form-control" placeholder="Email"/>
 							</div>
 							<div class="form-group">
