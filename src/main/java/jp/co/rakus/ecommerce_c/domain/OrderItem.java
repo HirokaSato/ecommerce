@@ -23,8 +23,8 @@ public class OrderItem {
 	/** 商品 **/
 	private Item item;
 	/** トッピングリスト **/
-	private List<OrderTopping> orderToppingList;
-	
+	private List<OrderTopping> orderToppingList;	
+	/** 小計 **/
 	private Integer subTotalPrice;
 
 	//テスト用
@@ -59,19 +59,13 @@ public class OrderItem {
 		return subtotal;
 	}
 	
-	
-
 	public Integer getSubTotalPrice() {
 		return subTotalPrice;
 	}
 
-
-
 	public void setSubTotalPrice(Integer subTotalPrice) {
 		this.subTotalPrice = subTotalPrice;
 	}
-
-
 
 	public long getId() {
 		return id;

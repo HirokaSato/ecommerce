@@ -30,8 +30,8 @@ public class DeleteItemFromCartListService {
 	 * 実行メソッド.
 	 */
 	
-							//　　ﾕｰｻﾞID　　注文商品ID　　　　　　　　　商品ID　　　　　　　　　　　　　小計  
-	public void execute(Integer userId,Integer id,/*Integer orderItemId,*/Integer subTotalPrice){ 
+						//　　ﾕｰｻﾞID　　      注文商品ID　　　　　　　　　  　小計  
+	public void execute(Integer userId,Integer id,Integer subTotalPrice){ 
 		
 		//orderテーブルの金額合計を取得
 		Order order = new Order();
