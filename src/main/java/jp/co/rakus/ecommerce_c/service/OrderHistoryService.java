@@ -73,8 +73,8 @@ public class OrderHistoryService {
 					Topping topping = toppingRepository.findByToppingId(orderTopping.getToppingId());
 					orderTopping.setTopping(topping);
 				}
-
 				orderItem.setOrderToppingList(orderToppingList);
+				orderItem.setSubTotalPrice(orderItem.getSubTotal());
 			}
 			order.setOrderItemList(orderItemList);
 		}
