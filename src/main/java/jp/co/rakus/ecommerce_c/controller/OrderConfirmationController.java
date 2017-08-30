@@ -76,8 +76,7 @@ public class OrderConfirmationController {
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
-		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		System.out.println(today);
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//過去日で配達日を指定しないようにするため。
 		model.addAttribute("today",today);
 		
 		

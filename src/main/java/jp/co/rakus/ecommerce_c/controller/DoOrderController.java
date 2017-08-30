@@ -1,6 +1,8 @@
 package jp.co.rakus.ecommerce_c.controller;
 
 import java.text.ParseException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,23 @@ public class DoOrderController {
 	 */
 	@RequestMapping("/order")
 	public String insert(@Validated OrderForm form,BindingResult result,@AuthenticationPrincipal LoginUser loginUser,Model model) throws ParseException{
+		boolean errors = false;
 		if(result.hasErrors()){
+			errors = true;
+		}
+		
+		LocalTime nowLocalTime = LocalTime.now();
+		LocalTime conditionTime = nowLocalTime.plusHours(1);
+		String[] timeList = form.getDeliveryTime().split(":");
+		int integerDeliveryTime =Integer.parseInt(timeList[0]);
+		LocalTime deliveryTime = LocalTime.of(integerDeliveryTime,0);
+		System.out.println("希"+deliveryTime+"現在"+conditionTime);
+		if(deliveryTime.isBefore(conditionTime)){
+			model.addAttribute("errors", "現在から１時間以降の日時を選択してください。");
+			errors =true;
+		}
+		
+		if(errors == true){
 			return index(loginUser,model);
 		}
 		Order order = new Order();
@@ -110,6 +128,7 @@ public class DoOrderController {
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
+		
 		// 注文完了メールを送信する(機能していないのでコメントアウトします)
 //		sendMail(order); 
 		return "orderList";
