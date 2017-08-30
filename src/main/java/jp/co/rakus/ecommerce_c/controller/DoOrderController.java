@@ -3,7 +3,6 @@ package jp.co.rakus.ecommerce_c.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,26 +66,31 @@ public class DoOrderController {
 			errors = true;
 		}
 		
-		LocalDateTime nowLocalDateTime = LocalDateTime.now();
-		LocalDateTime conditionDateTime = nowLocalDateTime.plusHours(1);
-		String[] timeList = form.getDeliveryTime().split(":");
-		int integerDeliveryTimeList[] = new int[3];
-		for(int i =0;i<3;i++){
-			integerDeliveryTimeList[i] = Integer.parseInt(timeList[i]);
-		}
-		String[] dateList = form.getDeliveryDate().split("-");
-		int integerDeliveryDateList[] = new int[3];
-		for(int i =0;i<3;i++){
-			integerDeliveryDateList[i] = Integer.parseInt(dateList[i]);
-		}
-		LocalDateTime deliveryDateTime = LocalDateTime.of(integerDeliveryDateList[0], integerDeliveryDateList[1], integerDeliveryDateList[2], integerDeliveryTimeList[0],integerDeliveryTimeList[1],integerDeliveryTimeList[2]);
-		if(deliveryDateTime.isBefore(conditionDateTime)){
-			model.addAttribute("errors", "現在から１時間以降の日時を選択してください。");
-			errors =true;
+		try{
+			LocalDateTime nowLocalDateTime = LocalDateTime.now();
+			LocalDateTime conditionDateTime = nowLocalDateTime.plusHours(1);
+			String[] timeList = form.getDeliveryTime().split(":");
+			int integerDeliveryTimeList[] = new int[3];
+			for(int i =0;i<3;i++){
+				integerDeliveryTimeList[i] = Integer.parseInt(timeList[i]);
+			}
+			String[] dateList = form.getDeliveryDate().split("-");
+			int integerDeliveryDateList[] = new int[3];
+			for(int i =0;i<3;i++){
+				integerDeliveryDateList[i] = Integer.parseInt(dateList[i]);
+			}
+			LocalDateTime deliveryDateTime = LocalDateTime.of(integerDeliveryDateList[0], integerDeliveryDateList[1], integerDeliveryDateList[2], integerDeliveryTimeList[0],integerDeliveryTimeList[1],integerDeliveryTimeList[2]);
+			if(deliveryDateTime.isBefore(conditionDateTime)){
+				model.addAttribute("errors", "現在から１時間以降の日時を選択してください。");
+				errors =true;
+			}
+		}catch(NullPointerException e){
+			
+			errors = true;
 		}
 		
 		try{
-			Integer.parseInt(form.getTelNumber());
+			Long.parseLong(form.getTelNumber());
 		}catch(NumberFormatException e){
 			model.addAttribute("errors2", "数字を入れてください");
 			errors = true;
