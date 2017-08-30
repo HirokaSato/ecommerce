@@ -1,9 +1,11 @@
 package jp.co.rakus.ecommerce_c.controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,20 +67,42 @@ public class DoOrderController {
 			errors = true;
 		}
 		
-		LocalTime nowLocalTime = LocalTime.now();
-		LocalTime conditionTime = nowLocalTime.plusHours(1);
+		LocalDateTime nowLocalDateTime = LocalDateTime.now();
+		LocalDateTime conditionDateTime = nowLocalDateTime.plusHours(1);
 		String[] timeList = form.getDeliveryTime().split(":");
-		int integerDeliveryTime =Integer.parseInt(timeList[0]);
-		LocalTime deliveryTime = LocalTime.of(integerDeliveryTime,0);
-		System.out.println("希"+deliveryTime+"現在"+conditionTime);
-		if(deliveryTime.isBefore(conditionTime)){
+		int integerDeliveryTimeList[] = new int[3];
+		for(int i =0;i<3;i++){
+			integerDeliveryTimeList[i] = Integer.parseInt(timeList[i]);
+		}
+		String[] dateList = form.getDeliveryDate().split("-");
+		int integerDeliveryDateList[] = new int[3];
+		for(int i =0;i<3;i++){
+			integerDeliveryDateList[i] = Integer.parseInt(dateList[i]);
+		}
+		LocalDateTime deliveryDateTime = LocalDateTime.of(integerDeliveryDateList[0], integerDeliveryDateList[1], integerDeliveryDateList[2], integerDeliveryTimeList[0],integerDeliveryTimeList[1],integerDeliveryTimeList[2]);
+		if(deliveryDateTime.isBefore(conditionDateTime)){
 			model.addAttribute("errors", "現在から１時間以降の日時を選択してください。");
 			errors =true;
+		}
+		
+		try{
+			Integer.parseInt(form.getTelNumber());
+		}catch(NumberFormatException e){
+			model.addAttribute("errors2", "数字を入れてください");
+			errors = true;
+		}
+		
+		try{
+			Integer.parseInt(form.getZipcode());
+		}catch(NumberFormatException e){
+			model.addAttribute("errors3", "７桁の数字を入れてください");
+			errors = true;
 		}
 		
 		if(errors == true){
 			return index(loginUser,model);
 		}
+		
 		Order order = new Order();
 		order.setDestinationName(form.getName());
 		order.setDestinationEmail(form.getEmail());
@@ -114,20 +138,21 @@ public class DoOrderController {
 			List<OrderTopping> orderToppingList = orderConfirmationService.toppingFindByOrderItemId(orderItem.getId());
 			List<OrderTopping> doOrderToppingList = new ArrayList<>();
 			for(OrderTopping orderTopping :orderToppingList){
-					
-					int toppingId = orderTopping.getToppingId();
-					Topping topping = orderConfirmationService.toppingFindByToppingId(toppingId);
-					orderTopping.setTopping(topping);
-					doOrderToppingList.add(orderTopping);
+				int toppingId = orderTopping.getToppingId();
+				Topping topping = orderConfirmationService.toppingFindByToppingId(toppingId);
+				orderTopping.setTopping(topping);
+				doOrderToppingList.add(orderTopping);
 			}
 			orderItem.setOrderToppingList(doOrderToppingList);
-			}
+		}
 		
 		model.addAttribute("orderItemList",orderItemList);
 		order.setOrderItemList(doOrderItemList);
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//過去日で配達日を指定しないようにするため。
+		model.addAttribute("today",today);
 		
 		// 注文完了メールを送信する(機能していないのでコメントアウトします)
 //		sendMail(order); 
