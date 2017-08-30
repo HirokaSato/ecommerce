@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -74,28 +76,37 @@
 								</td>
 								<td><span class="price"> <c:out value="${orderItem.size}" />&nbsp;</span>
 								&nbsp;&nbsp;
-								<c:if test="${orderItem.size == 'M'}"><c:out value="${orderItem.item.priceM}" /></c:if>
+								<c:if test="${orderItem.size == 'M'}">
+									<fmt:formatNumber value="${orderItem.item.priceM}" pattern="###,###"/>
+								</c:if>
 								<c:if test="${orderItem.size == 'L'}">
-									<c:out value="${orderItem.item.priceL}" />
-								</c:if>円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個</td>
-								<td>
+									<fmt:formatNumber value="${orderItem.item.priceL}" pattern="###,###"/>
+								</c:if>円 
+								&nbsp;&nbsp;
+								<fmt:formatNumber value="${orderItem.quantity}" pattern="###,###"/>個</td>
+								
+								<td>								
 									<ul>
-										<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">
-											<li><c:out value="${orderTopping.topping.name}" />
-											<c:if test="${orderItem.size=='M'}">
-												<c:out value="${orderTopping.topping.priceM}" />
-											</c:if> 
-											<c:if test="${orderItem.size=='L'}">
-												<c:out value="${orderTopping.topping.priceL}" />
-											</c:if>
-											円
+									<%-- トッピング無の場合 --%>	
+										<c:if test="${fn:length(orderItem.orderToppingList) == 0}">トッピング無し</c:if>
+									<%-- トッピング有の場合 --%>
+										<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">		
+											<li>
+												<c:out value="${orderTopping.topping.name}" />
+												<c:if test="${orderItem.size=='M'}">
+													<fmt:formatNumber value="${orderTopping.topping.priceM}" pattern="###,###"/>
+												</c:if> 
+												<c:if test="${orderItem.size=='L'}">
+													<fmt:formatNumber value="${orderTopping.topping.priceL}" pattern="###,###"/>
+												</c:if>
+												円
 											</li>
 										</c:forEach>
-									</ul>
+									</ul>										
 								</td>
 								<td>
 									<div class="text-center">
-										<c:out value="${orderItem.subTotalPrice}" />
+										<fmt:formatNumber value="${orderItem.subTotalPrice}" pattern="###,###"/>
 										円
 									</div>
 								</td>
@@ -120,8 +131,8 @@
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
 					<span id="total-price">
-					消費税：<c:out value="${tax}" />円</span><br>
-					<span id="total-price">ご注文金額合計：<c:out value="${totalPrice}" />円(税込)</span>
+					消費税：<fmt:formatNumber value="${tax}" pattern="###,###"/>円</span><br>
+					<span id="total-price">ご注文金額合計：<fmt:formatNumber value="${totalPrice}" pattern="###,###"/>円(税込)</span>
 				</div>
 			</div>
 		</div>
