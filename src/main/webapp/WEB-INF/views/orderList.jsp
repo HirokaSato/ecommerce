@@ -6,7 +6,9 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="js/ajaxzip3.js" charset="UTF-8"></script>
+<script src="https://code.jquery.com/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="https://jpostal-1006.appspot.com/jquery.jpostal.js" type="text/javascript"></script><%--郵便自動入力のためのプラグイン--%>
+<script src="${pageContext.request.contextPath}/js/searchZipCode.js"></script>
 <title>ピザ屋のネット注文</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/piza.css" rel="stylesheet">
@@ -140,8 +142,8 @@
 							</td>
 							<td>
 								<form:errors path="zipcode" cssStyle="color:red" element="div"/>
-								<form:input path="zipcode" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');"/>
-								&nbsp;&nbsp;<button id="searchZipcode" >住所検索</button>
+								<form:input path="zipcode" id ="zipcode"/>
+								&nbsp;&nbsp;<button id="searchZipcode">住所検索</button>
 							</td>
 						</tr>
 						<tr>
@@ -152,7 +154,7 @@
 							</td>
 							<td>
 								<form:errors path="address" cssStyle="color:red" element="div"/>
-								<form:input  path="address"/>
+								<form:input  path="address" id="address"/>
 							</td>
 						</tr>
 						<tr>

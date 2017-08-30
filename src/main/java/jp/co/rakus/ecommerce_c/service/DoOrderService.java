@@ -25,9 +25,9 @@ public class DoOrderService {
 			order.setOrderDate(date);
 			//支払方法からの状態変更
 			if(order.getPaymentMethod()==1){
-				order.setStatus(2);//未入金
+				order.setStatus(1);//未入金
 			}else if(order.getPaymentMethod()==2){
-				order.setStatus(3);//入金済み
+				order.setStatus(2);//入金済み
 			}else{
 				order.setStatus(4);//キャンセル
 			}
