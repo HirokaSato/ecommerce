@@ -6,9 +6,9 @@ import java.text.ParseException;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
 
 /**
  * 注文情報を受け取るフォーム.
@@ -25,13 +25,15 @@ public class OrderForm {
 	@Email(message="メールアドレスの入力が不正です")
 	private String email;
 	/**宛先郵便番号*/
-	@NotEmpty(message="郵便番号を入力してください")
+	@NotNull(message="郵便番号を入力してください")
+	@Length(min=7,max=7,message="郵便番号を入力してください")
 	private String zipcode;
 	/**宛先住所*/
 	@NotEmpty(message="住所入力は必須です")
 	private String address;
 	/**宛先電話番号*/
-	@NotEmpty(message="電話番号は必須です")
+	@NotNull(message="電話番号を入力してください")
+	@Length(min=10,max=11,message="電話番号を入力してください")
 	private String telNumber;
 	/**配達日*/
 	@NotEmpty(message="配達希望日を入力してください")
