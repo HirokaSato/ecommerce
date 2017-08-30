@@ -46,11 +46,16 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<h3 class="text-center">注文履歴</h3>
-				
+				<h1 class="text-center">注文履歴</h1>
+				<br>
+			
+			</div>
+		</div>
+		<div class="row">
+			<div
+				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<table class="table table-striped">
-					<tbody>
-						<c:forEach var="orderList" items="${orderList}">
+				<c:forEach var="order" items="${orderList}">
 						<tr>
 							<th>
 								<div class="text-center">
@@ -59,20 +64,13 @@
 							</th>
 							<th>
 								<div class="text-center">									
-									<fmt:formatDate value="${orderList.orderDate}" pattern="yyyy年MM月dd日"/>								
+									<fmt:formatDate value="${order.orderDate}" pattern="yyyy年MM月dd日"/>								
 								</div>
-							</th>							
+							</th>	
+							<th></th><th></th>						
 						</tr>
-						</c:forEach>							
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="row">
-			<div
-				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-			
-				<table class="table table-striped">
+
+
 					<tbody>
 						<tr>
 							<th>
@@ -96,59 +94,68 @@
 								</div>
 							</th>
 						</tr>
-						<c:forEach var="orderList" items="${orderList}">
-							<tr>
-								<td>
-									<div class="center">
-										<img src="${item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br>
-										<c:out value="${item.name}" />
+						
+						
+					
+								<c:forEach var="orderItem" items="${order.orderItemList}">
 									
-										<br>
-									</div>
-								</td>
-								<td><span class="price">
-									<c:out value="${orderItemHistory.size}" />&nbsp;</span>&nbsp;&nbsp;&nbsp;
-									<c:if test="${orderItemHistory.size=='M'}">
-										<c:out value="${item.priceM}" />
-									</c:if> 
-									<c:if test="${orderItemHistory.size=='L'}">
-										<c:out value="${item.priceL}" />
-									</c:if>
-										円 &nbsp;&nbsp;
-									<c:out value="${orderItemHistory.quantity}" />個
-								</td>
-
-
-								<td>
-									<ul>
-										<c:forEach var="orderToppingHistory" items="${orderToppingHistory}">
-											<c:out value="${orderToppingHistory.toppingId}"/>
-										</c:forEach>
-											<c:if test="${orderItemHistory.size=='M'}">
-												<c:out value="${topping.priceM}"/>
-											</c:if>
-											<c:if test="${orderItemHistory.size=='L'}">
-												<c:out value="${topping.priceM}" />
-											</c:if>											
-									</ul>
-								</td>		
-								<td>
-									<div class="text-center">
-										<c:forEach var="orderHistory" items="${orderHistory}">
-										<c:out value="${orderHistory.totalPrice}" />
-										</c:forEach>
-										円
-									</div>
-								</td>
-								
-							</tr>
-						</c:forEach>	
+									<tr>
+										<td>
+											<div class="center">
+												<img src="${orderItem.item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br>
+												<c:out value="${orderItem.item.name}" /><br>
+											</div>
+										</td>
+										<td><span class="price">
+												<c:out value="${orderItem.size}" />&nbsp;</span>&nbsp;&nbsp;&nbsp;
+												<c:if test="${orderItem.size=='M'}">
+													<fmt:formatNumber value="${orderItem.item.priceM}" pattern="###,###"/>
+												</c:if> 
+												<c:if test="${orderItem.size=='L'}">
+													<fmt:formatNumber value="${orderItem.item.priceL}" pattern="###,###"/>
+												</c:if>円 &nbsp;&nbsp;
+												<c:out value="${orderItem.quantity}" />個
+										</td>
+										<td>
+											<ul>
+											<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">
+												<c:out value="${orderTopping.topping.name}"/>
+												
+													<c:if test="${orderItem.size=='M'}">
+												<c:out value="${orderTopping.topping.priceM}"/>円
+												</c:if>
+												<c:if test="${orderItem.size=='L'}">
+													<c:out value="${orderTopping.topping.priceL}" />円
+												</c:if>	
+												<br>
+											</c:forEach>										
+											</ul>
+										</td>		
+										<td>
+											<div class="text-center">
+											<fmt:formatNumber value="${order.totalPrice}" pattern="###,###"/>円
+											</div>
+										</td>
+									</tr>
+					
+								</c:forEach>	
+							</c:forEach>
+						
 					</tbody>
 				</table>
 			</div>
 		</div>
-
-
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<a href ="${pageContext.request.contextPath}/top">
+						<input type="button" class="btn btn-lg btn-block btn-warning" value="商品一覧へ戻る">
+					</a>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
 </div>
 </body>
 </html>

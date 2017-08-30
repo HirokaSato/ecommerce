@@ -17,7 +17,7 @@ import jp.co.rakus.ecommerce_c.repository.OrderToppingRepository;
 import jp.co.rakus.ecommerce_c.repository.ToppingRepository;
 
 /**
- * 注文履歴を表示するサービスクラ.
+ * 注文履歴を表示するサービスクラス.
  * 
  * @author ryo.kamiyama
  *
@@ -42,6 +42,12 @@ public class OrderHistoryService {
 	@Autowired
 	private ToppingRepository toppingRepository;
 
+	/**
+	 * 注文履歴を表示する.
+	 * 
+	 * @param ユーザーID
+	 * @return オーダーリスト
+	 */
 	public List<Order> execute(long userId) {
 
 		// オーダー情報を入手
@@ -52,17 +58,15 @@ public class OrderHistoryService {
 
 			// オーダーIdを元にオーダーアイテム情報を入手
 			List<OrderItem> orderItemList = orderItemRepository.findByOrderId(orderId);
-
 			for (OrderItem orderItem : orderItemList) {
 
 				// アイテムIdを元にアイテム情報を入手して、orderItemにセット
 				Item item = itemRepository.loadItem(orderItem.getItemId());
 				orderItem.setItem(item);
 
-				// オーダーIdを元にオーダートッピン情報を入手。
+				// オーダーIdを元にオーダートッピング情報を入手。
 				long orderItemId = orderItem.getId();
 				List<OrderTopping> orderToppingList = orderToppingRepository.findByOrderItemId(orderItemId);
-
 				for (OrderTopping orderTopping : orderToppingList) {
 
 					// トッピングIdを元にトッピング情報を入手して、orderToppingにセット
