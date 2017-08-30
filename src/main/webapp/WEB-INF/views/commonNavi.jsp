@@ -25,7 +25,7 @@
 							<a href="${pageContext.request.contextPath}/login" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-							<a href="${pageContext.request.contextPath}/orderHistory" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+							<!-- <a href="${pageContext.request.contextPath}/orderHistory" class="navbar-link">注文履歴</a>&nbsp;&nbsp; -->
 							<a href="${pageContext.request.contextPath}/logout" class="navbar-link">ログアウト</a>
 						</sec:authorize>
 					</p>
