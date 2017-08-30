@@ -17,7 +17,7 @@ import jp.co.rakus.ecommerce_c.repository.OrderToppingRepository;
 import jp.co.rakus.ecommerce_c.repository.ToppingRepository;
 
 /**
- * 注文履歴を表示するサービスクラス
+ * 注文履歴を表示するサービスクラ.
  * 
  * @author ryo.kamiyama
  *
@@ -35,59 +35,45 @@ public class OrderHistoryService {
 
 	@Autowired
 	private OrderToppingRepository orderToppingRepository;
-	
+
 	@Autowired
 	private ItemRepository itemRepository;
-	
+
 	@Autowired
 	private ToppingRepository toppingRepository;
 
-	/**
-	 * 注文履歴をユーザーIDで検索.
-	 * @param userId ユーザーID          
-	 * @return 取得した注文履歴のデータ、取得できなければnull
-	 */
-	public List<Order> finfByUserId(long userId) {
-		return orderRepository.finfByUserId(userId);
+	public List<Order> execute(long userId) {
 
-	}
+		// オーダー情報を入手
+		List<Order> orderList = orderRepository.finfByUserId(userId);
 
-	/**
-	 * IDで注文商品を検索する.
-	 * @param id 検索対象ID
-	 * @return 照合された注文商品情報、なければnull
-	 */
-	public OrderItem findById(long id) {
-		return orderItemRepository.findById(id);
-	}
+		for (Order order : orderList) {
+			long orderId = order.getId();
 
-	/**
-	 * 注文商品IDからトッピングリストを取得.
-	 * @param orderItemId 注文商品ID
-	 * @return 注文商品に紐づけられたトッピングリスト
-	 */
+			// オーダーIdを元にオーダーアイテム情報を入手
+			List<OrderItem> orderItemList = orderItemRepository.findByOrderId(orderId);
 
-	public List<OrderTopping> findByOrderItemId(long orderItemId) {
-		return orderToppingRepository.findByOrderItemId(orderItemId);
+			for (OrderItem orderItem : orderItemList) {
 
-	}
-	
-	/**
-	 * 商品IDを元に商品情報を検索する.
-	 * @param id　商品ID
-	 * @return item 検索した商品データ
-	 */
-	
-	public Item loadItem(long itemId) {
-		return itemRepository.loadItem(itemId);
-	}
-	
-	/**
-	 * idでトッピング情報を取得する.
-	 * @param toppingId トッピングID
-	 * @return トッピング情報
-	 */
-	public Topping findByToppingId(Integer toppingId){
-		return toppingRepository.findByToppingId(toppingId);
+				// アイテムIdを元にアイテム情報を入手して、orderItemにセット
+				Item item = itemRepository.loadItem(orderItem.getItemId());
+				orderItem.setItem(item);
+
+				// オーダーIdを元にオーダートッピン情報を入手。
+				long orderItemId = orderItem.getId();
+				List<OrderTopping> orderToppingList = orderToppingRepository.findByOrderItemId(orderItemId);
+
+				for (OrderTopping orderTopping : orderToppingList) {
+
+					// トッピングIdを元にトッピング情報を入手して、orderToppingにセット
+					Topping topping = toppingRepository.findByToppingId(orderTopping.getToppingId());
+					orderTopping.setTopping(topping);
+				}
+
+				orderItem.setOrderToppingList(orderToppingList);
+			}
+			order.setOrderItemList(orderItemList);
+		}
+		return orderList;
 	}
 }
