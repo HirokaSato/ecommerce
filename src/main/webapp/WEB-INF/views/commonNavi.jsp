@@ -23,6 +23,9 @@
 						<sec:authorize access="isAuthenticated()">
 							<strong><sec:authentication property="principal.user.name"/>&nbsp;さん、いらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
 						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+							<strong>ゲスト さんいらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+						</sec:authorize>
 						<a href="${pageContext.request.contextPath}/viewCartList" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
 						<sec:authorize access="isAnonymous()">
 							<a href="${pageContext.request.contextPath}/login" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
