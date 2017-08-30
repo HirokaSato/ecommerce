@@ -61,6 +61,7 @@ public class ViewCartListController {
 		}
 		
 		order = viewCartListservice.execute(order.getUserId());
+		model.addAttribute("orderListSize",order.getOrderItemList().size());
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("totalPrice", order.getCalcTotalPrice());
 		model.addAttribute("order", order);
