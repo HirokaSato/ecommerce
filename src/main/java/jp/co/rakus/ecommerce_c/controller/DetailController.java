@@ -41,10 +41,10 @@ public class DetailController {
 	
 	/**
 	 * 商品の詳細を表示する
-	 * 
+	 * @param id 商品ID
+	 * @param model モデル
 	 * @return　商品詳細の画面
 	 */	
-
 	@RequestMapping("/detail")
 	public String detailOfItem(Integer id, Model model) {
 		if(session.getAttribute("randomSessionId") == null){
@@ -52,7 +52,7 @@ public class DetailController {
 		}
 
 		//idを元に商品詳細を表示
-		Item item = detailService.load(id);
+		Item item = detailService.loadItem(id);
 		model.addAttribute("item", item);
 				
 		//toppingリストの詳細を表示
@@ -64,6 +64,6 @@ public class DetailController {
 		}
 		model.addAttribute("toppingMap", toppingMap);
 		return "itemDetail";
-	
-	}	
+
+	}
 }	

@@ -8,7 +8,7 @@ import jp.co.rakus.ecommerce_c.domain.Item;
 import jp.co.rakus.ecommerce_c.repository.ItemRepository;
 
 /**
- * 商品関連のサービスクラス.
+ * Top画面を表示するサービスクラス.
  * 
  * @author ryo.kamiyama
  *
@@ -25,8 +25,8 @@ public class TopService {
 	 * 商品内容を全件表示
 	 * @return 取得した全てのデータ
 	 */
-	public List<Item> findAll() {
-		return itemRepository.findAll();
+	public List<Item> findAllItem() {
+		return itemRepository.findAllItem();
 
 	}
 }

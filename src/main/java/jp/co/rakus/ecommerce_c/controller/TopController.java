@@ -30,7 +30,7 @@ public class TopController {
 
 	/**
 	 * 初期画面を表示する
-	 * 
+	 * @param model モデル
 	 * @return　Top画面
 	 */
 	@RequestMapping("/top")
@@ -38,7 +38,7 @@ public class TopController {
 		if(session.getAttribute("randomSessionId") == null){
 			session.setAttribute("randomSessionId", new Random().nextInt(1147483640)+1000000000);
 		}
-		List<Item> itemList = itemService.findAll();
+		List<Item> itemList = itemService.findAllItem();
 		model.addAttribute("itemList", itemList);
 		return "itemList";
 	}

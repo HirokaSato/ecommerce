@@ -9,6 +9,13 @@ import jp.co.rakus.ecommerce_c.domain.Topping;
 import jp.co.rakus.ecommerce_c.repository.ItemRepository;
 import jp.co.rakus.ecommerce_c.repository.ToppingRepository;
 
+/**
+ * 詳細画面を表示するサービスクラス.
+ * 
+ * @author ryo.kamiyama
+ *
+ */
+
 @Service
 @Transactional
 public class DetailService {
@@ -21,7 +28,6 @@ public class DetailService {
 
 	/**
 	 * トッピング情報を全件表示する
-	 * 
 	 * @return toppingList toppingsテーブル全てのデータ
 	 */
 	public List<Topping> findAllTopping() {
@@ -30,12 +36,11 @@ public class DetailService {
 	
 	/**
 	 * 商品IDを元に商品情報を検索する.
-	 * 
 	 * @param id 商品ID
 	 * @return item 検索した商品データ
 	 */
-	public Item load(Integer id) {
-		return itemRepository.load(id);
+	public Item loadItem(Integer id) {
+		return itemRepository.loadItem(id);
 	}
 
 }

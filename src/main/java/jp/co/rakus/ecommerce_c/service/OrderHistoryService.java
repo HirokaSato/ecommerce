@@ -78,8 +78,8 @@ public class OrderHistoryService {
 	 * @return item 検索した商品データ
 	 */
 	
-	public Item load(long itemId) {
-		return itemRepository.load(itemId);
+	public Item loadItem(long itemId) {
+		return itemRepository.loadItem(itemId);
 	}
 	
 	/**

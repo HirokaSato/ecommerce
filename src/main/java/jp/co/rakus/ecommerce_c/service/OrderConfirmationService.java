@@ -70,7 +70,7 @@ public class OrderConfirmationService {
 	 */
 	public Item findByItemId(long itemId){
 		
-		return itemRepository.load(itemId);
+		return itemRepository.loadItem(itemId);
 	}
 	
 	/**

@@ -57,7 +57,7 @@ public class OrderHistoryController {
 
 		// オーダーアイテムtableのアイテムIDとアイテムtableのIDをリンクさせて検索
 		long itemId = orderItemHistory.getItemId();
-		Item item = orderHistoryService.load(itemId);
+		Item item = orderHistoryService.loadItem(itemId);
 		model.addAttribute("item", item);
 				
 		// オーダートッピングtableのトッピングIDとトッピングtableのIDをリンクさせて検索

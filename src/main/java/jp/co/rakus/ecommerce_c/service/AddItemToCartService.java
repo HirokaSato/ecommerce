@@ -92,9 +92,9 @@ public class AddItemToCartService {
 		OrderItem orderItem = orderItemRepository.findById(orderItemId);
 		Integer itemPrice = 0;
 		if(orderItem.getSize().equals("M")){			
-			itemPrice = itemRepository.load(orderItem.getItemId()).getPriceM();
+			itemPrice = itemRepository.loadItem(orderItem.getItemId()).getPriceM();
 		}else if(orderItem.getSize().equals("L")){
-			itemPrice = itemRepository.load(orderItem.getItemId()).getPriceL();
+			itemPrice = itemRepository.loadItem(orderItem.getItemId()).getPriceL();
 		}
 		
 		// トッピング分を商品価格に加算する

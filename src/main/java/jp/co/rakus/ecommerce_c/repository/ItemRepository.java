@@ -36,13 +36,12 @@ public class ItemRepository {
 
 	/**
 	 * 商品情報を全件表示する.
-	 * 
 	 * @return itemList itemsテーブル全てのデータ
 	 */
-	public List<Item> findAll() {
+	public List<Item> findAllItem() {
 
-		String findAllSql = "select id,name,description,price_m,price_l,image_path,deleted from items";
-		List<Item> itemList = template.query(findAllSql, itemRowMapper);
+		String findAllItemSql = "select id,name,description,price_m,price_l,image_path,deleted from items";
+		List<Item> itemList = template.query(findAllItemSql, itemRowMapper);
 		return itemList;
 
 	}
@@ -55,11 +54,11 @@ public class ItemRepository {
 	 * @return item 検索した商品データ
 	 */
 
-	public Item load(long id) {
+	public Item loadItem(long id) {
 
-		String loadSql = "select id,name,description,price_m,price_l,image_path,deleted from items where id = :id";
+		String loadItemSql = "select id,name,description,price_m,price_l,image_path,deleted from items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-		Item item = template.queryForObject(loadSql, param, itemRowMapper);
+		Item item = template.queryForObject(loadItemSql, param, itemRowMapper);
 		return item;
 
 	}

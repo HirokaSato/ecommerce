@@ -27,14 +27,6 @@ public class OrderItem {
 	/** 小計 **/
 	private Integer subTotalPrice;
 
-	//テスト用
-	public OrderItem(int i, int j, int k, String string) {
-	}
-	public OrderItem(){
-		
-	}
-
-
 	/**
 	 * 小計を取得するメソッド.
 	 */

@@ -26,10 +26,10 @@ public class SearchItemController {
 
 	/**
 	 * 曖昧検索の結果画面を表示する
-	 * 
+	 * @param keyword 検索ワード
+	 * @param model モデル
 	 * @return　Top画面
-	 */
-	
+	 */	
 	@RequestMapping("/searchItem")
 	public String searchItem(String keyword,Model model){
 						
@@ -39,8 +39,8 @@ public class SearchItemController {
 		if(searchItem.isEmpty()){
 			model.addAttribute("error","該当する商品がありません");	
 			keyword = "";
-			List<Item> searchItem2 = searchItemService.searchItem(keyword);
-			model.addAttribute("itemList",searchItem2);
+			List<Item> allItem = searchItemService.searchItem(keyword);
+			model.addAttribute("itemList",allItem);
 		}
 		
 		return "itemList" ;
