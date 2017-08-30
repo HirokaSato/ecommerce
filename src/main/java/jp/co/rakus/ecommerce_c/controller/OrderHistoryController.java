@@ -34,7 +34,6 @@ public class OrderHistoryController {
 	@RequestMapping("/orderHistory")
 	public String orderHistory(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 
-		// ログインしているユーザーIDを元に検索
 		long userId = loginUser.getUser().getId();
 		List<Order> orderList = orderHistoryService.execute(userId);
 		model.addAttribute("orderList", orderList);
