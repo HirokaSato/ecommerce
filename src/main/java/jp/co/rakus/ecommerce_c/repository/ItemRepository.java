@@ -40,7 +40,7 @@ public class ItemRepository {
 	 */
 	public List<Item> findAllItem() {
 
-		String findAllItemSql = "select id,name,description,price_m,price_l,image_path,deleted from items";
+		String findAllItemSql = "select id,name,description,price_m,price_l,image_path,deleted from items order by price_m";
 		List<Item> itemList = template.query(findAllItemSql, itemRowMapper);
 		return itemList;
 
