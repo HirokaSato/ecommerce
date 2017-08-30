@@ -144,6 +144,7 @@
 							</td>
 							<td>
 								<form:errors path="zipcode" cssStyle="color:red" element="div"/>
+								<div class="errors"><c:out value="${errors3}"/></div>
 								<form:input path="zipcode" id ="zipcode"/>
 								&nbsp;&nbsp;<button id="searchZipcode">住所検索</button>
 							</td>
@@ -167,6 +168,7 @@
 							</td>
 							<td>
 								<form:errors path="telNumber" cssStyle="color:red" element="div"/>
+								<div class="errors"><c:out value="${errors2}"/></div>
 								<form:input path="telNumber" value="${user.telephone}"/>
 							</td>
 						</tr>
@@ -184,7 +186,7 @@
 										<div class="col-sm-5">
 											<form:errors path="deliveryDate" cssStyle="color:red" element="div"/>
 											<form:errors path="deliveryTime" cssStyle="color:red" element="div"/>
-											<div id="errors"><c:out value="${errors}"/></div>
+											<div class="errors"><c:out value="${errors}"/></div>
 											<form:input type="date" path="deliveryDate" min="${today}" />
 											
 										</div>
