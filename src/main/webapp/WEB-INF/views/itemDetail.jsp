@@ -15,7 +15,11 @@
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->    
+    <![endif]--> 
+
+
+<%--<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/itemDetail.js"></script> --%>
 </head>
 <body>
 	<div class="container">
@@ -47,13 +51,11 @@
 								</div>
 								<div class="col-sm-12">
 									<label class="radio-inline"> 
-										<input type="radio"
-											name="size" value="M"  checked="checked">
+										<input type="radio" name="size" value="M"  checked="checked">
 										<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceM}" pattern="###,###"/>円(税抜)
 									</label>									
 									<label class="radio-inline"> 
-										<input type="radio"
-											name="size" value="L" > 
+										<input type="radio" name="size" value="L" > 
 										<span class="price">&nbsp;L&nbsp;</span>&nbsp;&nbsp;<fmt:formatNumber value="${item.priceL}" pattern="###,###"/>円(税抜)
 									</label>
 								</div>
@@ -85,10 +87,8 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-xs-5 col-sm-5">
-									<label for="">数量:</label>
-									<label class="control-label"
-										style="color: red" for="inputError">数量を選択してください</label>
-										 <select name="quantity" class="form-control">
+									<label class="control-label" style="color: red" for="inputError">数量を選択してください</label>
+									<select name="quantity" class="form-control">
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -99,8 +99,6 @@
 										<option value="8">8</option>
 										<option value="9">9</option>
 										<option value="10">10</option>
-										<option value="11">11</option>
-										<option value="12">12</option>
 									</select>
 								</div>
 							</div>
@@ -112,7 +110,8 @@
 				<div class="row">
 					<div class="col-xs-offset-2 col-xs-8">
 						<div class="form-group">
-							<span id="total-price">この商品金額：38,000 (税抜)(保留)</span>
+<%-- 						<span id="total-price">この商品金額：
+							<span id="totalPrice"></span>円(税抜)</span>   --%>
 						</div>
 					</div>
 				</div>
