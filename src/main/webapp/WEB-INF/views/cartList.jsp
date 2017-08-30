@@ -109,10 +109,9 @@
 		<div class="row">
 			<div class="col-xs-offset-5 col-xs-3">
 				<div class="form-group">
-					<form:form action="${pageContext.request.contextPath}/OrderConfirmationController/">
-						<input class="form-control btn btn-warning btn-block"type="submit" value="注文に進む">
-						<input type="hidden" value="${order.userId}" name="userId"/>
-					</form:form>
+					<a href="${pageContext.request.contextPath}/OrderConfirmationController/">
+						<input class="form-control btn btn-warning btn-block"type="button" value="注文に進む">
+					</a>
 				</div>
 			</div>
 		</div>
