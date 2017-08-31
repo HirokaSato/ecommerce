@@ -141,6 +141,9 @@
 									</td>
 									<td>
 										<ul>
+										<%-- トッピング無の場合 --%>	
+										<c:if test="${fn:length(orderItem.orderToppingList) == 0}">トッピング無し</c:if>
+										<%-- トッピング有の場合 --%>
 											<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">
 												<c:out value="${orderTopping.topping.name}"/>
 											<c:if test="${orderItem.size=='M'}">
@@ -175,7 +178,7 @@
 				<div class="col-md-6">
 					<a href ="${pageContext.request.contextPath}/top">
 						<input type="button" class="btn btn-lg btn-block btn-warning" value="商品一覧へ戻る">
-					</a>
+					</a><br><br><br>
 				</div>
 				<div class="col-md-3"></div>
 			</div>
