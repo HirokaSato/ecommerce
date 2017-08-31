@@ -140,11 +140,11 @@
 		<div class="row">
 			<div class="col-xs-offset-5 col-xs-3">
 				<div class="form-group">
-					<a href="${pageContext.request.contextPath}/top">
-						<input class="form-control btn btn-warning btn-block"type="button" value="商品一覧へ戻る">
-					</a><br>
 					<a href="${pageContext.request.contextPath}/OrderConfirmationController/">
 						<input class="form-control btn btn-warning btn-block"type="button" value="注文に進む">
+					</a><br>
+					<a href="${pageContext.request.contextPath}/top">
+						<input class="form-control btn btn-warning btn-block"type="button" style="background-color: #6495ED; border-color: #6495ED" value="商品一覧へ戻る">
 					</a>
 				</div>
 			</div>
