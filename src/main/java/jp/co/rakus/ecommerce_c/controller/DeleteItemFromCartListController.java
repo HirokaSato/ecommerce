@@ -22,7 +22,7 @@ public class DeleteItemFromCartListController {
 	@RequestMapping("/delete")
 						//　　　ﾕｰｻﾞID　　       注文商品ID　　　　             　　小計       
 	public String delete(Integer userId,Integer id,Integer subTotalPrice){
-		service.execute(userId,id,/*itemId,*/subTotalPrice);
+		service.execute(userId,id,subTotalPrice);
 		return "redirect:/viewCartList";
 	}
 }
