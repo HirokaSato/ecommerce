@@ -53,8 +53,13 @@ public class OrderConfirmationController {
 		User user = loginUser.getUser();
 		model.addAttribute("user", user);
 		Order order= orderConfirmationService.findByUserIdAndStatus(user.getId());	
-		
+		if(order == null){
+			return "redirect:/viewCartList";
+		}
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
+		if(orderItemList.size()== 0){
+			return "redirect:/viewCartList";
+		}
 		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト(入れなおし用)
 		for(OrderItem orderItem : orderItemList){
 			Item item = orderConfirmationService.findByItemId(orderItem.getItemId());
@@ -87,6 +92,16 @@ public class OrderConfirmationController {
 		model.addAttribute("limitDate", limitDate);
 		
 		return "orderList";
+	}
+	
+	/**
+	 * カート画面にもどる.
+	 * @param model 
+	 * @return
+	 */
+	@RequestMapping("returnCart")
+	public String returnCart(Model model){
+		return "cartList";
 	}
 
 }

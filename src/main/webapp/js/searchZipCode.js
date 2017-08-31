@@ -1,9 +1,6 @@
 $(function() {
 	
-	
-	
-		// ［検索］ボタンクリックで検索開始
-
+	//郵便番号から住所検索ボタンを押して検索
 	$('#searchZipcode').on("click",function() {
     $.ajax({
         url: "http://zipcoda.net/api",
@@ -26,6 +23,7 @@ $(function() {
   });
 	
 	
+	//住所から郵便番号の検索
 	$('#searchAddress').on("click",function() {
 	    $.ajax({
 	        url: "http://zipcoda.net/api",

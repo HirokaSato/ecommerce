@@ -2,6 +2,7 @@ package jp.co.rakus.ecommerce_c.form;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,6 +10,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import jp.co.rakus.ecommerce_c.domain.OrderItem;
 
 /**
  * 注文情報を受け取るフォーム.
@@ -49,6 +52,7 @@ public class OrderForm {
 	private String id;
 	/**合計金額*/
 	private String totalPrice;
+	
 	
 	public String getTotalPrice() {
 		return totalPrice;

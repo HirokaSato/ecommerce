@@ -159,7 +159,8 @@
 							<td>
 								<form:errors path="address" cssStyle="color:red" element="div"/>
 								<form:input  path="address" id="address" value="${user.address}"/>
-								&nbsp;&nbsp;<input type="button" id="searchAddress" value="郵便番号検索"></input>(例：〇〇県〇〇市〇〇→検索可)
+								&nbsp;&nbsp;<input type="button" id="searchAddress" value="郵便番号検索"></input><br>
+								(例：〇〇県〇〇市〇〇→検索可)
 							</td>
 						</tr>
 						<tr>

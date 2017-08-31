@@ -2,7 +2,9 @@ package jp.co.rakus.ecommerce_c.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,6 +67,7 @@ public class DoOrderController {
 		if(result.hasErrors()){
 			errors = true;
 		}
+		
 		try{
 			LocalDateTime nowLocalDateTime = LocalDateTime.now();
 			LocalDateTime conditionDateTime = nowLocalDateTime.plusHours(1);
@@ -83,25 +86,28 @@ public class DoOrderController {
 				model.addAttribute("errors", "現在から１時間以降の日時を選択してください。");
 				errors =true;
 			}
-		}catch(Exception e){
+		}catch(NullPointerException e){
+			
 			errors = true;
 		}
+		
 		try{
 			Long.parseLong(form.getTelNumber());
 		}catch(NumberFormatException e){
 			model.addAttribute("errors2", "数字を入れてください");
 			errors = true;
 		}
+		
 		try{
 			Integer.parseInt(form.getZipcode());
 		}catch(NumberFormatException e){
 			model.addAttribute("errors3", "７桁の数字を入れてください");
 			errors = true;
 		}
+		
 		if(errors == true){
 			return index(loginUser,model);
 		}
-		
 		
 		Order order = new Order();
 		order.setDestinationName(form.getName());
@@ -144,7 +150,6 @@ public class DoOrderController {
 				doOrderToppingList.add(orderTopping);
 			}
 			orderItem.setOrderToppingList(doOrderToppingList);
-			orderItem.setSubTotalPrice(orderItem.getSubTotal());
 		}
 		
 		model.addAttribute("orderItemList",orderItemList);
@@ -152,8 +157,13 @@ public class DoOrderController {
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
-		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//過去日で配達日を指定しないようにするため。
-		model.addAttribute("today",today);
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		model.addAttribute("today",today);//過去日指定防止
+		LocalDate nowLocalDate = LocalDate.now().plusMonths(1);
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String limitDate = nowLocalDate.format(format);
+		model.addAttribute("limitDate", limitDate);//一カ月以内のみ注文可
+	
 		
 		// 注文完了メールを送信する(機能していないのでコメントアウトします)
 //		sendMail(order); 
