@@ -26,6 +26,7 @@ import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 
 /**
  * 注文確認画面を表示するコントローラー.
+ * 
  * @author atsuko.yoshino
  *
  */
@@ -34,73 +35,75 @@ import jp.co.rakus.ecommerce_c.service.OrderConfirmationService;
 public class OrderConfirmationController {
 	@Autowired
 	private OrderConfirmationService orderConfirmationService;
-	
+
 	@ModelAttribute
-	public OrderForm setUp(){	
+	public OrderForm setUp() {
 		return new OrderForm();
 	}
-	
 
-	
 	/**
 	 * 注文確認画面を表示する.
-	 * @param userId ログインユーザーのId
-	 * @param model　モデル
-	 * @return　注文確認画面
+	 * 
+	 * @param userId
+	 *            ログインユーザーのId
+	 * @param model
+	 *            モデル
+	 * @return 注文確認画面
 	 */
 	@RequestMapping("/")
-	public String index(@AuthenticationPrincipal LoginUser loginUser,Model model){
+	public String index(@AuthenticationPrincipal LoginUser loginUser, Model model) {
 		User user = loginUser.getUser();
 		model.addAttribute("user", user);
-		Order order= orderConfirmationService.findByUserIdAndStatus(user.getId());	
-		if(order == null){
+		Order order = orderConfirmationService.findByUserIdAndStatus(user.getId());
+		if (order == null) {
 			return "redirect:/viewCartList";
 		}
 		List<OrderItem> orderItemList = orderConfirmationService.findByOrderId(order.getId());
-		if(orderItemList.size()== 0){
+		if (orderItemList.size() == 0) {
 			return "redirect:/viewCartList";
 		}
-		List<OrderItem> doOrderItemList = new ArrayList<>();//注文する商品リスト(入れなおし用)
-		for(OrderItem orderItem : orderItemList){
+		List<OrderItem> doOrderItemList = new ArrayList<>();// 注文する商品リスト(入れなおし用)
+		for (OrderItem orderItem : orderItemList) {
 			Item item = orderConfirmationService.findByItemId(orderItem.getItemId());
-			orderItem.setItem(item);//商品の詳細格納
-			
+			orderItem.setItem(item);// 商品の詳細格納
+
 			List<OrderTopping> orderToppingList = orderConfirmationService.toppingFindByOrderItemId(orderItem.getId());
-			List<OrderTopping> doOrderToppingList = new ArrayList<>();//注文されたトッピングリスト（入れ直し用)	
-			for(OrderTopping orderTopping :orderToppingList){
-					
-					int toppingId = orderTopping.getToppingId();
-					Topping topping = orderConfirmationService.toppingFindByToppingId(toppingId);
-					orderTopping.setTopping(topping);
-					doOrderToppingList.add(orderTopping);
+			List<OrderTopping> doOrderToppingList = new ArrayList<>();// 注文されたトッピングリスト（入れ直し用)
+			for (OrderTopping orderTopping : orderToppingList) {
+
+				int toppingId = orderTopping.getToppingId();
+				Topping topping = orderConfirmationService.toppingFindByToppingId(toppingId);
+				orderTopping.setTopping(topping);
+				doOrderToppingList.add(orderTopping);
 			}
-			
+
 			orderItem.setOrderToppingList(doOrderToppingList);
 			orderItem.setSubTotalPrice(orderItem.getSubTotal());
-			}
-		
-		model.addAttribute("orderItemList",orderItemList);
+		}
+
+		model.addAttribute("orderItemList", orderItemList);
 		order.setOrderItemList(doOrderItemList);
-		model.addAttribute("order",order);
+		model.addAttribute("order", order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
-			String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//過去日で配達日を指定しないようにするため。
-		model.addAttribute("today",today);
-			LocalDate nowLocalDate = LocalDate.now().plusMonths(1);
-			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			String limitDate = nowLocalDate.format(format);
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());// 過去日で配達日を指定しないようにするため。
+		model.addAttribute("today", today);
+		LocalDate nowLocalDate = LocalDate.now().plusMonths(1);
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String limitDate = nowLocalDate.format(format);
 		model.addAttribute("limitDate", limitDate);
-		
+
 		return "orderList";
 	}
-	
+
 	/**
 	 * カート画面にもどる.
-	 * @param model 
+	 * 
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping("returnCart")
-	public String returnCart(Model model){
+	public String returnCart(Model model) {
 		return "cartList";
 	}
 

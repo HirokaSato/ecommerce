@@ -1,7 +1,5 @@
 package jp.co.rakus.ecommerce_c.service;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import jp.co.rakus.ecommerce_c.repository.ToppingRepository;
 
 /**
  * 注文確認画面表示のためのサービスクラス.
+ * 
  * @author atsuko.yoshino
  *
  */
@@ -29,70 +28,78 @@ import jp.co.rakus.ecommerce_c.repository.ToppingRepository;
 public class OrderConfirmationService {
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	@Autowired
 	private OrderItemRepository orderItemRepository;
-	
+
 	@Autowired
 	private ItemRepository itemRepository;
-	
+
 	@Autowired
 	private OrderToppingRepository orderToppingRepository;
-	
+
 	@Autowired
 	private ToppingRepository toppingRepository;
-	
+
 	/**
 	 * 未注文データを取得する.
-	 * @param orderId　取得したい注文データのユーザーId
-	 * @return　取得したデータ
+	 * 
+	 * @param orderId
+	 *            取得したい注文データのユーザーId
+	 * @return 取得したデータ
 	 */
-	public Order findByUserIdAndStatus(long userId){
-		
-		int status =0;//未注文状態
+	public Order findByUserIdAndStatus(long userId) {
+
+		int status = 0;// 未注文状態
 		return orderRepository.finfByUserIdAndStatus(userId, status);
 	}
-	
+
 	/**
 	 * カートに入った商品を取得する.
-	 * @param orderId 注文ID
-	 * @return　取得したデータ
+	 * 
+	 * @param orderId
+	 *            注文ID
+	 * @return 取得したデータ
 	 */
-	public List<OrderItem> findByOrderId(long orderId){
-		
+	public List<OrderItem> findByOrderId(long orderId) {
+
 		return orderItemRepository.findByOrderId(orderId);
 	}
-	
+
 	/**
 	 * カートに入っていた商品の詳細を表示する.
-	 * @param itemId 商品のid
+	 * 
+	 * @param itemId
+	 *            商品のid
 	 * @return 取得した商品データ
 	 */
-	public Item findByItemId(long itemId){
-		
+	public Item findByItemId(long itemId) {
+
 		return itemRepository.loadItem(itemId);
 	}
-	
+
 	/**
 	 * 商品のIdで紐づけられたトッピングデータの取得.
-	 * @param orderId 注文商品ID
+	 * 
+	 * @param orderId
+	 *            注文商品ID
 	 * @return
 	 */
-	public List<OrderTopping> toppingFindByOrderItemId(long orderItemId){
-		
-		return orderToppingRepository.findByOrderItemId(orderItemId); 
+	public List<OrderTopping> toppingFindByOrderItemId(long orderItemId) {
+
+		return orderToppingRepository.findByOrderItemId(orderItemId);
 	}
-	
+
 	/**
 	 * トッピングIdでトッピングの詳細情報を取得.
-	 * @param toppingId トッピングId
-	 * @return　取得したデータ
+	 * 
+	 * @param toppingId
+	 *            トッピングId
+	 * @return 取得したデータ
 	 */
-	public Topping toppingFindByToppingId(Integer toppingId){
-	
+	public Topping toppingFindByToppingId(Integer toppingId) {
+
 		return toppingRepository.findByToppingId(toppingId);
 	}
-	
-	
-	
+
 }
