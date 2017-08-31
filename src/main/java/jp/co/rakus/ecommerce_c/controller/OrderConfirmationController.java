@@ -69,6 +69,7 @@ public class OrderConfirmationController {
 			}
 			
 			orderItem.setOrderToppingList(doOrderToppingList);
+			orderItem.setSubTotalPrice(orderItem.getSubTotal());
 			}
 		
 		model.addAttribute("orderItemList",orderItemList);
