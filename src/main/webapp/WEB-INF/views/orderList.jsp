@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -66,7 +67,7 @@
 								<c:if test="${orderItem.size == 'L'}"><fmt:formatNumber value="${orderItem.item.priceL}" pattern="###,###"/></c:if>
 								円 &nbsp;&nbsp; <c:out value="${orderItem.quantity}" />個</td>
 								<td>
-									<ul>
+									<ul><c:if test="${fn:length(orderItem.orderToppingList) == 0}">トッピングなし</c:if>
 										<c:forEach var="orderTopping" items="${orderItem.orderToppingList}">
 											<li><c:out value="${orderTopping.topping.name}" />
 											<c:if test="${orderItem.size=='M'}">
@@ -83,7 +84,7 @@
 		
 								<td>
 									<div class="text-center">
-										<fmt:formatNumber value="${order.totalPrice}" pattern="###,###" />
+										<fmt:formatNumber value="${orderItem.subTotalPrice}" pattern="###,###" />
 										円
 									</div>
 								</td>
@@ -292,7 +293,10 @@
 				<div class="form-group">
 						<input  class="form-control btn btn-warning btn-block"
 							type="submit" value="この内容で注文する">
-				</div>
+				</div><br>
+				<a href="${pageContext.request.contextPath}/top">
+						<input class="form-control btn btn-warning btn-block"type="button" value="商品一覧へ戻る">
+				</a>
 			</div>
 		</div>
 		</form:form>

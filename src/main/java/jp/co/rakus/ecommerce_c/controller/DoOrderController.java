@@ -144,6 +144,7 @@ public class DoOrderController {
 				doOrderToppingList.add(orderTopping);
 			}
 			orderItem.setOrderToppingList(doOrderToppingList);
+			orderItem.setSubTotalPrice(orderItem.getSubTotal());
 		}
 		
 		model.addAttribute("orderItemList",orderItemList);
