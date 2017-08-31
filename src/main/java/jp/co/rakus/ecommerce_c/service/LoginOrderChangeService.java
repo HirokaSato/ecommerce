@@ -73,11 +73,11 @@ public class LoginOrderChangeService {
 		Integer guestCartPrice = guestOrder.getTotalPrice();
 		List<OrderItem> guestOrderItemList = orderItemRepository.findByOrderId(guestOrder.getId());
 		
-		if(!this.checkDuplicationOrderItem(userOrder, guestOrderItemList)){			
-			// 取得したOrderItemのオーダーIDをログインユーザの未注文Orderのものに書き換える
-			for(OrderItem orderItem : guestOrderItemList){
-				orderItem.setOrderId(userOrder.getId());
-				orderItemRepository.save(orderItem);
+		// 取得したOrderItemのオーダーIDをログインユーザの未注文Orderのものに書き換える
+		for(OrderItem guestOrderItem : guestOrderItemList){
+			if(!this.checkDuplicationOrderItem(userOrder, guestOrderItem)){			
+				guestOrderItem.setOrderId(userOrder.getId());
+				orderItemRepository.save(guestOrderItem);
 			}
 		}
 		
@@ -94,32 +94,30 @@ public class LoginOrderChangeService {
 	 * カートごとに完全に重複しているOrderItemがあれば、新規に追加ではなくQuantityを加算する.
 	 * 
 	 * @param userOrder ログインユーザの未注文情報
-	 * @param guestOrderItemList ゲスト状態のカートに入っていた注文商品情報
+	 * @param guestOrderItem ゲスト状態のカートに入っていた注文商品情報
 	 * @return 重複していればtrue、なければfalse
 	 */
-	public boolean checkDuplicationOrderItem(Order userOrder, List<OrderItem> guestOrderItemList){
+	public boolean checkDuplicationOrderItem(Order userOrder, OrderItem guestOrderItem){
 		boolean check = false;
 
 		List<OrderItem> userOrderItemList = orderItemRepository.findByOrderId(userOrder.getId());
 		for(OrderItem userOrderItem : userOrderItemList){
-			for(OrderItem guestOrderItem : guestOrderItemList){
-				if(userOrderItem.getItemId()==guestOrderItem.getItemId() && userOrderItem.getSize().equals(guestOrderItem.getSize())){
-					List<OrderTopping> userOrderToppingList = orderToppingRepository.findByOrderItemId(userOrderItem.getId());
-					List<OrderTopping> guestOrderToppingList = orderToppingRepository.findByOrderItemId(guestOrderItem.getId());
-					if(userOrderToppingList.size()==guestOrderToppingList.size()){
-						int duplicateCount = 0;
-						if(userOrderToppingList.size() != 0){
-							for(int i = 0; i < userOrderToppingList.size(); i++){
-								if(userOrderToppingList.get(i).getToppingId()==guestOrderToppingList.get(i).getToppingId()){
-									duplicateCount ++;
-								}
-							}							
-						}
-						if(duplicateCount==userOrderToppingList.size()){
-							check=true;
-							userOrderItem.setQuantity(userOrderItem.getQuantity()+guestOrderItem.getQuantity());
-							orderItemRepository.save(userOrderItem);
-						}
+			if(userOrderItem.getItemId()==guestOrderItem.getItemId() && userOrderItem.getSize().equals(guestOrderItem.getSize())){
+				List<OrderTopping> userOrderToppingList = orderToppingRepository.findByOrderItemId(userOrderItem.getId());
+				List<OrderTopping> guestOrderToppingList = orderToppingRepository.findByOrderItemId(guestOrderItem.getId());
+				if(userOrderToppingList.size()==guestOrderToppingList.size()){
+					int duplicateCount = 0;
+					if(userOrderToppingList.size() != 0){
+						for(int i = 0; i < userOrderToppingList.size(); i++){
+							if(userOrderToppingList.get(i).getToppingId()==guestOrderToppingList.get(i).getToppingId()){
+								duplicateCount ++;
+							}
+						}				
+					}
+					if(duplicateCount==userOrderToppingList.size()){
+						check=true;
+						userOrderItem.setQuantity(userOrderItem.getQuantity()+guestOrderItem.getQuantity());
+						orderItemRepository.save(userOrderItem);
 					}
 				}
 			}
