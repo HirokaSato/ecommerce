@@ -1,6 +1,8 @@
 package jp.co.rakus.ecommerce_c.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -77,9 +79,12 @@ public class OrderConfirmationController {
 		model.addAttribute("order",order);
 		model.addAttribute("tax", order.getTax());
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
-		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//過去日で配達日を指定しないようにするため。
+			String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//過去日で配達日を指定しないようにするため。
 		model.addAttribute("today",today);
-		
+			LocalDate nowLocalDate = LocalDate.now().plusMonths(1);
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			String limitDate = nowLocalDate.format(format);
+		model.addAttribute("limitDate", limitDate);
 		
 		return "orderList";
 	}

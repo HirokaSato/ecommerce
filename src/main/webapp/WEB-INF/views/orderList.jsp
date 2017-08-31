@@ -189,7 +189,7 @@
 											<form:errors path="deliveryDate" cssStyle="color:red" element="div"/>
 											<form:errors path="deliveryTime" cssStyle="color:red" element="div"/>
 											<div class="errors"><c:out value="${errors}"/></div>
-											<form:input type="date" path="deliveryDate" min="${today}" />
+											<form:input type="date" path="deliveryDate" min="${today}" max="${limitDate}" />
 											
 										</div>
 										
@@ -295,7 +295,7 @@
 							type="submit" value="この内容で注文する">
 				</div><br>
 				<a href="${pageContext.request.contextPath}/top">
-						<input class="form-control btn btn-warning btn-block"type="button" value="商品一覧へ戻る">
+						<input class="form-control btn btn-warning btn-block"type="button" value="商品一覧へ戻る" style="background-color: #6495ED; border-color: #6495ED">
 				</a>
 			</div>
 		</div>
