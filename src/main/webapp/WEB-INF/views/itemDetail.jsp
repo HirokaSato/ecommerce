@@ -123,7 +123,7 @@
 					</div>
 				</div>
 			<div class="row">
-					<div class="col-xs-offset-2 col-xs-3">
+					<div class="col-xs-offset-4 col-xs-4">
 						<div class="form-group">
 							<p>
 								<input class="form-control btn btn-warning btn-block" type="submit" value="カートに入れる">
