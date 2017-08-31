@@ -1,53 +1,62 @@
 
+//ピザ本体価格
 pizaPrice = 0;
+//トッピング合計金額
 toppingPrice = 0;
+//枚数
 quantity = 1;
 
-
 $(function() {
-	
-	//初期値
-		pizaPrice = $(".priceM").data("price");
-	
-		initialValue = $(".priceM").data("price");
-		let num = String(initialValue).replace(/(\d)(?=(\d\d\d)+$)/g, "$1,");
-		initialValue = num;
-		
-		$('#totalPrice').html("<span>" + initialValue + "</span>");
+ 
+ //初期値
+ pizaPrice = $(".priceM").data("price");
+ 
+ initialValue = $(".priceM").data("price");
+ let num = String(initialValue).replace(/(\d)(?=(\d\d\d)+$)/g, "$1,");
+ initialValue = num;
+  
+ $('#totalPrice').html("<span>" + initialValue + "</span>");
 
-	//ピザ料金設定
-	$('.priceM').on('click',function(){
-		var priceM = $(".priceM").data("price");
-		pizaPrice = priceM;
-	});
-	
-	$('.priceL').on('click',function(){
-		var priceL = $(".priceL").data("price");	
-		pizaPrice = priceL;
-	});
+ 
+ //ピザ料金設定
+ $('.priceM').on('change',function(){
+  var priceM = $(".priceM").data("price");
+  pizaPrice = priceM;
+ });
+ 
+ $('.priceL').on('change',function(){
+  var priceL = $(".priceL").data("price"); 
+  pizaPrice = priceL;
+ });
 
-	
-	//トッピング計算
-	$('.checkbox-inline').on('click',function(){
-		toppingPrice = $("#toppingCheck :checked").length * 200;
-	});
-	
-	
-	//枚数取得
-	$('#select').on('click',function(){
-		quantity = $(this).val();
-	});
-	
-	
-	//合計金額計算
-	$('body').on('click',function(){
-		var totalPrice = (pizaPrice + toppingPrice) * quantity;
-		
-		let num = String(totalPrice).replace(/(\d)(?=(\d\d\d)+$)/g, "$1,");
-		totalPrice = num;
-		
-		$('#totalPrice').text(totalPrice);
-		
-	});
-	
+ 
+ //トッピング計算
+ $('.checkbox-inline').on('change',function(){
+  if($("input:radio[name='size']:checked").val() == "M"){
+   toppingPrice = $("#toppingCheck :checked").length * 200;
+  }
+  
+  if($("input:radio[name='size']:checked").val() == "L"){
+   toppingPrice = $("#toppingCheck :checked").length * 300;
+  }
+ });
+ 
+ 
+ //枚数取得
+ $('#select').on('change',function(){
+  quantity = $(this).val();
+ });
+ 
+ 
+ //合計金額計算
+ $('body').on('change',function(){
+  var totalPrice = (pizaPrice + toppingPrice) * quantity;
+  
+  let num = String(totalPrice).replace(/(\d)(?=(\d\d\d)+$)/g, "$1,");
+  totalPrice = num;
+  
+  $('#totalPrice').css('color','red').text(totalPrice);
+  
+ });
+ 
 });
