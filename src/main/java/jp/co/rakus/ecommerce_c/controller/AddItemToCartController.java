@@ -43,6 +43,9 @@ public class AddItemToCartController {
 	 */
 	@RequestMapping
 	public String addToCart(AddToCartForm form, @AuthenticationPrincipal LoginUser loginUser){
+		if(form.getItemId() == null){
+			return "redirect:/top";
+		}
 		Order order = null;
 		// ユーザがログインしていればOrderテーブルにそのユーザIDを挿入する
 		// ゲスト状態のときはセッションIDを仮に入れる
