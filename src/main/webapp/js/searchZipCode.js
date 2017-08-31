@@ -1,5 +1,7 @@
 $(function() {
 	
+	
+	
 		// ［検索］ボタンクリックで検索開始
 
 	$('#searchZipcode').on("click",function() {

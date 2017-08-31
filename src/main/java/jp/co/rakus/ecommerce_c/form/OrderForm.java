@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class OrderForm {
 	
 	/**宛名名前*/
-	@NotEmpty(message="名前入力は必須です")
+	@NotBlank(message="名前入力は必須です")
 	private String name;
 	/**宛先メールアドレス*/
 	@NotBlank(message="メールアドレスを入力してください")
@@ -29,7 +29,7 @@ public class OrderForm {
 	@Length(min=7,max=7,message="郵便番号を入力してください")
 	private String zipcode;
 	/**宛先住所*/
-	@NotEmpty(message="住所入力は必須です")
+	@NotBlank(message="住所入力は必須です")
 	private String address;
 	/**宛先電話番号*/
 	@Length(min=10,max=11,message="電話番号を入力してください")

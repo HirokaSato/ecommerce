@@ -65,7 +65,6 @@ public class DoOrderController {
 		if(result.hasErrors()){
 			errors = true;
 		}
-		
 		try{
 			LocalDateTime nowLocalDateTime = LocalDateTime.now();
 			LocalDateTime conditionDateTime = nowLocalDateTime.plusHours(1);
@@ -84,28 +83,25 @@ public class DoOrderController {
 				model.addAttribute("errors", "現在から１時間以降の日時を選択してください。");
 				errors =true;
 			}
-		}catch(NullPointerException e){
-			
+		}catch(Exception e){
 			errors = true;
 		}
-		
 		try{
 			Long.parseLong(form.getTelNumber());
 		}catch(NumberFormatException e){
 			model.addAttribute("errors2", "数字を入れてください");
 			errors = true;
 		}
-		
 		try{
 			Integer.parseInt(form.getZipcode());
 		}catch(NumberFormatException e){
 			model.addAttribute("errors3", "７桁の数字を入れてください");
 			errors = true;
 		}
-		
 		if(errors == true){
 			return index(loginUser,model);
 		}
+		
 		
 		Order order = new Order();
 		order.setDestinationName(form.getName());
