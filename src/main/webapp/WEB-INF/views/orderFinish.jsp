@@ -29,7 +29,7 @@
 
 		<br><br>
 		<div class="row">
-			<div class="col-xs-offset-5 col-xs-2">
+			<div class="col-xs-offset-4 col-xs-4">
 				<div class="form-group">
 					<form action="${pageContext.request.contextPath}/top">
 						<input class="form-control btn btn-warning btn-block"
