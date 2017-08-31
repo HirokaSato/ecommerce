@@ -74,7 +74,7 @@
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<table class="table ">	
 						<c:forEach var="order" items="${orderList}">
-						<tr>
+						<tr bgcolor="#cccccc">
 							<th>
 								<div class="text-center">
 									注文日
@@ -115,7 +115,7 @@
 							</th>
 							<th>
 								<div class="text-center">
-									合計(税込み)
+									小計(税抜き)
 								</div>
 							</th>
 						</tr>
@@ -148,9 +148,11 @@
 												<c:out value="${orderTopping.topping.name}"/>
 											<c:if test="${orderItem.size=='M'}">
 												<c:out value="${orderTopping.topping.priceM}"/>円
+												&nbsp;<c:out value="${orderItem.quantity}" />個
 											</c:if>
 											<c:if test="${orderItem.size=='L'}">
 												<c:out value="${orderTopping.topping.priceL}" />円
+												&nbsp;<c:out value="${orderItem.quantity}" />個
 											</c:if>	
 											<br>
 											</c:forEach>										
