@@ -16,6 +16,6 @@ spring:
     properties.mail.smtp.auth: true
     properties.mail.smtp.starttls.enable: true
 server:
-  context-path: /sugar-pizza
+  context-path: /sugar_pizza
   
 security.basic.enabled: false
