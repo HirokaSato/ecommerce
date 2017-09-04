@@ -5,7 +5,7 @@
 	<groupId>jp.co.rakus</groupId>
 	<artifactId>ecommerce_c</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>ecommerce_c</name>
 	<url>http://maven.apache.org</url>
@@ -94,5 +94,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>ec-pizza</finalName>
 	</build>
 </project>
