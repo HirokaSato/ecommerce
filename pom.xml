@@ -94,6 +94,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>ec-pizza</finalName>
+		<finalName>sugar_pizza</finalName>
 	</build>
 </project>
