@@ -31,6 +31,7 @@
 			<p class="navbar-text navbar-right">
 				<sec:authorize access="isAuthenticated()">
 					<strong><sec:authentication property="principal.user.name" />&nbsp;さん、いらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="navbar-link" href="${pageContext.request.contextPath}/myPage/">マイページ</a>&nbsp;&nbsp;
 						</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<strong>ゲスト さんいらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -41,6 +42,7 @@
 					<a href="${pageContext.request.contextPath}/login"
 						class="navbar-link">ログイン</a>&nbsp;&nbsp; 
 						</sec:authorize>
+
 				<sec:authorize access="isAuthenticated()">
 					<a href="${pageContext.request.contextPath}/orderHistory"
 						class="navbar-link">注文履歴</a>&nbsp;&nbsp;
