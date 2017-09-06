@@ -10,20 +10,20 @@ $(function() {
 	//フェードイン処理
 	$('#toppingCheck').css('display','none');
 	$('#pizaSize').on('click',function(){
-			$('#toppingCheck').fadeIn("slow");
+			$('#toppingCheck').fadeIn("fast");
 	});
 	
 	$('#num').css('display','none');
 	$('#toppingCheck').on('click',function(){
-		$('#num').fadeIn("slow");
+		$('#num').fadeIn("fast");
 	});
 	$('#noTopping').on('click',function(){
-		$('#num').fadeIn("slow");
+		$('#num').fadeIn("fast");
 	});
 	
 	$('.total').css('display','none');
 	$('#num').on('click',function(){
-		$('.total').fadeIn("slow");
+		$('.total').fadeIn("fast");
 	});
 	
 
