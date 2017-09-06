@@ -28,7 +28,7 @@ $(function() {
 	
 
 	// 初期値
-	pizaPrice = $(".priceM").data("price");
+	pizaPrice = $(".priceM").data("price").css("color","red");
 
 	initialValue = $(".priceM").data("price");
 	let num = String(initialValue).replace(/(\d)(?=(\d\d\d)+$)/g, "$1,");
