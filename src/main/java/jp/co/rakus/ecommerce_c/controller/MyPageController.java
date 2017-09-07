@@ -1,9 +1,9 @@
 package jp.co.rakus.ecommerce_c.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import jp.co.rakus.ecommerce_c.service.OrderHistoryService;
+//import jp.co.rakus.ecommerce_c.service.OrderHistoryService;
 
 
 
@@ -13,10 +13,10 @@ import jp.co.rakus.ecommerce_c.service.OrderHistoryService;
  */
 @Controller
 public class MyPageController {
+	/*@Autowired
+	private ;
 	@Autowired
-	private OrderHistoryService service;
-	//@Autowired
-	//private 
-	
+	private 
+	*/
 
 }

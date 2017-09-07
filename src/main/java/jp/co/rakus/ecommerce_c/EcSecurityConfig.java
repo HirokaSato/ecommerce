@@ -26,10 +26,10 @@ public class EcSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.authorizeRequests()
+		/*http.authorizeRequests()
 
 			.antMatchers("/top","/searchItem","/addToCart","/detailController/**","/login","/registerUser/**","/delteCartItem/**","/viewCartList").permitAll() // 作り終わったらアクセス許可のURLを追記する
-			.anyRequest().authenticated();
+			.anyRequest().authenticated();*/
 		
 		http.formLogin()
 		.loginPage("/login")

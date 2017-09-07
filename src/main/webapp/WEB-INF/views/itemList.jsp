@@ -28,10 +28,10 @@
 		<div class="row">
 			<div
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+					<!--<div class="panel-heading">-->
+						<button class="panel-title">商品検索</button>
+					<!-- </div> -->
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="panel-title">商品を検索する</div>
-					</div>
 					<div class="panel-body">
 						<form:form method="post"
 							action="${pageContext.request.contextPath}/searchItem"
