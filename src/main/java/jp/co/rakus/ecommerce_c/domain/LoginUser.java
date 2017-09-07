@@ -15,7 +15,7 @@ public class LoginUser extends org.springframework.security.core.userdetails.Use
 	private static final long serialVersionUID = 1L;
 	
 	private User user;
-
+	//プリンシパルの中身
 	public LoginUser(User user, Collection<GrantedAuthority> authorities) {
 		super(user.getEmail(), user.getPassword(), authorities);
 		this.setUser(user);
