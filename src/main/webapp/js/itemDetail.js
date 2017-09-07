@@ -7,6 +7,22 @@ quantity = 1;
 
 $(function() {
 	
+	$('.imagePizza').rotate({ 
+		bind: 
+		{ 
+			mouseover : function() { 
+				$(this).rotate({
+					animateTo: 360
+				})
+			},
+			mouseout : function() { 
+				$(this).rotate({
+					animateTo: 0
+				})
+			}
+		} 	 
+	});
+	
 	//フェードイン処理
 	$('#toppingCheck').css('display','none');
 	$('#pizaSize').on('click',function(){

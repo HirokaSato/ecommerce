@@ -30,7 +30,7 @@
 				<h3 class="text-center">商品詳細</h3>
 				<div class="row">
 					<div class="col-xs-5">
-						<img src="${item.imagePath}" class="img-responsive img-rounded">
+						<img src="${item.imagePath}"  class="img-responsive img-rounded imagePizza">
 					</div>
 					<div class="col-xs-5">
 						<div class="bs-component">
