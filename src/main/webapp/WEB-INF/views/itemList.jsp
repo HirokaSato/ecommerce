@@ -18,20 +18,17 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/itemList.js"></script>
 </head>
+
 <body>
+
 	<div class="container">
 		<%@ include file="./commonNavi.jsp"%>
 		<!-- search form -->
 		<div class="row">
 			<div
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
-					<!--<div class="panel-heading">-->
-						<button class="panel-title">商品検索</button>
-					<!-- </div> -->
-				<div class="panel panel-default">
+				<div class="panel panel-default"> 
 					<div class="panel-body">
 						<form:form method="post"
 							action="${pageContext.request.contextPath}/searchItem"
@@ -61,12 +58,13 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
-				<table class="table table-striped" >
-					<tbody>
-						<c:forEach var="item" items="${itemList}" varStatus="status">
+				<table class="table table-striped pizzaList">
+					<tbody id="list-table">
+						<%-- <c:forEach var="item" items="${itemList}" varStatus="status">
 							<c:if test="${status.count + 3 % 3 == 1}">
 								<tr>
 							</c:if>
+							<span class="pizza_content">
 							<th class="col-md-4"><a
 								href="${pageContext.request.contextPath}/detailController/detail?id=${item.id}">
 									<img src="${item.imagePath}"
@@ -83,6 +81,7 @@
 								</tr>
 							</c:if>
 						</c:forEach>
+						</span> --%>
 					</tbody>
 				</table>
 			</div>
@@ -92,5 +91,7 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/itemList.js"></script>
 </body>
 </html>

@@ -88,9 +88,8 @@ public class OrderConfirmationController {
 		model.addAttribute("taxIncludedAmount", order.getCalcTotalPrice());
 		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());// 過去日で配達日を指定しないようにするため。
 		model.addAttribute("today", today);
-		LocalDate nowLocalDate = LocalDate.now().plusMonths(1);
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		String limitDate = nowLocalDate.format(format);
+		String limitDate = LocalDate.now().plusMonths(1).format(format);
 		model.addAttribute("limitDate", limitDate);
 
 		return "orderList";

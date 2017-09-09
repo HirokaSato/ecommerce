@@ -7,24 +7,9 @@ quantity = 1;
 
 $(function() {
 	
-	$('img.imagePizza').rotate({ 
-		bind: 
-		{ 
-			hover : function() { 
-				$(this).rotate({
-					animateTo: 360
-				})
-			},
-			hout : function() { 
-				$(this).rotate({
-					animateTo: 0
-				})
-			}
-		} 	 
-	});
-	
+	 $(".imagePizza").elevateZoom();
 	//フェードイン処理
-	/*$('#toppingCheck').css('display','none');
+	$('#toppingCheck').css('display','none');
 	$('#pizaSize').on('click',function(){
 			$('#toppingCheck').fadeIn("fast");
 	});
@@ -40,7 +25,7 @@ $(function() {
 	$('.total').css('display','none');
 	$('#num').on('click',function(){
 		$('.total').fadeIn("fast");
-	});*/
+	});
 	
 
 	// 初期値

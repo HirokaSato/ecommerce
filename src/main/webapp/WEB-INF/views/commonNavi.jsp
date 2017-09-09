@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <link type="text/css" rel="stylesheet"
@@ -31,6 +33,7 @@
 			<p class="navbar-text navbar-right">
 				<sec:authorize access="isAuthenticated()">
 					<strong><sec:authentication property="principal.user.name" />&nbsp;さん、いらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="panel-title">商品検索</button>
 						</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<strong>ゲスト さんいらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -40,9 +43,11 @@
 				<sec:authorize access="isAnonymous()">
 					<a href="${pageContext.request.contextPath}/login"
 						class="navbar-link">ログイン</a>&nbsp;&nbsp; 
+						<button class="panel-title">商品検索</button>
 						</sec:authorize>
 
 				<sec:authorize access="isAuthenticated()">
+				
 					<a class="navbar-link"
 						href="${pageContext.request.contextPath}/myPage/">マイページ</a>&nbsp;&nbsp;
 					<a href="${pageContext.request.contextPath}/orderHistory"

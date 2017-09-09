@@ -20,30 +20,34 @@ import jp.co.rakus.ecommerce_c.service.SearchItemService;
 @Controller
 @RequestMapping
 public class SearchItemController {
-	
+
 	@Autowired
 	private SearchItemService searchItemService;
 
 	/**
 	 * 曖昧検索の結果画面を表示する
-	 * @param keyword 検索ワード
-	 * @param model モデル
-	 * @return　Top画面
-	 */	
+	 * 
+	 * @param keyword
+	 *            検索ワード
+	 * @param model
+	 *            モデル
+	 * @return Top画面
+	 */
 	@RequestMapping("/searchItem")
-	public String searchItem(String keyword,Model model){
-						
+	public String searchItem(String keyword, Model model) {
+
 		List<Item> searchItem = searchItemService.searchItem(keyword);
-		model.addAttribute("itemList",searchItem);		
-		
-		if(searchItem.isEmpty()){
-			model.addAttribute("error","該当する商品がありません");	
+		model.addAttribute("itemList", searchItem);
+
+		if (searchItem.isEmpty()) {
+			model.addAttribute("error", "該当する商品がありません");
 			keyword = "";
 			List<Item> allItem = searchItemService.searchItem(keyword);
-			model.addAttribute("itemList",allItem);
+			model.addAttribute("itemList", allItem);
 		}
-		
-		return "itemList" ;
-		
+
+		return "itemList";
+
 	}
+
 }
