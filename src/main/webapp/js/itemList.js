@@ -1,18 +1,20 @@
-//$("table.pizzaList").fadeIn("slow");
+
 
 $(function() {
+	
+	let contextpath = $('#contextpath').val();
 
 	console.log("start ajax");
 	$.ajax({
 		type : "GET",
-		url : "/sugar_pizza/ajaxSearchAllItem",
+		url : contextpath + "/ajaxSearchAllItem",
 		dataType : 'json'
 	}).then(function(lst_item) {
 		 var htmlItems = toDeep(lst_item, 3, decorateItem);
 		 //htmlitems　[[item, item,item], [item,item,item] ....]
 		/* var items = htmlItems.map(function(innerArr){
 		    	return innerArr.join().replace(/,/, '');
-		    	//正規表現(/,/, '')⇒gがあるとすべての「，」をなくしてくれる。gがないと、最初の「，」だけなくす処理になる。gはglobaldserchの略
+		    	//正規表現(/,/g, '')⇒gがあるとすべての「，」をなくしてくれる。gがないと、最初の「，」だけなくす処理になる。gはglobaldserchの略
 		    });*/
 		 var row = $('<tr>');
 		 htmlItems.forEach(function(item) {
@@ -58,11 +60,11 @@ $(function() {
 		let separatePriceL=separate(item.priceL);
 		console.log(separatePriceL);
 		return '<th class="col-md-4">'+
-		'<a href= sugar_pizza/detailController/detail?id='+ item.id + '>'+
-		'<img src="'+ item.imagePath + '" class="img-responsive img-rounded image_pizza" width="190" height="590">' 
+		'<a href="' + contextpath + '/detailController/detail?id='+ item.id + '">'
+		+'<img src="'+ item.imagePath + '" class="img-responsive img-rounded image_pizza" width="190" height="590">' 
 		+'</a>'
 		+'<br>'
-		+ '<a href= sugar_pizza/detailController/detail?id='+ item.id +'>'
+		+'<a href="'+ contextpath + '/detailController/detail?id='+ item.id +'">'
 		+ item.name
 		+ '</a>'
 		+ '<br>'

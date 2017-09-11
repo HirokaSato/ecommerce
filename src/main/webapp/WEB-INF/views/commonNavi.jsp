@@ -35,7 +35,7 @@
 					<strong><sec:authentication property="principal.user.name" />&nbsp;さん、いらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
 					<button class="panel-title">商品検索</button>
 						</sec:authorize>
-				<sec:authorize access="isAnonymous()">
+				<sec:authorize access="isAnonymous()"><!--collection=nullのとき  -->
 					<strong>ゲスト さんいらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
 						</sec:authorize>
 				<a href="${pageContext.request.contextPath}/viewCartList"

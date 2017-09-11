@@ -12,10 +12,12 @@ import org.springframework.security.core.GrantedAuthority;
  *
  */
 public class LoginUser extends org.springframework.security.core.userdetails.User{
+	//org.springframework.security.core.userdetails.User ⇒springsecurityが用意したsecurityuserクラス
 	private static final long serialVersionUID = 1L;
-	
+	//フィールド」変数の宣言
 	private User user;
-	//プリンシパルの中身
+	//Collection<GrantedAuthority> authorities　⇒　UserDetailServiceImplのCollection<GrantedAuthority> authorityListと同じ
+	//コンストラクタ
 	public LoginUser(User user, Collection<GrantedAuthority> authorities) {
 		super(user.getEmail(), user.getPassword(), authorities);
 		this.setUser(user);

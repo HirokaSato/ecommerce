@@ -23,6 +23,7 @@ import jp.co.rakus.ecommerce_c.repository.UserRepository;
  */
 @Service
 public class UserDetailServiceImpl implements UserDetailsService{
+	//UserDetailsServiceはspringsecutiryが用意したクラス
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -34,9 +35,14 @@ public class UserDetailServiceImpl implements UserDetailsService{
 		if(user == null){
 			throw new UsernameNotFoundException("そのメールアドレスは登録されていません");
 		}
+		//Collection⇒mapやListのおおもと。mapやlistはcollectionを継承してオブジェクトを生成
 		Collection<GrantedAuthority> authorityList = new ArrayList<GrantedAuthority>();
-		// user権限を付与
-		authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
+		//GrantedAuthority　⇒　認可情報を表すことができるクラス（springsecurityの中に入っている）
+		authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));//「ROLE_」⇒user権限をuserに渡してる。
+		
+		
+		//管理者ユーザーを付与する処理
+		
 		
 		// ログイン時にカートに商品が入っていれば情報を書き換える
 		loginOrderChangeService.execute(user);

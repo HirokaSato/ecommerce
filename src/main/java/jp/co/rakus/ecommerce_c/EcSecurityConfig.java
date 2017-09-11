@@ -36,8 +36,8 @@ public class EcSecurityConfig extends WebSecurityConfigurerAdapter{
 		.loginProcessingUrl("/loginSubmit")
 		.failureUrl("/login?error=true")
 		.defaultSuccessUrl("/top", false)
-		.usernameParameter("email")
-		.passwordParameter("password");
+		.usernameParameter("email")//parameternameの宣言
+		.passwordParameter("password");//parametepasswordの宣言
 		
 		http.logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
