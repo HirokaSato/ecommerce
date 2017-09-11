@@ -28,6 +28,7 @@ public class UserRepository {
 		user.setPassword(rs.getString("password"));
 		user.setAddress(rs.getString("address"));
 		user.setTelephone(rs.getString("telephone"));
+		System.out.println(i);//iは、rsのカウント数
 		return user;
 	};
 	

@@ -10,12 +10,12 @@ $(function() {
 	}).then(function(lst_item) {
 		 var htmlItems = toDeep(lst_item, 3, decorateItem);
 		 //htmlitems　[[item, item,item], [item,item,item] ....]
-		 var items = htmlItems.map(function(innerArr){
-		    	return innerArr.join().replace(/,/g, '');
-		    	//正規表現(/,/g, '')⇒gがあるとすべての「，」をなくしてくれる。gがないと、最初の「，」だけなくす処理になる。gはglobaldserchの略
-		    });
+		/* var items = htmlItems.map(function(innerArr){
+		    	return innerArr.join().replace(/,/, '');
+		    	//正規表現(/,/, '')⇒gがあるとすべての「，」をなくしてくれる。gがないと、最初の「，」だけなくす処理になる。gはglobaldserchの略
+		    });*/
 		 var row = $('<tr>');
-		 items.forEach(function(item) {
+		 htmlItems.forEach(function(item) {
 		    var row = $('<tr>');
 		    $('#list-table').append(row.append(item));
 		 });
@@ -37,7 +37,7 @@ $(function() {
 	
 	function toDeep(arr, count, callback){
 		  var length = arr.length,
-		      newArr = [];
+		      newArr= [];
 
 		  for(var i = 0; i < Math.ceil(length / count); i++) {
 		    var j = i * count;
@@ -50,31 +50,41 @@ $(function() {
 
 		  return newArr;
 		}
+	
+	
+	function decorateItem(item) {
+		let separatePriceM = separate(item.priceM);
+		console.log(separatePriceM);
+		let separatePriceL=separate(item.priceL);
+		console.log(separatePriceL);
+		return '<th class="col-md-4">'+
+		'<a href= sugar_pizza/detailController/detail?id='+ item.id + '>'+
+		'<img src="'+ item.imagePath + '" class="img-responsive img-rounded image_pizza" width="190" height="590">' 
+		+'</a>'
+		+'<br>'
+		+ '<a href= sugar_pizza/detailController/detail?id='+ item.id +'>'
+		+ item.name
+		+ '</a>'
+		+ '<br>'
+		+'<span class="price">&nbsp;М&nbsp;</span>'
+		+'&nbsp;&nbsp;'
+		+ separatePriceM +'円(税抜)'
+		+'<br>'
+		+'<span class="price">&nbsp;Ｌ</span>'
+		+'&nbsp;&nbsp;'
+		+ separatePriceL + '円(税抜)'
+		+'<br>'
+		+'</t>'
+	}
 		
-	
-	/*function separate(num){
-	    return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-	}*/
-	
-		function decorateItem(item) {
-		  return '<th class="col-md-4">'+
-				'<a href= sugar_pizza/detailController/detail?id='+ item.id + '>'+
-				'<img src="'+ item.imagePath + '" class="img-responsive img-rounded image_pizza" width="190" height="590">' 
-				+'</a>'
-				+'<br>'
-				+ '<a href= sugar_pizza/detailController/detail?id='+ item.id +'>'
-				+ item.name
-                + '</a>'
-				+ '<br>'
-				+'<span class="price">&nbsp;М&nbsp;</span>'
-				+'&nbsp;&nbsp;'
-				+ item.priceM.toLocaleString() +'円(税抜)'
-				+'<br>'
-				+'<span class="price">&nbsp;Ｌ</span>'
-				+'&nbsp;&nbsp;'
-				+ item.priceL + '円(税抜)'
-				+'<br>'
-				+'</t>'
-		}
+
 	
 });
+
+
+function separate(num){
+	return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+}
+
+
+
