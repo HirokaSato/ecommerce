@@ -10,25 +10,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ピザ屋のネット注文</title>
 
-<link type="text/css" rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-
 <link href="${pageContext.request.contextPath}/css/bootstrap.css"
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/piza.css"
 	rel="stylesheet">
-<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/js/itemList.js"></script>
+<link type="text/css" rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+
+
 </head>
 
 <body>
@@ -81,5 +70,11 @@
 	<!-- end container -->
 
 
+	<script type="text/javascript"
+		src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript"
+		src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/itemList.js"></script>
 </body>
 </html>
