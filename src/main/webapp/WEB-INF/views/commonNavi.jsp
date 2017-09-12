@@ -49,9 +49,7 @@
 				<sec:authorize access="isAuthenticated()">
 				
 					<a class="navbar-link"
-						href="${pageContext.request.contextPath}/myPage/">マイページ</a>&nbsp;&nbsp;
-					<a href="${pageContext.request.contextPath}/orderHistory"
-						class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+						href="${pageContext.request.contextPath}/mypage/">マイページ</a>&nbsp;&nbsp;
 							<a href="${pageContext.request.contextPath}/logout"
 						class="navbar-link">ログアウト</a>
 				</sec:authorize>

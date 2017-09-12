@@ -36,5 +36,13 @@ public class RegisterUserService {
 		return userRepository.findByMailAddress(email);
 	}
 	
+	/**
+	 * ユーザー情報を更新する.
+	 * 
+	 * @param user 変更したユーザー情報
+	 */
+	public void updateUser(User user){
+		userRepository.update(user);
+	}
 	
 }

@@ -19,8 +19,8 @@ import jp.co.rakus.ecommerce_c.domain.User;
 public class UserRepository {
 	@Autowired
 	NamedParameterJdbcTemplate template;
-	
-	private final static RowMapper<User> userRowMapper = (rs,i)->{
+
+	private final static RowMapper<User> userRowMapper = (rs, i) -> {
 		User user = new User();
 		user.setId(rs.getInt("id"));
 		user.setName(rs.getString("name"));
@@ -28,36 +28,53 @@ public class UserRepository {
 		user.setPassword(rs.getString("password"));
 		user.setAddress(rs.getString("address"));
 		user.setTelephone(rs.getString("telephone"));
-		System.out.println(i);//iは、rsのカウント数
+		System.out.println(i);// iは、rsのカウント数
 		return user;
 	};
-	
+
 	/**
 	 * メールアドレスからユーザ情報を検索する.
 	 * 
-	 * @param email 検索条件のメールアドレス
+	 * @param email
+	 *            検索条件のメールアドレス
 	 * @return User 照合したユーザ情報 なければ null
 	 */
-	public User findByMailAddress(String email){
-		try{
+	public User findByMailAddress(String email) {
+		try {
 			return template.queryForObject(
-					"select id, name, email, password, address, telephone from users where email = :email", 
-					new MapSqlParameterSource().addValue("email", email), 
-					userRowMapper);
-		}catch(Exception e){
+					"select id, name, email, password, address, telephone from users where email = :email",
+					new MapSqlParameterSource().addValue("email", email), userRowMapper);
+		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * ユーザ情報を登録する.
 	 * 
-	 * @param user 登録するユーザ情報
+	 * @param user
+	 *            登録するユーザ情報
 	 * @return ユーザ情報
 	 */
-	public User insert(User user){
-		template.update("insert into users (name, email, password, address, telephone) values (:name, :email, :password, :address, :telephone)", 
+	public User insert(User user) {
+		template.update(
+				"insert into users (name, email, password, address, telephone) values (:name, :email, :password, :address, :telephone)",
 				new BeanPropertySqlParameterSource(user));
 		return user;
 	}
+
+	/**
+	 * ユーザー情報の変更をする
+	 * 
+	 * @param user
+	 *            変更したユーザ情報
+	 * @return ユーザー情報
+	 */
+	public User update(User user) {
+		template.update(
+				"update users set name=:name,email=:email,password=:password,address=:address,telephone=:telephone where id=:id",
+				new BeanPropertySqlParameterSource(user));
+		return user;
+	}
+
 }
