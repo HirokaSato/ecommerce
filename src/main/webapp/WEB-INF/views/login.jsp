@@ -67,6 +67,7 @@
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">ログイン</button>
 							</div>
+							<sec:/>
 						</fieldset>
 					</form:form>
 				</div>

@@ -39,10 +39,9 @@ public class UserDetailServiceImpl implements UserDetailsService{
 		Collection<GrantedAuthority> authorityList = new ArrayList<GrantedAuthority>();
 		//GrantedAuthority　⇒　認可情報を表すことができるクラス（springsecurityの中に入っている）
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));//「ROLE_」⇒user権限をuserに渡してる。
-		
-		
-		//管理者ユーザーを付与する処理
-		
+		if(user.isManage()){
+		authorityList.add(new SimpleGrantedAuthority("ROLE_MANAGE"));//「ROLE_」⇒manage権限をuserに渡してる。
+		}
 		
 		// ログイン時にカートに商品が入っていれば情報を書き換える
 		loginOrderChangeService.execute(user);

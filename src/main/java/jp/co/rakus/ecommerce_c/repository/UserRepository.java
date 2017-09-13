@@ -28,6 +28,7 @@ public class UserRepository {
 		user.setPassword(rs.getString("password"));
 		user.setAddress(rs.getString("address"));
 		user.setTelephone(rs.getString("telephone"));
+		user.setManage(rs.getBoolean("manage"));
 		System.out.println(i);// iは、rsのカウント数
 		return user;
 	};
@@ -42,7 +43,7 @@ public class UserRepository {
 	public User findByMailAddress(String email) {
 		try {
 			return template.queryForObject(
-					"select id, name, email, password, address, telephone from users where email = :email",
+					"select id, name, email, password, address, telephone,manage from users where email = :email",
 					new MapSqlParameterSource().addValue("email", email), userRowMapper);
 		} catch (Exception e) {
 			return null;

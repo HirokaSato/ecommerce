@@ -19,7 +19,15 @@ public class User {
 	private String address;
 	/** 電話番号 */
 	private String telephone;
+	/**管理者権限*/
+	private boolean manage;
 	
+	public boolean isManage() {
+		return manage;
+	}
+	public void setManage(boolean manage) {
+		this.manage = manage;
+	}
 	public long getId() {
 		return id;
 	}

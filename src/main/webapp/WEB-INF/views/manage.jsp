@@ -31,37 +31,14 @@
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 				<div class="well">
 					<fieldset>
-						<legend>アカウントサービス</legend>
+						<legend>管理者ページ</legend>
 						<div class="panel panel-default">
 							<div class="panel-title text-center">アカウント情報</div>
-							<label>お名前 </label>
-							<sec:authentication property="principal.user.name" />
-							<br> <label>お住まい </label>
-							<sec:authentication property="principal.user.address" />
-							<br> <label>電話番号 </label>
-							<sec:authentication property="principal.user.telephone" />
-							<br> <label>メールアドレス </label>
-							<sec:authentication property="principal.user.email" />
-
 						</div>
-
-						<div class="panel panel-default">
-							<div class="panel-title text-center">
-								<a href="${pageContext.request.contextPath}/user_info_change">アカウント情報の変更</a>
-							</div>
-						</div>
-
-
-						<div class="panel panel-default">
-							<div class="panel-title text-center">
-								<a href="${pageContext.request.contextPath}/orderHistory">注文履歴</a>
-							</div>
-						</div>
-					</fieldset>
-				</div>
+				</fieldset>
 			</div>
 		</div>
-
+	</div>
 	</div>
 	<!-- end container -->
 	<script
