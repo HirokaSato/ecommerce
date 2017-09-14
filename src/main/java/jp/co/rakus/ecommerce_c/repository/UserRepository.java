@@ -1,5 +1,7 @@
 package jp.co.rakus.ecommerce_c.repository;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -29,7 +31,7 @@ public class UserRepository {
 		user.setAddress(rs.getString("address"));
 		user.setTelephone(rs.getString("telephone"));
 		user.setManage(rs.getBoolean("manage"));
-		System.out.println(i);// iは、rsのカウント数
+		user.setLastLogin(rs.getTimestamp("last_login"));
 		return user;
 	};
 
@@ -43,7 +45,7 @@ public class UserRepository {
 	public User findByMailAddress(String email) {
 		try {
 			return template.queryForObject(
-					"select id, name, email, password, address, telephone,manage from users where email = :email",
+					"select id, name, email, password, address, telephone,manage,last_login from users where email = :email",
 					new MapSqlParameterSource().addValue("email", email), userRowMapper);
 		} catch (Exception e) {
 			return null;
@@ -76,6 +78,17 @@ public class UserRepository {
 				"update users set name=:name,email=:email,password=:password,address=:address,telephone=:telephone where id=:id",
 				new BeanPropertySqlParameterSource(user));
 		return user;
+	}
+
+	/**
+	 * ログイン時間を更新する
+	 * 
+	 * @param user
+	 *            ログインユーザー
+	 */
+	public void insertLastLogin(User user) {
+		template.update("update users set last_login=now() where email=:email",
+				new BeanPropertySqlParameterSource(user));
 	}
 
 }

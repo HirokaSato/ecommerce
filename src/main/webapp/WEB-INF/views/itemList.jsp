@@ -22,7 +22,7 @@
 
 <body>
 	<input id="contextpath" type="hidden"
-		value="${pageContext.request.contextPath }" />
+		value="${pageContext.request.contextPath}" />
 
 	<div class="container">
 		<%@ include file="./commonNavi.jsp"%>

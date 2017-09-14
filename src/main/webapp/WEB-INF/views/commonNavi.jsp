@@ -31,6 +31,12 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<p class="navbar-text navbar-right">
+
+				<sec:authorize access="isAuthenticated()">
+					<strong>前回のログイン日時：<sec:authentication
+							property="principal.user.lastLogin" /></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+			</sec:authorize>
+
 				<sec:authorize access="hasRole('MANAGE')">
 					<strong>管理者さんこんにちは</strong>&nbsp;&nbsp;&nbsp;&nbsp;
 					<a href="${pageContext.request.contextPath}/manage"
@@ -40,7 +46,7 @@
 					<sec:authorize access="(!hasRole('MANAGE'))">
 						<strong><sec:authentication
 								property="principal.user.name" />&nbsp;さん、いらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-					<button class="panel-title">商品検索</button>
+					<button class="panel-title">商品検索</button>&nbsp;&nbsp;&nbsp;&nbsp;
 					</sec:authorize>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
@@ -57,6 +63,7 @@
 				<sec:authorize access="isAuthenticated()">
 					<a class="navbar-link"
 						href="${pageContext.request.contextPath}/mypage/">マイページ</a>&nbsp;&nbsp;
+						<button class="panel-title">商品検索</button>
 							<a href="${pageContext.request.contextPath}/logout"
 						class="navbar-link">ログアウト</a>
 				</sec:authorize>

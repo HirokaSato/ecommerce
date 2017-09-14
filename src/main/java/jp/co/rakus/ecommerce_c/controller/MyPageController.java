@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.rakus.ecommerce_c.domain.LoginUser;
 
 /**
+ * マイページのコントローラ.
+ * 
  * @author hiroka.sato
  *
  */
@@ -14,6 +16,12 @@ import jp.co.rakus.ecommerce_c.domain.LoginUser;
 @RequestMapping("/mypage")
 public class MyPageController {
 
+	/**
+	 * マイぺージを表示
+	 * 
+	 * @param loginUser　ログインユーザー
+	 * @return マイページ画面
+	 */
 	@RequestMapping
 	public String myPageView(@AuthenticationPrincipal LoginUser loginUser) {
 		return "myPage";

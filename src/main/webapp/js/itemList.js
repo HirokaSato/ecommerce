@@ -44,42 +44,41 @@ $(function() {
 
 	})
 
-});
-function toDeep(arr, count, callback) {
-	var length = arr.length
-	newArr = [];
+	function toDeep(arr, count, callback) {
+		var length = arr.length
+		newArr = [];
 
-	for (var i = 0; i < Math.ceil(length / count); i++) {
-		var j = i * count;
-		var innerArr = arr.slice(j, j + count);
-		if (typeof callback === "function") {
-			innerArr = innerArr.map(callback);
+		for (var i = 0; i < Math.ceil(length / count); i++) {
+			var j = i * count;
+			var innerArr = arr.slice(j, j + count);
+			if (typeof callback === "function") {
+				innerArr = innerArr.map(callback);
+			}
+			newArr.push(innerArr);
 		}
-		newArr.push(innerArr);
+		return newArr;
 	}
-	return newArr;
-}
-function decorateItem(item) {
-	let separatePriceM = separate(item.priceM);
-	console.log(separatePriceM);
-	let separatePriceL = separate(item.priceL);
-	console.log(separatePriceL);
-	return '<th class="col-md-4">' + '<a href="'
-			+ contextpath
-			+ '/detailController/detail?id='
-			+ item.id
-			+ '">'
-			+ '<img src="'
-			+ item.imagePath
-			+ '" class="img-responsive img-rounded image_pizza" width="190" height="590">'
-			+ '</a>' + '<br>' + '<a href="' + contextpath
-			+ '/detailController/detail?id=' + item.id + '">' + item.name
-			+ '</a>' + '<br>' + '<span class="price">&nbsp;М&nbsp;</span>'
-			+ '&nbsp;&nbsp;' + separatePriceM + '円(税抜)' + '<br>'
-			+ '<span class="price">&nbsp;Ｌ</span>' + '&nbsp;&nbsp;'
-			+ separatePriceL + '円(税抜)' + '<br>' + '</t>'
-}
+	function decorateItem(item) {
+		let separatePriceM = separate(item.priceM);
+		let separatePriceL = separate(item.priceL);
+		return '<th class="col-md-4">' + '<a href="'
+				+ contextpath
+				+ '/detailController/detail?id='
+				+ item.id
+				+ '">'
+				+ '<img src="'
+				+ item.imagePath
+				+ '" class="img-responsive img-rounded image_pizza" width="190" height="590">'
+				+ '</a>' + '<br>' + '<a href="' + contextpath
+				+ '/detailController/detail?id=' + item.id + '">' + item.name
+				+ '</a>' + '<br>' + '<span class="price">&nbsp;М&nbsp;</span>'
+				+ '&nbsp;&nbsp;' + separatePriceM + '円(税抜)' + '<br>'
+				+ '<span class="price">&nbsp;Ｌ</span>' + '&nbsp;&nbsp;'
+				+ separatePriceL + '円(税抜)' + '<br>' + '</t>'
+	}
 
-function separate(num) {
-	return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-}
+	function separate(num) {
+		return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+	}
+
+});

@@ -14,7 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 public class LoginUser extends org.springframework.security.core.userdetails.User{
 	//org.springframework.security.core.userdetails.User ⇒springsecurityが用意したsecurityuserクラス
 	private static final long serialVersionUID = 1L;
-	//フィールド」変数の宣言
+	
+	/**ユーザー */
 	private User user;
 	//Collection<GrantedAuthority> authorities　⇒　UserDetailServiceImplのCollection<GrantedAuthority> authorityListと同じ
 	//コンストラクタ
