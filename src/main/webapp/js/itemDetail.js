@@ -7,7 +7,7 @@ quantity = 1;
 
 $(function() {
 	
-	 $(".imagePizza").elevateZoom();
+	
 	//フェードイン処理
 	$('#toppingCheck').css('display','none');
 	$('#pizaSize').on('click',function(){
