@@ -29,4 +29,8 @@ public class TopService {
 		return itemRepository.findAllItem();
 
 	}
+	
+	public List<Item> findTop10(){
+		return itemRepository.findTop10();
+	}
 }

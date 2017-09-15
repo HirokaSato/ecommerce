@@ -31,9 +31,19 @@ public class ItemRepository {
 		item.setPriceL(rs.getInt("price_l"));
 		item.setImagePath(rs.getString("image_path"));
 		item.setDeleted(rs.getBoolean("deleted"));
+		item.setPopularity(rs.getInt("popularity"));
 		return item;
 
 	};
+	
+	
+	/**
+	 * 人気トップ10のピザ商品を取り出す
+	 * @return 全商品の名前
+	 */
+	public List<Item> findTop10(){
+		return template.query("SELECT id,name,description,price_m,price_l,image_path,deleted,popularity FROM items ORDER BY popularity desc OFFSET 0 LIMIT 10", itemRowMapper);
+	}
 
 	/**
 	 * 商品情報を全件表示する.
@@ -41,7 +51,7 @@ public class ItemRepository {
 	 */
 	public List<Item> findAllItem() {
 
-		String findAllItemSql = "select id,name,description,price_m,price_l,image_path,deleted from items order by price_m";
+		String findAllItemSql = "select id,name,description,price_m,price_l,image_path,deleted,popularity from items order by price_m";
 		List<Item> itemList = template.query(findAllItemSql, itemRowMapper);
 		return itemList;
 
@@ -71,9 +81,7 @@ public class ItemRepository {
 
 	/**
 	 * 入力情報を元に曖昧検索をする.
-	 * 
 	 * @param keyword 入力ワード
-	 *         
 	 * @return searchItemList 検索した商品データ
 	 */
 	

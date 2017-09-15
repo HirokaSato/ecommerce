@@ -32,9 +32,9 @@
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<form:form method="post"
+						<%-- <form:form method="post"
 							action="${pageContext.request.contextPath}/searchItem"
-							class="form-horizontal">
+							class="form-horizontal"> --%>
 							<div class="form-group">
 								<div class="text-center" style="color: red">
 									<c:out value="${error}" />
@@ -47,10 +47,10 @@
 							</div>
 							<div class="text-center">
 								<c:out value="${sessionId}" />
-								<button type="submit" value="検索" class="btn btn-primary">検索</button>
+								<button type="submit" value="検索" class="btn btn-primary searchGo">検索</button>
 								<button type="reset" value="クリア" class="btn btn-default">クリア</button>
 							</div>
-						</form:form>
+						<%-- </form:form> --%>
 					</div>
 				</div>
 			</div>
@@ -63,7 +63,17 @@
 				<table class="table table-striped pizzaList">
 					<tbody id="list-table">
 					</tbody>
+
 				</table>
+			</div>
+		</div>
+
+		<div>
+			<div
+				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12"
+				style="width: 70%" class="text-center">
+　　　　　　　　　　　　　　　<strong>シュガーピザ人気ランキング</strong>　
+				<canvas id="chart" height="450" width="600"></canvas>
 			</div>
 		</div>
 	</div>
@@ -76,5 +86,7 @@
 		src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/itemList.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 </body>
 </html>

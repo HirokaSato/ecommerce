@@ -2,32 +2,20 @@ $(function() {
 
 	let contextpath = $('#contextpath').val();
 
+	// 商品一覧表示
+
 	$.ajax({
 		type : "GET",
 		url : contextpath + "/ajaxSearchAllItem",
 		dataType : 'json'
 	}).then(function(lst_item) {
-		var pizzaName = [];
-		lst_item.forEach(function(pizza) {
-			pizzaName.push(pizza.name);
-		});
-		$(".autocomplate").autocomplete({
-			source : pizzaName,
-			autoFocus : true,
-			delay : 500,
-			minLength : 2
-		});
-		var htmlItems = toDeep(lst_item, 3, decorateItem);
-		// htmlitems [[item,item,item],[item,item,item]....]
-		/*
-		 * var items = htmlItems.map(function(innerArr){ return
-		 * innerArr.join().replace(/,/, ''); //正規表現(/,/g,
-		 * '')⇒gがあるとすべての「，」をなくしてくれる。gがないと、最初の「，」だけなくす処理になる。gはglobaldserchの略 });
-		 */
+		var htmlItems = toDeep(lst_item, 3, decorateItem);// htmlitems
+		// [[item,item,item],[item,item,item]....]
 		htmlItems.forEach(function(threePizza) {
 			var row = $('<tr>');
 			$('#list-table').append(row.append(threePizza));
 		});
+
 		$("img.image_pizza").hover(function() {
 			$(this).fadeTo("2000", 0.3); // マウスオーバーで透明度を30%にする
 		}, function() {
@@ -43,6 +31,57 @@ $(function() {
 		console.log("fail");
 
 	})
+	// グラフ表示
+	$.ajax({
+		type : "GET",
+		url : contextpath + "/ajaxViewGraph",
+		dataType : 'json'
+	}).then(function(top_items) {
+		var pizzaTopLst = [];
+		top_items.forEach(function(item) {
+			pizzaTopLst.push(item.popularity);
+		});
+		var pizzaTopLst_name = [];
+		top_items.forEach(function(item) {
+			pizzaTopLst_name.push(item.name);
+		});
+		var barChartData = {
+			labels : pizzaTopLst_name,
+			datasets : [ {
+				fillColor : /* "#d685b0" */"rgba(214,133,176,0.7)",
+				strokeColor : /* "#d685b0" */"rgba(214,133,176,0.7)",
+				highlightFill : /* "#eebdcb" */"rgba(238,189,203,0.7)",
+				highlightStroke : /* "#eebdcb" */"rgba(238,189,203,0.7)",
+				data : pizzaTopLst
+			} ]
+		}
+		$(document).ready(function() {
+			var ctx = document.getElementById("chart").getContext("2d");
+			window.myBar = new Chart(ctx).Bar(barChartData, {
+				responsive : true,
+			});
+		})
+	}).fail(function() {
+		console.log("fail");
+	})
+	// 検索機能
+	$(button.searchGo).on(click, function() {
+		var words = $("#code").val();
+		ajax({
+			type : "GET",
+			url : contextpath + "/ajaxSerchResult",
+			dataType : 'json',
+			data : {
+				search_word : words
+			}
+		// 連想配列：search_wordというkeyでwordsというvalueを送っている。
+		}).then(function(ResultWords) {
+			
+
+		}).fail(function() {
+			console.log("fail");
+		})
+	});
 
 	function toDeep(arr, count, callback) {
 		var length = arr.length
@@ -58,6 +97,7 @@ $(function() {
 		}
 		return newArr;
 	}
+
 	function decorateItem(item) {
 		let separatePriceM = separate(item.priceM);
 		let separatePriceL = separate(item.priceL);
@@ -80,5 +120,16 @@ $(function() {
 	function separate(num) {
 		return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 	}
-
 });
+/*
+ * var items = htmlItems.map(function(innerArr){ return
+ * innerArr.join().replace(/,/, ''); //正規表現(/,/g,
+ * '')⇒gがあるとすべての「，」をなくしてくれる。gがないと、最初の「，」だけなくす処理になる。gはglobaldserchの略 });
+ */
+
+/*
+ * var pizzaName = []; lst_item.forEach(function(pizza) {
+ * pizzaName.push(pizza.name); }); $(".autocomplate").autocomplete({ source :
+ * pizzaName, autoFocus : true, delay : 500, minLength : 2
+ */
+

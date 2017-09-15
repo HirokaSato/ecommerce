@@ -22,6 +22,16 @@ public class Item {
 	private String imagePath;
 	/** 削除フラグ */
 	private boolean deleted;
+	/** 売上数*/
+	private Integer popularity;
+
+	public Integer getPopularity() {
+		return popularity;
+	}
+
+	public void setPopularity(Integer popularity) {
+		this.popularity = popularity;
+	}
 
 	public long getId() {
 		return id;
