@@ -37,6 +37,7 @@ public class ItemRepository {
 	};
 	
 	
+	
 	/**
 	 * 人気トップ10のピザ商品を取り出す
 	 * @return 全商品の名前
@@ -87,7 +88,7 @@ public class ItemRepository {
 	
 	public List<Item> searchItem(String keyword) {
 				
-		String searchSql = "select id,name,description,price_m,price_l,image_path,deleted from items where name like :keyword ";
+		String searchSql = "select id,name,description,price_m,price_l,image_path,deleted,popularity from items where name like :keyword ";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("keyword", "%" + keyword + "%");
 		List<Item> searchItemList = template.query(searchSql, param, itemRowMapper);
 		return searchItemList;

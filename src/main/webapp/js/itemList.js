@@ -3,7 +3,7 @@ $(function() {
 	let contextpath = $('#contextpath').val();
 
 	// 商品一覧表示
-
+	$.when(
 	$.ajax({
 		type : "GET",
 		url : contextpath + "/ajaxSearchAllItem",
@@ -27,10 +27,40 @@ $(function() {
 			$("div.panel-body").toggle();
 		});
 
+		var pizzaName = [];
+		lst_item.forEach(function(pizza) {
+			pizzaName.push(pizza.name);
+		});
+
 	}).fail(function() {
 		console.log("fail");
 
 	})
+	).done(function(){
+	$(".searchGo").on("click", function() {
+		var words = $("#code").val();
+		console.log(words);
+		$.ajax({
+			url : contextpath + "/search_item",
+			dataType : "json",
+			type : 'GET',
+			data : {
+				"search_word" : words
+			}
+		}).then(function(Result_pizzas) {
+			console.log(Result_pizzas);
+			// htmlitems
+			// [[item,item,item],[item,item,item]....]
+			Result_pizzas.forEach(function(pizza) {
+				//var row = $('<tr>');
+				$('#list-table').append(pizza.name);
+			});
+			
+		}).fail(function() {
+			console.log("fail");
+		})
+	});
+	});
 	// グラフ表示
 	$.ajax({
 		type : "GET",
@@ -64,25 +94,29 @@ $(function() {
 	}).fail(function() {
 		console.log("fail");
 	})
-	// 検索機能
-	$(button.searchGo).on(click, function() {
-		var words = $("#code").val();
-		ajax({
-			type : "GET",
-			url : contextpath + "/ajaxSerchResult",
-			dataType : 'json',
-			data : {
-				search_word : words
-			}
-		// 連想配列：search_wordというkeyでwordsというvalueを送っている。
-		}).then(function(ResultWords) {
-			
-
-		}).fail(function() {
-			console.log("fail");
+	// オートコンプリート
+	$.ajax({
+		url : contextpath + "/ajaxSerchResult",
+		dataType : "json",
+		type : 'GET'
+	}).then(function(Result_pizzas) {
+		var pizzaName = [];
+		Result_pizzas.forEach(function(pizza) {
+			pizzaName.push(pizza.name);
 		})
-	});
+		$('.autocomplate').autocomplete({
+			source : pizzaName,
+			autoFocus : true,
+			delay : 500,
+			minLength : 1
+		});
 
+	}).fail(function() {
+		console.log("fail");
+
+	})
+
+	// 商品検索
 	function toDeep(arr, count, callback) {
 		var length = arr.length
 		newArr = [];
@@ -121,15 +155,8 @@ $(function() {
 		return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 	}
 });
-/*
+/**
  * var items = htmlItems.map(function(innerArr){ return
  * innerArr.join().replace(/,/, ''); //正規表現(/,/g,
  * '')⇒gがあるとすべての「，」をなくしてくれる。gがないと、最初の「，」だけなくす処理になる。gはglobaldserchの略 });
  */
-
-/*
- * var pizzaName = []; lst_item.forEach(function(pizza) {
- * pizzaName.push(pizza.name); }); $(".autocomplate").autocomplete({ source :
- * pizzaName, autoFocus : true, delay : 500, minLength : 2
- */
-
