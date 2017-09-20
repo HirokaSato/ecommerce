@@ -41,14 +41,11 @@ public class SearchItemController {
 	@RequestMapping("/search_item")
 	public List<Item> searchItem(String search_word) {
 
+		/*if (search_word.isEmpty()) {
+			return null;
+		}*/
 		return searchItemService.searchItem(search_word);
 	}
-		/*if (searchItem.isEmpty()) {
-			model.addAttribute("error", "該当する商品がありません");
-			keyword = "";
-			List<Item> allItem = searchItemService.searchItem(keyword);
-			model.addAttribute("itemList", allItem);
-		}*/
 
 	@ResponseBody
 	@RequestMapping("/ajaxSerchResult")

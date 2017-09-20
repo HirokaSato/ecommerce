@@ -46,7 +46,7 @@
 					<sec:authorize access="(!hasRole('MANAGE'))">
 						<strong><sec:authentication
 								property="principal.user.name" />&nbsp;さん、いらっしゃいませ！</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-					<button class="panel-title">商品検索</button>&nbsp;&nbsp;&nbsp;&nbsp;
+					<!-- <button class="panel-title">商品検索</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
 					</sec:authorize>
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">

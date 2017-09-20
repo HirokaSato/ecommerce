@@ -68,7 +68,7 @@ public class ItemRepository {
 
 	public Item loadItem(long id) {
 
-		String loadItemSql = "select id,name,description,price_m,price_l,image_path,deleted from items where id = :id";
+		String loadItemSql = "select id,name,description,price_m,price_l,image_path,deleted,popularity from items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Item item = null;
 		try{			

@@ -48,8 +48,8 @@
 							<div class="text-center">
 								<c:out value="${sessionId}" />
 								<br>
-								<input type="submit" value="検索" class="btn btn-primary searchGo">
-								<input type="reset" value="クリア" class="btn btn-default">
+								<button type="submit" value="検索" class="btn btn-primary searchGo">検索</button>
+								<input type="reset" value="クリア" class="btn btn-default deleteGo"/>
 							</div>
 						<%--  </form:form> --%>
 					</div>

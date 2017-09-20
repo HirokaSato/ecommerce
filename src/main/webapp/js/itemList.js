@@ -3,8 +3,7 @@ $(function() {
 	let contextpath = $('#contextpath').val();
 
 	// 商品一覧表示
-	$.when(
-	$.ajax({
+	$.when($.ajax({
 		type : "GET",
 		url : contextpath + "/ajaxSearchAllItem",
 		dataType : 'json'
@@ -35,31 +34,39 @@ $(function() {
 	}).fail(function() {
 		console.log("fail");
 
-	})
-	).done(function(){
-	$(".searchGo").on("click", function() {
-		var words = $("#code").val();
-		console.log(words);
-		$.ajax({
-			url : contextpath + "/search_item",
-			dataType : "json",
-			type : 'GET',
-			data : {
-				"search_word" : words
+	})).done(function() {
+
+		// 商品検索
+		$(".searchGo").on("click", function() {
+			var words = $("#code").val();
+			var keikoku = "入力してください";
+			if (words == "") {
+				alert(keikoku)
+			} else {
+				var a = $.ajax({
+					url : contextpath + "/search_item",
+					dataType : "json",
+					type : 'GET',
+					data : {
+						"search_word" : words
+					}
+				}).then(function(Result_pizzas) {
+					var pizzaList = [];
+					Result_pizzas.forEach(function(pizza) {
+						pizzaList.push(decorateItem(pizza));
+						$('#list-table').html(pizzaList);
+					});
+					$("img.image_pizza").hover(function() {
+						$(this).fadeTo("2000", 0.3); // マウスオーバーで透明度を30%にする
+					}, function() {
+						$(this).fadeTo("2000", 1.0); // マウスアウトで透明度を100%に戻す
+					});
+
+				}).fail(function() {
+					console.log("fail");
+				})
 			}
-		}).then(function(Result_pizzas) {
-			console.log(Result_pizzas);
-			// htmlitems
-			// [[item,item,item],[item,item,item]....]
-			Result_pizzas.forEach(function(pizza) {
-				//var row = $('<tr>');
-				$('#list-table').append(pizza.name);
-			});
-			
-		}).fail(function() {
-			console.log("fail");
-		})
-	});
+		});
 	});
 	// グラフ表示
 	$.ajax({
@@ -116,7 +123,10 @@ $(function() {
 
 	})
 
-	// 商品検索
+	$(".deleteGo").on("click", function() {
+		$("#code").val("");
+	});
+
 	function toDeep(arr, count, callback) {
 		var length = arr.length
 		newArr = [];
