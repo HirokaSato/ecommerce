@@ -1,6 +1,7 @@
 package jp.co.rakus.ecommerce_c.repository;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -34,6 +35,14 @@ public class UserRepository {
 		user.setLastLogin(rs.getTimestamp("last_login"));
 		return user;
 	};
+	
+	/**
+	 * ユーザー全件検索
+	 * @return　すべてのユーザー情報
+	 */
+	public List<User> findAll(){
+		return template.query("select id,name,email,password,address,telephone,manage,last_login from users", userRowMapper);
+	}
 
 	/**
 	 * メールアドレスからユーザ情報を検索する.

@@ -34,11 +34,19 @@
 						<legend>管理者ページ</legend>
 						<div class="panel panel-default">
 							<div class="panel-title text-center">アカウント情報</div>
+							<div>
+							<button type="button"
+								onclick="location.href='${pageContext.request.contextPath}/csvUserDownload'">
+								ユーザー情報一括ダウンロード(csv)</button>
+							<button type="button"
+								onclick="location.href='${pageContext.request.contextPath}/csvPurchaseDownload'">
+								購入履歴(csv)</button>
+								</div>
 						</div>
-				</fieldset>
+					</fieldset>
+				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<!-- end container -->
 	<script
