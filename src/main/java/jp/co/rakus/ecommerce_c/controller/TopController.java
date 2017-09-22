@@ -52,11 +52,16 @@ public class TopController {
 	}
 	
 	
-	
 	@ResponseBody
 	@RequestMapping("/ajaxViewGraph")
 	public List<Item> viewGraphByAjax(String searchWord){
 		return itemService.findTop10();
 	}
+	
+	/*@ResponseBody
+	@RequestMapping("/six_data")
+	public List<Item> sixDataByAjax(String searchWord){
+		return itemService
+	}*/
 
 }

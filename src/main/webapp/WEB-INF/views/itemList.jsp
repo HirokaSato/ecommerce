@@ -14,13 +14,51 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/piza.css"
 	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/pagination.css"
+	rel="stylesheet">
 <link type="text/css" rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/cupertino/jquery-ui.min.css" />
-
 
 </head>
 
 <body>
+<div class="items">
+    <div class="item">
+        <p>item 1</p>
+    </div>
+    <div class="item">
+        <p>item 2</p>
+    </div>
+    <div class="item">
+        <p>item 3</p>
+    </div>
+    <div class="item">
+        <p>item 4</p>
+    </div>
+    <div class="item">
+        <p>item 5</p>
+    </div>
+    <div class="item">
+        <p>item 6</p>
+    </div>
+    <div class="item">
+        <p>item 7</p>
+    </div>
+    <div class="item">
+        <p>item 8</p>
+    </div>
+    <div class="item">
+        <p>item 9</p>
+    </div>
+    <div class="item">
+        <p>item 10</p>
+    </div>
+    <div class="item">
+        <p>item 11</p>
+    </div>
+</div>
+
+
 	<input id="contextpath" type="hidden"
 		value="${pageContext.request.contextPath}" />
 
@@ -32,26 +70,22 @@
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<%-- <form:form method="post"
-							action="${pageContext.request.contextPath}/searchItem"
-							class="form-horizontal">  --%>
-							<div class="form-group">
-								<div class="text-center" style="color: red">
-									<c:out value="${error}" />
-								</div>
-								<label for="code" class="control-label col-sm-2">商品名</label>
-								<div class="col-sm-9 ">
-									<input type="text" name="keyword" id="code"
-										class="form-control input-sm autocomplate" />
-								</div>
+						<div class="form-group">
+							<div class="text-center" style="color: red">
+								<c:out value="${error}" />
 							</div>
-							<div class="text-center">
-								<c:out value="${sessionId}" />
-								<br>
-								<button type="submit" value="検索" class="btn btn-primary searchGo">検索</button>
-								<input type="reset" value="クリア" class="btn btn-default deleteGo"/>
+							<label for="code" class="control-label col-sm-2">商品名</label>
+							<div class="col-sm-9 ">
+								<input type="text" name="keyword" id="code"
+									class="form-control input-sm autocomplate" />
 							</div>
-						<%--  </form:form> --%>
+						</div>
+						<div class="text-center">
+							<c:out value="${sessionId}" />
+							<br>
+							<button type="submit" value="検索" class="btn btn-primary searchGo">検索</button>
+							<input type="reset" value="クリア" class="btn btn-default deleteGo" />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -61,13 +95,17 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+				<button type="submit" value="6件表示" id="six_data">6件表示</button>
+				<button type="submit" value="12件表示" id="six_data">12件表示</button>
+				<button type="submit" value="18件表示" id="#all_view">18件表示</button>
 				<table class="table table-striped pizzaList">
 					<tbody id="list-table">
-					</tbody>
 
+					</tbody>
 				</table>
 			</div>
 		</div>
+		<div class="pagenation"></div>
 
 		<div>
 			<div
@@ -79,8 +117,10 @@
 		</div>
 	</div>
 	<!-- end container -->
-
-
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/jquery.pagination.js"></script>
 	<script type="text/javascript"
 		src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript"
