@@ -23,6 +23,10 @@ $(function() {
 	    });
 	*/
 
+		 $('.sample').pagination({
+		        itemElement : '> .item' // アイテムの要素
+		    });
+		
 		$("img.image_pizza").hover(function() {
 			$(this).fadeTo("2000", 0.3); // マウスオーバーで透明度を30%にする
 		}, function() {

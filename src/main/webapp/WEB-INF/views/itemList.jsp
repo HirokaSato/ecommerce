@@ -22,42 +22,6 @@
 </head>
 
 <body>
-<div class="items">
-    <div class="item">
-        <p>item 1</p>
-    </div>
-    <div class="item">
-        <p>item 2</p>
-    </div>
-    <div class="item">
-        <p>item 3</p>
-    </div>
-    <div class="item">
-        <p>item 4</p>
-    </div>
-    <div class="item">
-        <p>item 5</p>
-    </div>
-    <div class="item">
-        <p>item 6</p>
-    </div>
-    <div class="item">
-        <p>item 7</p>
-    </div>
-    <div class="item">
-        <p>item 8</p>
-    </div>
-    <div class="item">
-        <p>item 9</p>
-    </div>
-    <div class="item">
-        <p>item 10</p>
-    </div>
-    <div class="item">
-        <p>item 11</p>
-    </div>
-</div>
-
 
 	<input id="contextpath" type="hidden"
 		value="${pageContext.request.contextPath}" />
@@ -120,13 +84,13 @@
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/js/jquery.pagination.js"></script>
-	<script type="text/javascript"
 		src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript"
 		src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/itemList.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/jquery.pagination.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 </body>

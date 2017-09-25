@@ -24,6 +24,12 @@ public class Item {
 	private boolean deleted;
 	/** 売上数*/
 	private Integer popularity;
+	
+	/** 属性を受けとり、フィールド属性に詰めるコンストラクタ *//*
+	public Item(String name) {
+		super();
+		this.name = name;
+	}*/
 
 	public Integer getPopularity() {
 		return popularity;
@@ -31,6 +37,10 @@ public class Item {
 
 	public void setPopularity(Integer popularity) {
 		this.popularity = popularity;
+	}
+	
+	public String getStringId(){
+		return String.valueOf(id);
 	}
 
 	public long getId() {

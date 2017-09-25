@@ -33,11 +33,16 @@
 					<fieldset>
 						<legend>管理者ページ</legend>
 						<div class="panel panel-default">
-							<div class="panel-title text-center">アカウント情報</div>
+							<!-- <div class="panel-title text-center">アカウント情報</div> -->
+							<div>
+							<input type="button" value="商品管理"onClick="location.href='${pageContext.request.contextPath}/'"/>
+							</div>
 							<div>
 							<button type="button"
 								onclick="location.href='${pageContext.request.contextPath}/csvUserDownload'">
 								ユーザー情報一括ダウンロード(csv)</button>
+							</div>
+							<div>
 							<button type="button"
 								onclick="location.href='${pageContext.request.contextPath}/csvPurchaseDownload'">
 								購入履歴(csv)</button>
