@@ -35,7 +35,7 @@
 						<div class="panel panel-default">
 							<!-- <div class="panel-title text-center">アカウント情報</div> -->
 							<div>
-							<input type="button" value="商品管理"onClick="location.href='${pageContext.request.contextPath}/'"/>
+							<input type="button" value="商品管理"onClick="location.href='${pageContext.request.contextPath}/product_list'"/>
 							</div>
 							<div>
 							<button type="button"

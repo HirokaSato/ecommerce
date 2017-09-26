@@ -102,33 +102,51 @@ public class ItemRepository {
 	}
 
 	/**
-	 * 商品の追加、更新
+	 * 商品の追加
 	 * 
 	 * @param item
 	 *            追加情報
 	 * @return 結果
 	 */
 	public Item save(Item item) {
-		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-		if (item.getStringId() == null) {
-			String insertSql = "insert into items (name,description,price_m,price_l,image_path,deleted,popularity)"
-					+ "values(name,description,price_m,price_l,image_path,deleted,popularity)";
+		try {
+			SqlParameterSource param = new BeanPropertySqlParameterSource(item);
+			String insertSql = "insert into items (id,name,description,price_m,price_l,image_path,deleted,popularity)"
+					+ "values(:id,:name,:description,:priceM,:priceL,:imagePath,:deleted,:popularity)";
 			template.update(insertSql, param);
-		} else {
-			String updateSql = "update items set name=:name,description=:description,price_m=:price_m,price_l=:price_l,image_path=:image_path,deleted=:deleted,popularity=:popularity where id=:id";
-			template.update(updateSql, param);
+			return item;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		return item;
-	}
-	
-	/**
-	 * テスト用登録User全件削除.
-	 */
-	public void deleteAll() {
-		String sql = "delete from items";
-		SqlParameterSource param = new MapSqlParameterSource();
-		template.update(sql, param);
 	}
 
+	/**
+	 * 商品情報の変更
+	 * @param item
+	 * @return
+	 */
+	public Item update(Item item) {
+		try {
+			SqlParameterSource param = new BeanPropertySqlParameterSource(item);
+			String updateSql = "update items set name=:name,description=:description,price_m=:priceM,price_l=:priceL,image_path=:imagePath,deleted=:deleted,popularity=:popularity where id=:id";
+			template.update(updateSql, param);
+			return item;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	
+	/**
+	 * 商品の削除
+	 * @param id　	商品ID
+	 */
+	public void deleteAll(long id) {
+		String sql = "delete from items where id=:id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		template.update(sql, param);
+	}
 
 }

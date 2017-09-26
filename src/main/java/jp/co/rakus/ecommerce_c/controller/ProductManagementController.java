@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.rakus.ecommerce_c.domain.Item;
 import jp.co.rakus.ecommerce_c.repository.ItemRepository;
@@ -22,5 +23,11 @@ public class ProductManagementController {
 		List<Item> pizzaList=repository.findAllItem();
 		model.addAttribute("pizzaList", pizzaList);
 		return "allProduct";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/SearchAllItem")
+	public List<Item> searchItemByAjax(String searchWord) {
+		return repository.findAllItem();
 	}
 }

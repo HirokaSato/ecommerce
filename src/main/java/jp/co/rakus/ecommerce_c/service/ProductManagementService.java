@@ -21,8 +21,12 @@ public class ProductManagementService {
 		return repository.save(item);
 	}
 	
-	public void deleteAll(){
-		repository.deleteAll();
+	public void deleteAll(long id){
+		repository.deleteAll(id);
+	}
+	
+	public Item update(Item item){
+		return repository.update(item);
 	}
 	
 }

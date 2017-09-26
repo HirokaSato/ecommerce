@@ -16,17 +16,6 @@ $(function() {
 			$('#list-table').append(row.append(threePizza));
 		});
 		
-		/*$("#pagenation").pagination({
-	        items: 100,
-	        itemsOnPage: 10,
-	        cssStyle: 'light-theme'
-	    });
-	*/
-
-		 $('.sample').pagination({
-		        itemElement : '> .item' // アイテムの要素
-		    });
-		
 		$("img.image_pizza").hover(function() {
 			$(this).fadeTo("2000", 0.3); // マウスオーバーで透明度を30%にする
 		}, function() {
