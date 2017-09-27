@@ -111,8 +111,8 @@ public class ItemRepository {
 	public Item save(Item item) {
 		try {
 			SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-			String insertSql = "insert into items (id,name,description,price_m,price_l,image_path,deleted,popularity)"
-					+ "values(:id,:name,:description,:priceM,:priceL,:imagePath,:deleted,:popularity)";
+			String insertSql = "insert into items (name,description,price_m,price_l,image_path,deleted,popularity)"
+					+ "values(:name,:description,:priceM,:priceL,:imagePath,:deleted,:popularity)";
 			template.update(insertSql, param);
 			return item;
 		} catch (Exception e) {

@@ -162,7 +162,7 @@ $(function() {
 				+ '">'
 				+ '<img src="'
 				+ item.imagePath
-				+ '" class="img-responsive img-rounded image_pizza" width="190" height="590">'
+				+ '" class="img-responsive img-rounded image_pizza" width="200%" >'
 				+ '</a>' + '<br>' + '<a href="' + contextpath
 				+ '/detailController/detail?id=' + item.id + '">' + item.name
 				+ '</a>' + '<br>' + '<span class="price">&nbsp;М&nbsp;</span>'

@@ -29,7 +29,7 @@
 			<div
 				class="table-responsive col-lg-offset-0 col-lg-11.5 col-md-offset-0 col-md-11.5 col-sm-12 col-xs-12">
 				<ol class="breadcrumb">
-					<li><a href="http://bootstrap3.cyberlab.info">商品追加</a></li>
+					<li><a href="${pageContext.request.contextPath}/add_item">商品追加</a></li>
 					<li><a href="http://bootstrap3.cyberlab.info/components/">一括追加</a></li>
 					<li class="active">一括削除</li>
 					<li class="active">更新</li>
