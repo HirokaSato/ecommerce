@@ -25,10 +25,6 @@ public class Item {
 	/** 売上数 */
 	private Integer popularity;
 
-	/** 属性を受けとり、フィールド属性に詰めるコンストラクタ *//*
-										 * public Item(String name) { super();
-										 * this.name = name; }
-										 */
 
 	public Integer getPopularity() {
 		return popularity;
