@@ -48,50 +48,47 @@
 		<div class="row">
 			<div
 				class="col-lg-offset-3 col-lg-7 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
-				<div class="well">
+				<div class="row well">
 					<form:form modelAttribute="itemForm"
 						action="${pageContext.request.contextPath}/add_item_submit"
 						method="post" id="itemForm" enctype="multipart/form-data">
-						<fieldset>
-							<legend>商品追加ページ</legend>
-							<div class="form-group">
-								<label for="inputName">商品名:</label><label class="control-label"
-									style="color: red" for="inputError"><form:errors
-										path="name" /></label>
-								<form:input path="name" placeholder="商品名"
-									class="
+						<div class="form-group">
+							<label for="inputName">商品名:</label><label class="control-label"
+								style="color: red" for="inputError"><form:errors
+									path="name" /></label>
+							<form:input path="name" placeholder="商品名"
+								class="
 									form-control" id="inputName" />
-							</div>
-							<div class="form-group">
-								<label for="inputPriceM">Mサイズ金額:</label><label
-									class="control-label" style="color: red" for="inputError"><form:errors
-										path="description" /></label>
-								<form:input path="priceM" placeholder="Mサイズの金額"
-									class="form-control" id="inputPriceM" />
-							</div>
-							<div class="form-group">
-								<label for="inputPriceL">Lサイズ金額:</label> <label
-									class="control-label" style="color: red" for="inputError"></label>
-								<form:input path="priceL" placeholder="Lサイズの金額"
-									class="form-control" id="inputPriceL" />
-							</div>
-							<div class="form-group">
-								<label for="InputTextarea">商品説明:</label> <label
-									class="control-label" style="color: red" for="inputError"></label>
-								<form:textarea path="description" rows="3" class="form-control"
-									id="InputTextarea" />
-							</div>
-							<div class="form-group">
-								<label for="inputAddress">画像:</label> <input type="file"
-									name="image" /><br />
-							</div>
-							<form:hidden path="popularity" value="0"/>
-							<div class="form-group">
-								<button type="submit" class="btn btn-warning" form="itemForm">登録</button>
-								<button type="reset" class="btn btn-danger deleteData"
-									form="itemForm">クリア</button>
-							</div>
-						</fieldset>
+						</div>
+						<div class="form-group">
+							<label for="inputPriceM">Mサイズ金額:</label><label
+								class="control-label" style="color: red" for="inputError"><form:errors
+									path="description" /></label>
+							<form:input path="priceM" placeholder="Mサイズの金額"
+								class="form-control" id="inputPriceM" />
+						</div>
+						<div class="form-group">
+							<label for="inputPriceL">Lサイズ金額:</label> <label
+								class="control-label" style="color: red" for="inputError"></label>
+							<form:input path="priceL" placeholder="Lサイズの金額"
+								class="form-control" id="inputPriceL" />
+						</div>
+						<div class="form-group">
+							<label for="InputTextarea">商品説明:</label> <label
+								class="control-label" style="color: red" for="inputError"></label>
+							<form:textarea path="description" rows="3" class="form-control"
+								id="InputTextarea" />
+						</div>
+						<div class="form-group">
+							<label for="inputAddress">画像:</label> <input type="file"
+								name="image" /><br />
+						</div>
+						<form:hidden path="popularity" value="0" />
+						<div class="form-group">
+							<button type="submit" class="btn btn-warning" form="itemForm">登録</button>
+							<button type="reset" class="btn btn-danger deleteData"
+								form="itemForm">クリア</button>
+						</div>
 					</form:form>
 				</div>
 				<a href="${pageContext.request.contextPath}/product_list">商品管理一覧に戻る</a>

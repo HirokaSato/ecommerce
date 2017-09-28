@@ -7,9 +7,9 @@ $(function() {
 	}).then(function(lst_item) {
 		var htmlItems = toDeep(lst_item, 2, decorateItem);
 		// htmlitems [[item,item,item],[item,item,item]....]
-		htmlItems.forEach(function(threePizza) {
+		htmlItems.forEach(function(twoPizza) {
 			var row = $('<tr>');
-			$('#all_item_list').append(row.append(threePizza));
+			$('#all_item_list').append(row.append(twoPizza));
 		});
 
 		$("img.image_pizza").hover(function() {
