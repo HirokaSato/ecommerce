@@ -46,7 +46,7 @@ public class ProductManagementController {
 	}
 
 	@RequestMapping("/add_item_submit")
-	private String submit(@Validated ItemForm form) throws IllegalStateException, IOException {
+	private String submit(@Validated ItemForm form,Model model) throws IllegalStateException, IOException {
 		Item item = new Item();
 		item.setName(form.getName());
 		item.setDescription(form.getDescription());
@@ -58,6 +58,6 @@ public class ProductManagementController {
 		// アップロード先のパスをセット
 		item.setImagePath("http://172.16.0.16/media_2017/image/ecommerce201707C/" + form.getImage().getOriginalFilename());
 		repository.save(item);
-		return "manage(Model model)";
+		return manage(model);
 	}
 }
