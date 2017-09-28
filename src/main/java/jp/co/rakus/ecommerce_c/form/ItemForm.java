@@ -54,13 +54,7 @@ public class ItemForm {
 	}
 	
 	public Integer getIntPriceM(){
-		Integer priceM = 0;
-		try{
-			priceM = Integer.parseInt(this.priceM);
-		}catch(NumberFormatException e){
-			e.printStackTrace();
-		}
-		return priceM;
+		return	Integer.parseInt(this.priceM);
 	}
 
 	public String getPriceL() {
@@ -72,13 +66,7 @@ public class ItemForm {
 	}
 	
 	public Integer getIntPriceL(){
-		Integer priceL = 0;
-		try{
-			priceL = Integer.parseInt(this.priceL);
-		}catch(NumberFormatException e){
-			e.printStackTrace();
-		}
-		return priceL;
+		return Integer.parseInt(this.priceL);
 	}
 
 	

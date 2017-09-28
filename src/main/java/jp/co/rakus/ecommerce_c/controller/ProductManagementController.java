@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,12 +52,12 @@ public class ProductManagementController {
 		item.setDescription(form.getDescription());
 		item.setPriceM(form.getIntPriceM());
 		item.setPriceL(form.getIntPriceL());
+		item.setPopularity(form.getIntPopularity());
 		// 画像ファイルをサーバにアップロードする
-		form.getImage().transferTo(new File(
-				"/opt/tomcat8/webapps/media_2017/image/ecommerce201707C/" + form.getImage().getOriginalFilename()));
+		form.getImage().transferTo(new File("/opt/tomcat8/webapps/media_2017/image/ecommerce201707C/" + form.getImage().getOriginalFilename()));
 		// アップロード先のパスをセット
 		item.setImagePath("http://172.16.0.16/media_2017/image/ecommerce201707C/" + form.getImage().getOriginalFilename());
 		repository.save(item);
-		return "redirect:/product_list";
+		return "manage(Model model)";
 	}
 }
