@@ -30,9 +30,8 @@
 				class="table-responsive col-lg-offset-0 col-lg-11.5 col-md-offset-0 col-md-11.5 col-sm-12 col-xs-12">
 				<ol class="breadcrumb">
 					<li><a href="${pageContext.request.contextPath}/add_item">商品追加</a></li>
-					<li><a href="http://bootstrap3.cyberlab.info/components/">一括追加</a></li>
+					<li><a href="http://bootstrap3.cyberlab.info/components/">一括更新</a></li>
 					<li class="active">一括削除</li>
-					<li class="active">更新</li>
 				</ol>
 
 				<table class="table table-striped pizzaList">
@@ -53,7 +52,6 @@
 		src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/allProduct.js"></script>
-
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 </body>

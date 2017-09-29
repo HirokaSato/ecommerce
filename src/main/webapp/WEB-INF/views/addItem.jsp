@@ -21,7 +21,7 @@
 						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 						aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span><span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand"
@@ -43,62 +43,34 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
+	</div>
 
-		<!-- login form -->
-		<div class="row">
-			<div
-				class="col-lg-offset-3 col-lg-7 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
-				<div class="row well">
-					<form:form modelAttribute="itemForm"
-						action="${pageContext.request.contextPath}/add_item_submit"
-						method="post" id="itemForm" enctype="multipart/form-data">
-						<div class="form-group">
-							<label for="inputName">商品名:</label><label class="control-label"
-								style="color: red" for="inputError"><form:errors
-									path="name" /></label>
-							<form:input path="name" placeholder="商品名"
-								class="
-									form-control" id="inputName" />
-						</div>
-						<div class="form-group">
-							<label for="inputPriceM">Mサイズ金額:</label><label
-								class="control-label" style="color: red" for="inputError"><form:errors
-									path="description" /></label>
-							<form:input path="priceM" placeholder="Mサイズの金額"
-								class="form-control" id="inputPriceM" />
-						</div>
-						<div class="form-group">
-							<label for="inputPriceL">Lサイズ金額:</label> <label
-								class="control-label" style="color: red" for="inputError"></label>
-							<form:input path="priceL" placeholder="Lサイズの金額"
-								class="form-control" id="inputPriceL" />
-						</div>
-						<div class="form-group">
-							<label for="InputTextarea">商品説明:</label> <label
-								class="control-label" style="color: red" for="inputError"></label>
-							<form:textarea path="description" rows="3" class="form-control"
-								id="InputTextarea" />
-						</div>
-						<div class="form-group">
-							<label for="inputAddress">画像:</label> <input type="file"
-								name="image" /><br />
-						</div>
-						<form:hidden path="popularity" value="0" />
-						<div class="form-group">
-							<button type="submit" class="btn btn-warning" form="itemForm">登録</button>
-							<button type="reset" class="btn btn-danger deleteData"
-								form="itemForm">クリア</button>
-						</div>
-					</form:form>
-				</div>
-				<a href="${pageContext.request.contextPath}/product_list">商品管理一覧に戻る</a>
-			</div>
+	<!-- login form -->
+
+	<div class="container">
+	<input id="contextpath" type="hidden"
+		value="${pageContext.request.contextPath}" />
+		<ol class="breadcrumb">
+			<li><input type="button" id="add_item_form" value="商品追加"></li>
+			<li><input type="button" value="商品一括登録"></li>
+			<li><a href="${pageContext.request.contextPath}/product_list">商品管理一覧に戻る</a></li>
+		</ol>
+		<div class="table-responsive">
+			<table style="table-layout: fixed" class="table table-responsive">
+				<%-- <form:form modelAttribute="itemForm"
+					action="${pageContext.request.contextPath}/add_item_submit"
+					method="post" id="itemForm" enctype="multipart/form-data"> --%>
+
+					<tbody class="add_item_tbl">
+					</tbody>
+				<%-- </form:form> --%>
+			</table>
 		</div>
-
 	</div>
 	<!-- end container -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/addItem.js"></script>
 </body>
 </html>

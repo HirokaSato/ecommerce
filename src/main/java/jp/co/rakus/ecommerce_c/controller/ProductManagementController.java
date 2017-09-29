@@ -60,4 +60,20 @@ public class ProductManagementController {
 		repository.save(item);
 		return manage(model);
 	}
+	
+	@ResponseBody
+	@RequestMapping("/addItemByAjax")
+	public void addItemByAjax(String name,String priceM,String priceL,String description,String image){
+		Item item=new Item();
+		item.setName(name);
+		item.setPriceM(Integer.parseInt(priceM));
+		item.setPriceL(Integer.parseInt(priceL));
+		item.setDescription(description);
+		item.setImagePath(image);
+		repository.save(item);
+	}
+	
+	
+	
+	
 }
