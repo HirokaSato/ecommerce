@@ -1,4 +1,5 @@
 package jp.co.rakus.ecommerce_c.controller;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ProductManagementController {
 	}
 
 	@RequestMapping("/add_item_submit")
-	private String submit(@Validated ItemForm form,Model model) throws IllegalStateException, IOException {
+	private String submit(@Validated ItemForm form, Model model) throws IllegalStateException, IOException {
 		Item item = new Item();
 		item.setName(form.getName());
 		item.setDescription(form.getDescription());
@@ -54,17 +55,19 @@ public class ProductManagementController {
 		item.setPriceL(form.getIntPriceL());
 		item.setPopularity(form.getIntPopularity());
 		// 画像ファイルをサーバにアップロードする
-		form.getImage().transferTo(new File("/opt/tomcat8/webapps/media_2017/image/ecommerce201707C/" + form.getImage().getOriginalFilename()));
+		form.getImage().transferTo(new File(
+				"/opt/tomcat8/webapps/media_2017/image/ecommerce201707C/" + form.getImage().getOriginalFilename()));
 		// アップロード先のパスをセット
-		item.setImagePath("http://172.16.0.16/media_2017/image/ecommerce201707C/" + form.getImage().getOriginalFilename());
+		item.setImagePath(
+				"http://172.16.0.16/media_2017/image/ecommerce201707C/" + form.getImage().getOriginalFilename());
 		repository.save(item);
 		return manage(model);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/addItemByAjax")
-	public void addItemByAjax(String name,String priceM,String priceL,String description,String image){
-		Item item=new Item();
+	public void addItemByAjax(String name, String priceM, String priceL, String description, String image) {
+		Item item = new Item();
 		item.setName(name);
 		item.setPriceM(Integer.parseInt(priceM));
 		item.setPriceL(Integer.parseInt(priceL));
@@ -72,8 +75,24 @@ public class ProductManagementController {
 		item.setImagePath(image);
 		repository.save(item);
 	}
+
+	@ResponseBody
+	@RequestMapping("/deleteItemByAjax")
+	public void deleteItemByAjax(String id) {
+		repository.deleteAll(Integer.parseInt(id));
+	}
 	
+	@ResponseBody
+	@RequestMapping("/editItemByAjax")
+	public void editItemByAjax(String id,String name,String priceM,String priceL,String image){
+		Item item=new Item();
+		item.setId(Integer.parseInt(id));
+		item.setName(name);
+		item.setPriceM(Integer.parseInt(priceM));
+		item.setPriceL(Integer.parseInt(priceL));
+		item.setImagePath(image);
+		repository.update(item);
+	}
 	
-	
-	
+
 }

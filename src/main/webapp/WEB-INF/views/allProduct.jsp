@@ -23,15 +23,15 @@
 <body>
 	<input id="contextpath" type="hidden"
 		value="${pageContext.request.contextPath}" />
-	<div class="container">
+	<div class="container container-large">
 		<%@ include file="./commonNavi.jsp"%>
 		<div class="row">
 			<div
-				class="table-responsive col-lg-offset-0 col-lg-11.5 col-md-offset-0 col-md-11.5 col-sm-12 col-xs-12">
+				class="table-responsive col-lg-offset-0 col-lg-12 col-md-offset-0 col-md-11.5 col-sm-12 col-xs-12">
 				<ol class="breadcrumb">
 					<li><a href="${pageContext.request.contextPath}/add_item">商品追加</a></li>
-					<li><a href="http://bootstrap3.cyberlab.info/components/">一括更新</a></li>
-					<li class="active">一括削除</li>
+					<li><input type="button" class="edit-button" value="一括更新" ></li>
+					<li><input type="button" class="bulk_stop" value="一括休止"></li>
 				</ol>
 
 				<table class="table table-striped pizzaList">

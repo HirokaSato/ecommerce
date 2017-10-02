@@ -32,7 +32,7 @@
 		<div class="row">
 			<div
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
-				<div class="panel panel-default">
+				<!-- <div class="panel panel-default"> -->
 					<div class="panel-body">
 						<div class="form-group">
 							<div class="text-center" style="color: red">
@@ -43,7 +43,7 @@
 								<input type="text" name="keyword" id="code"
 									class="form-control input-sm autocomplate" />
 							</div>
-						</div>
+						<!-- </div> -->
 						<div class="text-center">
 							<c:out value="${sessionId}" />
 							<br>
