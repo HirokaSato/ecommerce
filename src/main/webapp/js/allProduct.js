@@ -18,6 +18,18 @@ $(function() {
 			$(this).fadeTo("2000", 1.0); // マウスアウトで透明度を100%に戻す
 		});
 
+		$(document).on("click", ".change-btn", function () {
+			$(this).toggleClass('active');
+			
+				   if($(this).hasClass('active')){
+					   var text = $(this).data('text-clicked');
+					   console.log("OK");
+				   } else {
+					   var text = $(this).data('text-default');
+				   }
+			   });
+		
+
 	}).fail(function() {
 		console.log("fail");
 	})
@@ -58,7 +70,7 @@ $(function() {
 				+ '<th class="text-center col-md-2">'
 				+ '<button type="button" class="btn btn-warning active">'
 				+ '編集</button>' + '<br>' + '<br>'
-				+ '<button type="button" class="btn btn-danger active">' + "削除"
+				+ '<button type="button" class="btn btn-danger change-btn" data-text-default="販売中" data-text-clicked="休止中">' + "販売中"
 				+ '</button>' + '</th>'
 	}
 

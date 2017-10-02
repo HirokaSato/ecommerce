@@ -57,13 +57,8 @@
 		</ol>
 		<div class="table-responsive">
 			<table style="table-layout: fixed" class="table table-responsive">
-				<%-- <form:form modelAttribute="itemForm"
-					action="${pageContext.request.contextPath}/add_item_submit"
-					method="post" id="itemForm" enctype="multipart/form-data"> --%>
-
 					<tbody class="add_item_tbl">
 					</tbody>
-				<%-- </form:form> --%>
 			</table>
 		</div>
 	</div>

@@ -45,6 +45,7 @@ public class SearchItemController {
 			return null;
 		}*/
 		return searchItemService.searchItem(search_word);
+		
 	}
 
 	@ResponseBody
