@@ -85,13 +85,21 @@ public class ProductManagementController {
 	@ResponseBody
 	@RequestMapping("/editItemByAjax")
 	public void editItemByAjax(String id,String name,String priceM,String priceL,String image){
-		Item item=new Item();
-		item.setId(Integer.parseInt(id));
-		item.setName(name);
-		item.setPriceM(Integer.parseInt(priceM));
-		item.setPriceL(Integer.parseInt(priceL));
-		item.setImagePath(image);
+		Item item=repository.loadItem(Integer.parseInt(id));
+		if(!item.getName().equals(name)){
+			item.setName(name);
+		}
+		if(!item.getPriceM().equals(priceM)){
+			item.setPriceM(Integer.parseInt(priceM));
+		}
+		if(!item.getPriceL().equals(priceL)){
+			item.setPriceL(Integer.parseInt(priceL));
+		}
+		if(!item.getImagePath().equals(image)){
+			item.setImagePath(image);
+		}
 		repository.update(item);
+		
 	}
 	
 

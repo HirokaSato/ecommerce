@@ -76,13 +76,18 @@ $(function () {
 
 
 	//一括更新
-	$("edit-button").on("click", function () {
-		$('.check_count:checked').each(function () {
+	$(".edit-button").on("click", function () {
+		$('.item_num:checked').each(function () {
 			var id = $(this).val();
-			var name = $(this).closest("tr").find("#edit-name").val();
-			var priceM = $(this).closest("tr").find("#edit-priceM").val();
-			var priceL = $(this).closest("tr").find("#edit=priceL").val();
-			var image = new FileReader($(this).closest("tr").find("#edit-image").get(0));
+			console.log(id);
+			var name = $(this).closest('tr').next('tr').find(".edit-name").val();
+			console.log(name);
+			var priceM = $(this).closest('tr').next('tr').find(".edit-priceM").val();
+			console.log(priceM);
+			var priceL = $(this).closest("tr").next('tr').find(".edit-priceL").val();
+			console.log(priceL);
+			var image = new FileReader($(this).closest("tr").next('tr').find(".edit-image").get(0));
+			console.log(image);
 
 			$.ajax({
 				type: "get",
@@ -108,12 +113,12 @@ $(function () {
 	$(document).on("click", ".edit-btn", function () {
 		var text = '<tr>' + '<th  class="col-lg-offset-0 col-xs-1 text-center">' + '</th>'
 			+ '<td  class="col-sm-3">' + '<label for="inputAddress">' + '画像:' + '</label>'
-			+ '<input type="file" name="image" id="edit-image" />' + '<br />' + '</td>'
+			+ '<input type="file" name="image" class="edit-image" />' + '<br />' + '</td>'
 			+ '<td  class="col-sm-2 text-center">'
-			+ '<input path="name" placeholder="商品名" class="form-control" id="edit-name" />' + '</td>'
-			+ '<td class="col-md-2">' + '<input path="priceM" placeholder="Mサイズの金額" class="form-control" id="edit-priceM" />'
+			+ '<input placeholder="商品名" class="form-control edit-name"/>' + '</td>'
+			+ '<td class="col-md-2">' + '<input placeholder="Mサイズの金額" class="form-control edit-priceM"  />'
 			+ '</td>'
-			+ '<td class="col-md-2">' + '<input path="priceL" placeholder="Lサイズの金額" class="form-control" id="edit-PriceL" />'
+			+ '<td class="col-md-2">' + '<input placeholder="Lサイズの金額" class="form-control edit-priceL" />'
 			+ '</td>'
 			+ '<tr>';
 
@@ -143,12 +148,12 @@ $(function () {
 			+ '<button type="button" class="btn btn-success edit-btn">' + "編集"
 			+ '</button>' + '</td>'
 			+ '<td class="col-xs-1 text-center">'
-		if (item.deleted == false) {
-			+'<button type="button" class="btn btn-danger change-btn">' + '販売中' + '</button>';
+		if (!item.deleted) {
+			'<button type="button" class="btn btn-danger change-btn">販売中</button>'
 		} else {
-			+'<button type="button" class="btn btn-danger change-btn">' + '休止中' + '</button>';
+			'<button type="button" class="btn btn-danger change-btn">休止中</button>'
 		}
-		'</td>' + '</tr>'
+		'</td>' + '</tr>';
 	}
 
 	function separate(num) {
