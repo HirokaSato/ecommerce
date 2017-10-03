@@ -22,8 +22,7 @@ $(function () {
 			let deleted = $(this).html();
 			if (deleted == '販売中') { // クリックされたら、休止中にする
 				$(this).replaceWith('<a class="btn btn-block btn-warning delete">休止中</a>')
-			}
-			if (deleted == '休止中') { // クリックされたら、販売中にする
+			} else {
 				$(this).replaceWith('<a class="btn btn-block btn-success delete">販売中</a>')
 			}
 		});
@@ -51,19 +50,11 @@ $(function () {
 		return newArr;
 	}
 
+	//一括削除
 	$(".bulk_stop").on("click", function () {
+		//チェックされた数ぶんだけ以下の処理を行う
 		$('.item_num:checked').each(function () {
-			var targetButton = $(this).find(".change - btn");
-			targetButton.toggleClass('active');
-
-			if (targetButton.hasClass('active')) {
-				var text = targetButton.data('text-clicked');
-				targetButton.html(text).css('background-color', "blue");
-			} else {
-				var text = targetButton.data('text-default');
-				//""にすることで、もとの色にもどる
-				targetButton.html(text).css('background-color', "");
-			}
+			//販売中ボタンを休止中ボタンに切り替え
 
 			var id = $(this).val();
 			$.ajax({
@@ -82,26 +73,26 @@ $(function () {
 		});
 
 	});
-	//商品更新フォーム
+
 
 	//一括更新
 	$("edit-button").on("click", function () {
 		$('.check_count:checked').each(function () {
-			var id=$(this).val();
-			var name=$(this).closest("tr").find("#edit-name").val();
-			var priceM=$(this).closest("tr").find("#edit-priceM").val();
-			var priceL=$(this).closest("tr").find("#edit=priceL").val();
+			var id = $(this).val();
+			var name = $(this).closest("tr").find("#edit-name").val();
+			var priceM = $(this).closest("tr").find("#edit-priceM").val();
+			var priceL = $(this).closest("tr").find("#edit=priceL").val();
 			var image = new FileReader($(this).closest("tr").find("#edit-image").get(0));
 
 			$.ajax({
 				type: "get",
 				url: contextpath + "/editItemByAjax",
 				data: {
-					"id":id,
-					"name":name,
-					"priceM":priceM,
-					"priceL":priceL,
-					"image":image
+					"id": id,
+					"name": name,
+					"priceM": priceM,
+					"priceL": priceL,
+					"image": image
 				},
 				dataType: "JSON"
 			}).then(function () {
@@ -112,6 +103,8 @@ $(function () {
 			})
 		});
 	});
+
+	//商品情報編集フォーム
 	$(document).on("click", ".edit-btn", function () {
 		var text = '<tr>' + '<th  class="col-lg-offset-0 col-xs-1 text-center">' + '</th>'
 			+ '<td  class="col-sm-3">' + '<label for="inputAddress">' + '画像:' + '</label>'
@@ -132,7 +125,7 @@ $(function () {
 		let separatePriceM = separate(item.priceM);
 		let separatePriceL = separate(item.priceL);
 
-		return '<tr>'+'<th class=" text-center col-sm-1" >'
+		return '<tr>' + '<th class=" text-center col-sm-1" >'
 			+ '<label>' + '<input type="checkbox" class="item_num" value="' + item.id + '">' + '</label>'
 			+ '</th>'
 			+ '<td  class="col-sm-2 text-center">' + '<img src="'
@@ -150,8 +143,12 @@ $(function () {
 			+ '<button type="button" class="btn btn-success edit-btn">' + "編集"
 			+ '</button>' + '</td>'
 			+ '<td class="col-xs-1 text-center">'
-			+ '<button type="button" class="btn btn-danger change-btn" data-process-text="販売中" data-complete-text="休止中">' + "販売中"
-			+ '</button>' + '</td>'+ '</tr>'
+		if (item.deleted == false) {
+			+'<button type="button" class="btn btn-danger change-btn">' + '販売中' + '</button>';
+		} else {
+			+'<button type="button" class="btn btn-danger change-btn">' + '休止中' + '</button>';
+		}
+		'</td>' + '</tr>'
 	}
 
 	function separate(num) {
