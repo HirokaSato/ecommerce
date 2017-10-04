@@ -1,3 +1,4 @@
+
 $(function () {
 	let contextpath = $('#contextpath').val();
 	$.ajax({
@@ -12,22 +13,17 @@ $(function () {
 			$('#all_item_list').append(row.append(twoPizza));
 		});
 
-		$("img.image_pizza").hover(function () {
-			$(this).fadeTo("2000", 0.3); // マウスオーバーで透明度を30%にする
-		}, function () {
-			$(this).fadeTo("2000", 1.0); // マウスアウトで透明度を100%に戻す
-		});
-
 		$(document).on("click", ".change-btn", function () {
-			let deleted = $(this).html();
-			if (deleted == '販売中') { // クリックされたら、休止中にする
-				$(this).replaceWith('<a class="btn btn-block btn-warning delete">休止中</a>')
-			} else {
-				$(this).replaceWith('<a class="btn btn-block btn-success delete">販売中</a>')
-			}
+
+			$(this).toggle(
+				function () {
+					$(this).replaceWith('<button type="button" class="btn btn-success change-btn">休止中</button>');
+				},
+				function () {
+					$(this).replaceWith('<button type="button" class="btn btn-success change-btn">販売中</button>');
+				}
+			);
 		});
-
-
 	}).fail(function () {
 		console.log("fail");
 	})
@@ -148,12 +144,8 @@ $(function () {
 			+ '<button type="button" class="btn btn-success edit-btn">' + "編集"
 			+ '</button>' + '</td>'
 			+ '<td class="col-xs-1 text-center">'
-		if (!item.deleted) {
-			'<button type="button" class="btn btn-danger change-btn">販売中</button>'
-		} else {
-			'<button type="button" class="btn btn-danger change-btn">休止中</button>'
-		}
-		'</td>' + '</tr>';
+			+ '<button type="button" class="btn btn-danger change-btn">販売中</button>'
+			+ '</td>' + '</tr>';
 	}
 
 	function separate(num) {

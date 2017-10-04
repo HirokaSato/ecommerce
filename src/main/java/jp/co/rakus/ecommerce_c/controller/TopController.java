@@ -58,10 +58,11 @@ public class TopController {
 		return itemService.findTop10();
 	}
 	
-	/*@ResponseBody
-	@RequestMapping("/six_data")
-	public List<Item> sixDataByAjax(String searchWord){
-		return itemService
-	}*/
+	//パラメータごとの表示件数
+	@ResponseBody
+	@RequestMapping("/ajaxViewItem")
+	public List<Item> sixDataByAjax_first(String offset,String limit){
+		return itemService.findItem(Integer.parseInt(offset),Integer.parseInt(limit));
+	}
 
 }

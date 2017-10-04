@@ -59,19 +59,20 @@
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
-				<button type="submit" value="6件表示" id="six_data">6件表示</button>
-				<button type="submit" value="12件表示" id="six_data">12件表示</button>
-				<button type="submit" value="18件表示" id="#all_view">18件表示</button>
+				<button type="submit" value="3" id="three_data">3件表示</button>
+				<button type="submit" value="6" id="six_data">6件表示</button>
+				<button type="submit" value="12" id="twelve_data">12件表示</button>
 				<table class="table table-striped pizzaList">
 					<tbody id="list-table">
 
 					</tbody>
 				</table>
+				<div><button type="submit" value="前のページへ" id="pre-page">前のページへ</button>
+				<button type="submit" value="次のページへ" id="next-page">次のページへ</button></div>
 			</div>
 		</div>
-		<div class="pagenation"></div>
-
-		<div>
+		
+		<div style="padding-top:60px;">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12"
 				style="width: 70%" class="text-center">
@@ -79,7 +80,9 @@
 				<canvas id="chart" height="450" width="600"></canvas>
 			</div>
 		</div>
+		
 	</div>
+	
 	<!-- end container -->
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -89,8 +92,6 @@
 		src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/js/itemList.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/js/jquery.pagination.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 </body>

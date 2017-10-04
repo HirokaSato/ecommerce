@@ -33,4 +33,8 @@ public class TopService {
 	public List<Item> findTop10(){
 		return itemRepository.findTop10();
 	}
+	
+	public List<Item> findItem(Integer offset,Integer limit){
+		return itemRepository.findItem(offset,limit);
+	}
 }

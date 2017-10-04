@@ -38,6 +38,17 @@ public class ItemRepository {
 	};
 
 	/**
+	 * 送られてくるパラメータごとに表示件数を変える
+	 * 
+	 * @return 
+	 */
+	public List<Item> findItem(Integer offset, Integer limit) {
+		String sql = "select id,name,description,price_m,price_l,image_path,deleted,popularity from items order by price_m offset :offSet limit :limit";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("offSet", offset).addValue("limit", limit);
+		return template.query(sql, param, itemRowMapper);
+	}
+
+	/**
 	 * 人気トップ10のピザ商品を取り出す
 	 * 
 	 * @return 全商品の名前
@@ -93,7 +104,6 @@ public class ItemRepository {
 	 */
 
 	public List<Item> searchItem(String keyword) {
-
 		String searchSql = "select id,name,description,price_m,price_l,image_path,deleted,popularity from items where name like :keyword ";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("keyword", "%" + keyword + "%");
 		List<Item> searchItemList = template.query(searchSql, param, itemRowMapper);
@@ -123,6 +133,7 @@ public class ItemRepository {
 
 	/**
 	 * 商品情報の変更
+	 * 
 	 * @param item
 	 * @return
 	 */
@@ -138,10 +149,11 @@ public class ItemRepository {
 		}
 	}
 
-	
 	/**
 	 * 商品の削除
-	 * @param id　	商品ID
+	 * 
+	 * @param id
+	 *            商品ID
 	 */
 	public void deleteAll(long id) {
 		String sql = "delete from items where id=:id";
