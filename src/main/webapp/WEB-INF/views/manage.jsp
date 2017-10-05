@@ -16,7 +16,6 @@
 	rel="stylesheet">
 <link href="css/piza.css" rel="stylesheet">
 
-<script src="jquery.elevatezoom.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/itemDetail.js"></script>

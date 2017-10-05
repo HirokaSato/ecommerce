@@ -15,6 +15,7 @@ $(function () {
 		+ '<td  class="col-sm-3">' + '<label for="inputAddress">' + '画像:' + '</label>'
 		+ '<input type="file" name="image" id="inputImage"/>' + '<br />' + '</td>'
 		+ '<td class="col-xs-1 text-center">'
+		+ '<input type="hidden" value="0" name="popularity"/>'
 		+ '<button type="reset" class="btn btn-danger delete_botton" >' + '削除' + '</button>' + '</td>'
 		+ '</tr>';
 
@@ -26,6 +27,14 @@ $(function () {
 		$(".add_item_tbl").append(form);
 	});
 
+	// SpringSecurityのcsrf対策を潜り抜けるためにAjax通信のヘッダにトークンを設定する
+	$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		jqXHR.setRequestHeader(header, token);
+	});
+
+
 	//商品フォームの削除メソッド
 	$(document).on("click", "button.delete_botton", function () {//動的に追加されたボタンに対してイベントを設定する
 		$(this).closest("tr").remove();
@@ -33,22 +42,17 @@ $(function () {
 
 	$(".bulk_register").click(function () {
 		$('.check_count:checked').each(function () {
-			var name = $(this).closest("tr").find("#inputName").val();
-			var priceM = $(this).closest("tr").find("#inputPriceM").val();
-			var priceL = $(this).closest("tr").find("#inputPriceL").val();
-			var description = $(this).closest("tr").find("#inputTextarea").val();
-			var image = new FileReader($(this).closest("tr").find("#inputImage").get(0));
+			var item_FormData = new FormData();
+			item_FormData.append('name', $(this).closest("tr").find("#inputName").val());
+			item_FormData.append('priceM', $(this).closest("tr").find("#inputPriceM").val());
+			item_FormData.append('priceL', $(this).closest("tr").find("#inputPriceL").val());
+			item_FormData.append('description', $(this).closest("tr").find("#inputTextarea").val());
+			item_FormData.append('image',($(this).closest("tr").find("#inputImage").val()));
 
 			$.ajax({
-				type: "get",
+				type: "post",
 				url: contextpath + "/addItemByAjax",
-				data: {
-					"name": name
-					, "priceM": priceM
-					, "priceL": priceL
-					, "description": description
-					, "image": image
-				},
+				data: item_FormData,
 				dataType: "JSON"
 			}).then(function () {
 				var message = "登録しました";
@@ -60,7 +64,7 @@ $(function () {
 
 	});
 
-	
+
 
 
 });

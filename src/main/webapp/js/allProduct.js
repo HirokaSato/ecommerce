@@ -4,7 +4,9 @@ $(function () {
 	$.ajax({
 		type: "GET",
 		url: contextpath + "/SearchAllItem",
-		dataType: 'json'
+		dataType: 'json',
+		processData: false,
+		contentType: false
 	}).then(function (lst_item) {
 		var htmlItems = toDeep(lst_item, 1, decorateItem);
 		// htmlitems [[item,item,item],[item,item,item]....]
@@ -54,7 +56,7 @@ $(function () {
 
 			var id = $(this).val();
 			$.ajax({
-				type: "get",
+				type: "post",
 				url: contextpath + "/deleteItemByAjax",
 				data: {
 					"id": id
@@ -74,6 +76,7 @@ $(function () {
 	//一括更新
 	$(".edit-button").on("click", function () {
 		$('.item_num:checked').each(function () {
+			
 			var id = $(this).val();
 			console.log(id);
 			var name = $(this).closest('tr').next('tr').find(".edit-name").val();
@@ -86,15 +89,18 @@ $(function () {
 			console.log(image);
 
 			$.ajax({
-				type: "get",
+				type: "post",
 				url: contextpath + "/editItemByAjax",
-				data: {
+				data:{
 					"id": id,
 					"name": name,
 					"priceM": priceM,
 					"priceL": priceL,
-					"image": image
+					"image": image,
+
 				},
+				processData: false,
+				contentType: false,
 				dataType: "JSON"
 			}).then(function () {
 				var message = "更新しました";

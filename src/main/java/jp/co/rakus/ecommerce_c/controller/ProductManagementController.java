@@ -64,9 +64,10 @@ public class ProductManagementController {
 		return manage(model);
 	}
 
+	// 一括追加
 	@ResponseBody
 	@RequestMapping("/addItemByAjax")
-	public void addItemByAjax(String name, String priceM, String priceL, String description, String image) {
+	public void addItemByAjax(String name, String priceM, String priceL, String description,String image) {
 		Item item = new Item();
 		item.setName(name);
 		item.setPriceM(Integer.parseInt(priceM));
@@ -76,31 +77,30 @@ public class ProductManagementController {
 		repository.save(item);
 	}
 
-	@ResponseBody
+	// 一括削除
 	@RequestMapping("/deleteItemByAjax")
 	public void deleteItemByAjax(String id) {
 		repository.deleteAll(Integer.parseInt(id));
 	}
-	
-	@ResponseBody
+
+	// 一括更新
 	@RequestMapping("/editItemByAjax")
-	public void editItemByAjax(String id,String name,String priceM,String priceL,String image){
-		Item item=repository.loadItem(Integer.parseInt(id));
-		if(!item.getName().equals(name)){
+	public void editItemByAjax(String id, String name, String priceM, String priceL, String image) {
+		Item item = repository.loadItem(Integer.parseInt(id));
+		if (!item.getName().equals(name)) {
 			item.setName(name);
 		}
-		if(!item.getPriceM().equals(priceM)){
+		if (!item.getPriceM().equals(priceM)) {
 			item.setPriceM(Integer.parseInt(priceM));
 		}
-		if(!item.getPriceL().equals(priceL)){
+		if (!item.getPriceL().equals(priceL)) {
 			item.setPriceL(Integer.parseInt(priceL));
 		}
-		if(!item.getImagePath().equals(image)){
+		if (!item.getImagePath().equals(image)) {
 			item.setImagePath(image);
 		}
 		repository.update(item);
-		
+
 	}
-	
 
 }
