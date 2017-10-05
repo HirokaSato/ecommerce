@@ -1,39 +1,31 @@
+
 $(function () {
-	$("#next-page").css('display', 'none');
+	$("#next-page").css('display', 'inline-block');
 	$("#pre-page").css('display', 'none');
 	let contextpath = $('#contextpath').val();
 
-	// 商品表示
+	// 商品表示(デフォルト)
 	var offset = 0;
 	var limit = 3;
+	var a;
 	viewpage(offset, limit);
-	//3件表示ボタンを押したとき
-	$("#three_data").on("click", function () {
-		var offset = 0;
-		var limit = $(this).val();
-		viewpage(offset, limit);
-	});
-	//6件表示ボタンを押したとき
-	$("#six_data").on("click", function () {
-		var offset = 0;
-		var limit = $(this).val();
-		viewpage(offset, limit);
-	});
-	//12件表示ボタンを押したとき
-	$("#twelve_data").on("click", function () {
-		var offset = 0;
-		var limit = $(this).val();
-		viewpage(offset, limit);
+
+	//件数表示ボタンを押す
+	$(".current_page_number").on("click", function () {
+		var viewCount = $(this).val();
+		$("#offset").text(0);
+		$("#limit").text(viewCount);
+		viewpage(0, viewCount);
 	});
 
-	function viewpage(offset, limit) {
+	function viewpage(page_number, limit) {
 		$.ajax({
 			type: "GET",
 			url: contextpath + "/ajaxViewItem",
 			dataType: 'json',
 			data: {
-				"offset": offset,
-				"limit": limit
+				"offset": page_number * limit, //現在のページ数 * 各ページの表示件数
+				"limit": limit //各ページの表示件数
 			}
 		}).then(function (lst_item) {
 			var htmlItems = toDeep(lst_item, 3, decorateItem);
@@ -45,46 +37,56 @@ $(function () {
 			});
 			$('#list-table').html(viewlist);
 
+			//前のページ表示・非表示
+			if ($("#offset").text() != 0) {
+				$("#pre-page").css('display', 'inline');
+			} else {
+				$("#pre-page").css('display', 'none');
+			}
+
+			var amount=18;
+			var view=$("#limit").text();
+			if(page_number==Math.ceil(amount/view)){
+				$("#next-page").css('display', 'none');
+			}else{
+				$("#next-page").css('display', 'inline');
+			}
+
+			//検索画面表示・非表示
+			$('div.panel-body').css('display', 'none');
+			$("button.panel-title").on("click", function () {
+				$("div.panel-body").toggle();
+			});
+			//画像に触れると半透明
 			$("img.image_pizza").hover(function () {
 				$(this).fadeTo("2000", 0.3); // マウスオーバーで透明度を30%にする
 			}, function () {
 				$(this).fadeTo("2000", 1.0); // マウスアウトで透明度を100%に戻す
-			});
-			$("#next-page").css('display', 'block');
-
-			$('div.panel-body').css('display', 'none');
-			$("button.panel-title").on("click", function () {
-				$("div.panel-body").toggle();
 			});
 		}).fail(function () {
 			console.log("fail");
 		})
 	}
 
-	//全件検索
-	$.ajax({
-		type: "get",
-		url: contextpath + "/ajaxSearchAllItem",
-		dataType: 'JSON'
-	}).then(function (lst_item) {
-		console.log(lst_item.length);
-	}).fail(function () {
-		console.log("fail");
-	})
 
 
-	//次のページへボタンを押すと次のページが表示される
-	$("#next-page").on("click", function () {
-		//テーブルの行数を取得するメソッド
-		if ($('#list-table').prop('rows').length == 1) {
-			viewpage(3, 3);
-		}
-		if ($('#list-table').prop('rows').length == 2) {
-			viewpage(6, 6);
-		}
-		if ($('#list-table').prop('rows').length == 4) {
-			viewpage(12, 6);
-		}
+		//次のページへボタンを押すと次のページが表示される
+		$("#next-page").on("click", function () {
+			//現在のページ数
+			var current_page_number = $("#offset").text();
+			//現在のページ数＋１
+			var nextpage_num = Number(current_page_number) + 1;
+			viewpage(nextpage_num, $("#limit").text());
+			//nextpage_numをセット
+			$("#offset").text(nextpage_num);
+		});
+
+	//前ページへボタンを押すと前のページが表示される
+	$("#pre-page").on("click", function () {
+		var current_page_num = $("#offset").text();
+		var prepage_num = Number(current_page_num) - 1;
+		viewpage(prepage_num, $("#limit").text());
+		$("#offset").text(prepage_num)
 	});
 
 	// 商品検索

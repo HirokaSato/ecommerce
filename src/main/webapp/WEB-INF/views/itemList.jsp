@@ -33,16 +33,16 @@
 			<div
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
 				<!-- <div class="panel panel-default"> -->
-					<div class="panel-body">
-						<div class="form-group">
-							<div class="text-center" style="color: red">
-								<c:out value="${error}" />
-							</div>
-							<label for="code" class="control-label col-sm-2">商品名</label>
-							<div class="col-sm-9 ">
-								<input type="text" name="keyword" id="code"
-									class="form-control input-sm autocomplate" />
-							</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<div class="text-center" style="color: red">
+							<c:out value="${error}" />
+						</div>
+						<label for="code" class="control-label col-sm-2">商品名</label>
+						<div class="col-sm-9 ">
+							<input type="text" name="keyword" id="code"
+								class="form-control input-sm autocomplate" />
+						</div>
 						<!-- </div> -->
 						<div class="text-center">
 							<c:out value="${sessionId}" />
@@ -55,24 +55,32 @@
 			</div>
 		</div>
 		<!-- table -->
-
+		<div style="display: none;">
+			<p id="offset">0</p>
+			<p id="limit">3</p>
+		</div>
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
-				<button type="submit" value="3" id="three_data">3件表示</button>
-				<button type="submit" value="6" id="six_data">6件表示</button>
-				<button type="submit" value="12" id="twelve_data">12件表示</button>
+				<button type="submit" value="3" class="current_page_number">3件表示</button>
+				<button type="submit" value="6" class="current_page_number">6件表示</button>
+				<button type="submit" value="12" class="current_page_number">12件表示</button>
 				<table class="table table-striped pizzaList">
 					<tbody id="list-table">
 
 					</tbody>
 				</table>
-				<div><button type="submit" value="前のページへ" id="pre-page">前のページへ</button>
-				<button type="submit" value="次のページへ" id="next-page">次のページへ</button></div>
+				<span>
+					<span>
+						<button type="button" value="前のページへ" id="pre-page">前のページへ</button>
+					</span> <span>
+						<button type="button" value="次のページへ" id="next-page">次のページへ</button>
+					</span>
+				</span>
 			</div>
 		</div>
-		
-		<div style="padding-top:60px;">
+
+		<div style="padding-top: 60px;">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12"
 				style="width: 70%" class="text-center">
@@ -80,9 +88,9 @@
 				<canvas id="chart" height="450" width="600"></canvas>
 			</div>
 		</div>
-		
+
 	</div>
-	
+
 	<!-- end container -->
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
