@@ -3,6 +3,19 @@ $(function () {
 	$("#next-page").css('display', 'inline-block');
 	$("#pre-page").css('display', 'none');
 	let contextpath = $('#contextpath').val();
+	//商品総数の宣言
+	var all_item_amount = 0;
+
+	//全件検索
+	$.ajax({
+		type: "get",
+		url: contextpath + "/ajaxSearchAllItem",
+		dataType: 'json',
+	}).then(function (all_items) {
+		all_item_amount = all_items.length;
+	}).fail(function () {
+		console.log("fail");
+	})
 
 	// 商品表示(デフォルト)
 	var offset = 0;
@@ -18,6 +31,7 @@ $(function () {
 		viewpage(0, viewCount);
 	});
 
+	//ページング処理
 	function viewpage(page_number, limit) {
 		$.ajax({
 			type: "GET",
@@ -44,11 +58,11 @@ $(function () {
 				$("#pre-page").css('display', 'none');
 			}
 
-			var amount=18;
-			var view=$("#limit").text();
-			if(page_number==Math.ceil(amount/view)){
+			//次のページ表示・非表示
+			var view = $("#limit").text();
+			if (page_number + 1 == Math.ceil(all_item_amount / view)) {
 				$("#next-page").css('display', 'none');
-			}else{
+			} else {
 				$("#next-page").css('display', 'inline');
 			}
 
@@ -70,16 +84,16 @@ $(function () {
 
 
 
-		//次のページへボタンを押すと次のページが表示される
-		$("#next-page").on("click", function () {
-			//現在のページ数
-			var current_page_number = $("#offset").text();
-			//現在のページ数＋１
-			var nextpage_num = Number(current_page_number) + 1;
-			viewpage(nextpage_num, $("#limit").text());
-			//nextpage_numをセット
-			$("#offset").text(nextpage_num);
-		});
+	//次のページへボタンを押すと次のページが表示される
+	$("#next-page").on("click", function () {
+		//現在のページ数
+		var current_page_number = $("#offset").text();
+		//現在のページ数＋１
+		var nextpage_num = Number(current_page_number) + 1;
+		viewpage(nextpage_num, $("#limit").text());
+		//nextpage_numをセット
+		$("#offset").text(nextpage_num);
+	});
 
 	//前ページへボタンを押すと前のページが表示される
 	$("#pre-page").on("click", function () {
