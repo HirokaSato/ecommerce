@@ -96,8 +96,9 @@ $(function () {
 
 			edit_FormData.append("priceM", $(this).closest('tr').next('tr').find(".edit-priceM").val());
 			edit_FormData.append("priceL", $(this).closest("tr").next('tr').find(".edit-priceL").val());
-			edit_FormData.append("image", $(this).closest("tr").next('tr').find(".edit-image").val());
-			console.log(edit_FormData.get('image'));
+			var file = $(this).closest("tr").next('tr').find(".edit-image")[0].files[0];
+			edit_FormData.append("image", file);
+			console.log(file);
 			$.ajax({
 				type: "post",
 				url: contextpath + "/editItemByAjax",
@@ -118,16 +119,16 @@ $(function () {
 
 	//商品情報編集フォーム
 	$(document).on("click", ".edit-btn", function () {
-		var text =  '<tr>' +'<form enctype="multipart/form-data" method="post">'
+		var text = '<tr>'
 			+ '<th  class="col-lg-offset-0 col-xs-1 text-center">' + '</th>'
 			+ '<td  class="col-sm-3">' + '<label for="inputAddress">' + '画像:' + '</label>'
-			+ '<input type="file" name="image" class="edit-image" />' + '<br />' + '</td>'
+			+ '<form action="#" enctype="multipart/form-data"><input type="file" name="image" class="edit-image" /></form>' + '<br />' + '</td>'
 			+ '<td  class="col-sm-2 text-center">'
 			+ '<input placeholder="商品名" class="form-control edit-name"/>' + '</td>'
 			+ '<td class="col-md-2">' + '<input placeholder="Mサイズの金額" class="form-control edit-priceM"  />'
 			+ '</td>'
 			+ '<td class="col-md-2">' + '<input placeholder="Lサイズの金額" class="form-control edit-priceL" />'
-			+ '</td>'+'</form>'
+			+ '</td>'
 			+ '<tr>';
 
 		$(this).closest("tr").after(text);
