@@ -49,7 +49,8 @@ $(function () {
 			item_FormData.append('priceM', $(this).closest("tr").find("#inputPriceM").val());
 			item_FormData.append('priceL', $(this).closest("tr").find("#inputPriceL").val());
 			item_FormData.append('description', $(this).closest("tr").find("#inputTextarea").val());
-			item_FormData.append('image', ($(this).closest("tr").find("#inputImage").val()));
+			var image=$(this).closest("tr").find("#inputImage")[0].files[0];
+			item_FormData.append('image',image);
 
 			$.ajax({
 				type: "post",
