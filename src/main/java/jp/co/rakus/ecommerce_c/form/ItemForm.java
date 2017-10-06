@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ItemForm {
+	private String id;
+
 	/** 商品名 */
 	@NotBlank(message = "商品名を入力してください")
 	private String name;
@@ -20,7 +22,18 @@ public class ItemForm {
 	private boolean deleted;
 	/** 売上数 */
 	private String popularity;
-	
+
+	public String getId() {
+		return id;
+	}
+	public int getIntId(){
+		return Integer.parseInt(id);
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public MultipartFile getImage() {
 		return image;
 	}
@@ -52,9 +65,9 @@ public class ItemForm {
 	public void setPriceM(String priceM) {
 		this.priceM = priceM;
 	}
-	
-	public Integer getIntPriceM(){
-		return	Integer.parseInt(this.priceM);
+
+	public Integer getIntPriceM() {
+		return Integer.parseInt(this.priceM);
 	}
 
 	public String getPriceL() {
@@ -64,12 +77,11 @@ public class ItemForm {
 	public void setPriceL(String priceL) {
 		this.priceL = priceL;
 	}
-	
-	public Integer getIntPriceL(){
+
+	public Integer getIntPriceL() {
 		return Integer.parseInt(this.priceL);
 	}
 
-	
 	public boolean isDeleted() {
 		return deleted;
 	}
@@ -85,12 +97,12 @@ public class ItemForm {
 	public void setPopularity(String popularity) {
 		this.popularity = popularity;
 	}
-	
-	public Integer getIntPopularity(){
+
+	public Integer getIntPopularity() {
 		Integer popularity = 0;
-		try{
+		try {
 			popularity = Integer.parseInt(this.popularity);
-		}catch(NumberFormatException e){
+		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
 		return popularity;

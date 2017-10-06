@@ -1,6 +1,7 @@
 
 $(function () {
 	let contextpath = $('#contextpath').val();
+	//一覧表示
 	$.ajax({
 		type: "GET",
 		url: contextpath + "/SearchAllItem",
@@ -14,9 +15,9 @@ $(function () {
 			var row = $('<tr>');
 			$('#all_item_list').append(row.append(twoPizza));
 		});
-
+		
 		$(document).on("click", ".change-btn", function () {
-
+			
 			$(this).toggle(
 				function () {
 					$(this).replaceWith('<button type="button" class="btn btn-success change-btn">休止中</button>');
@@ -29,7 +30,14 @@ $(function () {
 	}).fail(function () {
 		console.log("fail");
 	})
-
+	
+		// SpringSecurityのcsrf対策を潜り抜けるためにAjax通信のヘッダにトークンを設定する
+		$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			jqXHR.setRequestHeader(header, token);
+		});
+	
 	function toDeep(arr, count, callback) {
 		var length = arr.length
 		newArr = [];
@@ -51,9 +59,9 @@ $(function () {
 	//一括削除
 	$(".bulk_stop").on("click", function () {
 		//チェックされた数ぶんだけ以下の処理を行う
+		var message = "削除しました";
 		$('.item_num:checked').each(function () {
 			//販売中ボタンを休止中ボタンに切り替え
-
 			var id = $(this).val();
 			$.ajax({
 				type: "post",
@@ -62,11 +70,14 @@ $(function () {
 					"id": id
 				},
 				dataType: "JSON"
-			}).then(function () {
-				var message = "削除しました";
-				alert(message);
+			}).then(function (json) {
+				console.log(message);
+				var current_form=$(this).parent("tr");
+				current_form.css('display','none');
 			}).fail(function () {
+				message = "削除失敗しました";
 				console.log("fail");
+				alert(message);
 			})
 		});
 
@@ -75,38 +86,30 @@ $(function () {
 
 	//一括更新
 	$(".edit-button").on("click", function () {
+		var message = "更新しました";
 		$('.item_num:checked').each(function () {
-			
-			var id = $(this).val();
-			console.log(id);
-			var name = $(this).closest('tr').next('tr').find(".edit-name").val();
-			console.log(name);
-			var priceM = $(this).closest('tr').next('tr').find(".edit-priceM").val();
-			console.log(priceM);
-			var priceL = $(this).closest("tr").next('tr').find(".edit-priceL").val();
-			console.log(priceL);
-			var image = new FileReader($(this).closest("tr").next('tr').find(".edit-image").get(0));
-			console.log(image);
+			console.log($(this).closest('tr').next('tr').find(".edit-name").val());
+			var edit_FormData = new FormData();
+			edit_FormData.append("id", $(this).val());
+			edit_FormData.append("name", $(this).closest('tr').next('tr').find(".edit-name").val());
+
+			edit_FormData.append("priceM", $(this).closest('tr').next('tr').find(".edit-priceM").val());
+			edit_FormData.append("priceL", $(this).closest("tr").next('tr').find(".edit-priceL").val());
+			edit_FormData.append("image", $(this).closest("tr").next('tr').find(".edit-image").val());
 
 			$.ajax({
 				type: "post",
 				url: contextpath + "/editItemByAjax",
-				data:{
-					"id": id,
-					"name": name,
-					"priceM": priceM,
-					"priceL": priceL,
-					"image": image,
-
-				},
+				data: edit_FormData,
 				processData: false,
 				contentType: false,
 				dataType: "JSON"
 			}).then(function () {
-				var message = "更新しました";
-				alert(message);
+				console.log(message);
 			}).fail(function () {
+				message = "更新失敗しました";
 				console.log("fail");
+				alert(message);
 			})
 		});
 	});
@@ -127,7 +130,7 @@ $(function () {
 		$(this).closest("tr").after(text);
 	});
 
-
+	//商品情報フォーム
 	function decorateItem(item) {
 		let separatePriceM = separate(item.priceM);
 		let separatePriceL = separate(item.priceL);
@@ -149,12 +152,14 @@ $(function () {
 			+ '<td class="col-xs-1 text-center">'
 			+ '<button type="button" class="btn btn-success edit-btn">' + "編集"
 			+ '</button>' + '</td>'
-			+ '<td class="col-xs-1 text-center">'
-			+ '<button type="button" class="btn btn-danger change-btn">販売中</button>'
-			+ '</td>' + '</tr>';
+			+ '</tr>';
 	}
 
 	function separate(num) {
 		return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 	}
+
+	/* + '<td class="col-xs-1 text-center">'
+	+ '<button type="button" class="btn btn-danger change-btn">販売中</button>'
+	+ '</td>' + */
 });

@@ -22,7 +22,7 @@ public class ProductManagementService {
 	}
 	
 	public void deleteAll(long id){
-		repository.deleteAll(id);
+		repository.deleteById(id);
 	}
 	
 	public Item update(Item item){

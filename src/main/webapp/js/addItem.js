@@ -22,6 +22,7 @@ $(function () {
 
 	$(".add_item_tbl").html(form);
 
+	//クリックすると商品登録フォームが追加されていく
 	$('#add_item_form').on("click", function () {
 
 		$(".add_item_tbl").append(form);
@@ -41,27 +42,30 @@ $(function () {
 	});
 
 	$(".bulk_register").click(function () {
+		var message = "登録しました";
 		$('.check_count:checked').each(function () {
 			var item_FormData = new FormData();
 			item_FormData.append('name', $(this).closest("tr").find("#inputName").val());
 			item_FormData.append('priceM', $(this).closest("tr").find("#inputPriceM").val());
 			item_FormData.append('priceL', $(this).closest("tr").find("#inputPriceL").val());
 			item_FormData.append('description', $(this).closest("tr").find("#inputTextarea").val());
-			item_FormData.append('image',($(this).closest("tr").find("#inputImage").val()));
+			item_FormData.append('image', ($(this).closest("tr").find("#inputImage").val()));
 
 			$.ajax({
 				type: "post",
 				url: contextpath + "/addItemByAjax",
 				data: item_FormData,
-				dataType: "JSON"
+				dataType: "JSON",
+				processData: false,
+				contentType: false,
 			}).then(function () {
-				var message = "登録しました";
-				alert(message);
+				console.log(message);
 			}).fail(function () {
+				message = "登録失敗しました";
 				console.log("fail");
 			})
 		});
-
+		alert(message);
 	});
 
 

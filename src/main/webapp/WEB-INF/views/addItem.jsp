@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="_csrf" content="${_csrf.token}"/>
-<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <title>ネットでピザ注文</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.css"
 	rel="stylesheet">
@@ -50,17 +50,17 @@
 	<!-- login form -->
 
 	<div class="container">
-	<input id="contextpath" type="hidden"
-		value="${pageContext.request.contextPath}" />
+		<input id="contextpath" type="hidden"
+			value="${pageContext.request.contextPath}" />
 		<ol class="breadcrumb">
-			<li><a href="${pageContext.request.contextPath}/add_item_submit">商品追加</a></li>
+			<li><input type="button" id="add_item_form" value="商品追加"></li>
 			<li><input type="button" class="bulk_register" value="商品一括登録"></li>
 			<li><a href="${pageContext.request.contextPath}/product_list">商品管理一覧に戻る</a></li>
 		</ol>
 		<div class="table-responsive">
 			<table style="table-layout: fixed" class="table table-responsive">
-					<tbody class="add_item_tbl">
-					</tbody>
+				<tbody class="add_item_tbl">
+				</tbody>
 			</table>
 		</div>
 	</div>

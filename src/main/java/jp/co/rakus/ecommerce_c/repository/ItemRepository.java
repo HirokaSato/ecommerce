@@ -131,6 +131,11 @@ public class ItemRepository {
 		}
 	}
 
+	
+	
+	
+	
+	
 	/**
 	 * 商品情報の変更
 	 * 
@@ -140,7 +145,7 @@ public class ItemRepository {
 	public Item update(Item item) {
 		try {
 			SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-			String updateSql = "update items set name=:name,description=:description,price_m=:priceM,price_l=:priceL,image_path=:imagePath,deleted=:deleted,popularity=:popularity where id=:id";
+			String updateSql = "update items set name=:name,price_m=:priceM,price_l=:priceL where id=:id";
 			template.update(updateSql, param);
 			return item;
 		} catch (Exception e) {
@@ -155,7 +160,8 @@ public class ItemRepository {
 	 * @param id
 	 *            商品ID
 	 */
-	public void deleteAll(long id) {
+	
+	public void deleteById(long id) {
 		String sql = "delete from items where id=:id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		template.update(sql, param);
