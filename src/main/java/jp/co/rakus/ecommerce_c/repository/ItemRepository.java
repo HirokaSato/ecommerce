@@ -145,7 +145,7 @@ public class ItemRepository {
 	public Item update(Item item) {
 		try {
 			SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-			String updateSql = "update items set name=:name,price_m=:priceM,price_l=:priceL,image=:image where id=:id";
+			String updateSql = "update items set name=:name,price_m=:priceM,price_l=:priceL,image=:imagePath where id=:id";
 			template.update(updateSql, param);
 			return item;
 		} catch (Exception e) {

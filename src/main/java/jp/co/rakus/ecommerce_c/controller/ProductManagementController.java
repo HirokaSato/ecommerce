@@ -70,7 +70,7 @@ public class ProductManagementController {
 		item.setDescription(item_FormData.getDescription());
 		item.setPriceM(item_FormData.getIntPriceM());
 		item.setPriceL(item_FormData.getIntPriceL());
-		item.setPopularity(item_FormData.getIntPopularity());
+		item.setPopularity(0);
 		item.setDeleted(false);
 		// 画像ファイルをサーバにアップロードする
 		item_FormData.getImage().transferTo(new File("/opt/tomcat8/webapps/media_2017/image/ecommerce201707C/"
@@ -104,15 +104,14 @@ public class ProductManagementController {
 		if (!edit_FormData.getPriceL().isEmpty()) {
 			editItem.setPriceL(edit_FormData.getIntPriceL());
 		}
-		
-		 if(!edit_FormData.getImage().isEmpty()){
-		 edit_FormData.getImage().transferTo(new
-		 File("/opt/tomcat8/webapps/media_2017/image/ecommerce201707C/" +
-		 edit_FormData.getImage().getOriginalFilename()));
-		 
-		// アップロード先のパスをセット
-		editItem.setImagePath("http://172.16.0.16/media_2017/image/ecommerce201707C/"
-				+ edit_FormData.getImage().getOriginalFilename());
+
+		if (!edit_FormData.getImage().isEmpty()) {
+			edit_FormData.getImage().transferTo(new File("/opt/tomcat8/webapps/media_2017/image/ecommerce201707C/"
+					+ edit_FormData.getImage().getOriginalFilename()));
+
+			// アップロード先のパスをセット
+			editItem.setImagePath("http://172.16.0.16/media_2017/image/ecommerce201707C/"
+					+ edit_FormData.getImage().getOriginalFilename());
 		}
 
 		// 情報更新
