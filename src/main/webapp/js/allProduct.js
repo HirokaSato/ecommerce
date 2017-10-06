@@ -1,43 +1,45 @@
 
 $(function () {
 	let contextpath = $('#contextpath').val();
+	all_view();
 	//一覧表示
-	$.ajax({
-		type: "GET",
-		url: contextpath + "/SearchAllItem",
-		dataType: 'json',
-		processData: false,
-		contentType: false
-	}).then(function (lst_item) {
-		var htmlItems = toDeep(lst_item, 1, decorateItem);
-		// htmlitems [[item,item,item],[item,item,item]....]
-		htmlItems.forEach(function (twoPizza) {
-			var row = $('<tr>');
-			$('#all_item_list').append(row.append(twoPizza));
-		});
-		
-		$(document).on("click", ".change-btn", function () {
-			
-			$(this).toggle(
-				function () {
-					$(this).replaceWith('<button type="button" class="btn btn-success change-btn">休止中</button>');
-				},
-				function () {
-					$(this).replaceWith('<button type="button" class="btn btn-success change-btn">販売中</button>');
-				}
-			);
-		});
-	}).fail(function () {
-		console.log("fail");
-	})
-	
-		// SpringSecurityのcsrf対策を潜り抜けるためにAjax通信のヘッダにトークンを設定する
-		$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-			var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-			jqXHR.setRequestHeader(header, token);
-		});
-	
+	function all_view() {
+		$.ajax({
+			type: "GET",
+			url: contextpath + "/SearchAllItem",
+			dataType: 'json',
+			processData: false,
+			contentType: false
+		}).then(function (lst_item) {
+			var htmlItems = toDeep(lst_item, 1, decorateItem);
+			// htmlitems [[item,item,item],[item,item,item]....]
+			htmlItems.forEach(function (twoPizza) {
+				var row = $('<tr>');
+				$('#all_item_list').append(row.append(twoPizza));
+			});
+
+			$(document).on("click", ".change-btn", function () {
+
+				$(this).toggle(
+					function () {
+						$(this).replaceWith('<button type="button" class="btn btn-success change-btn">休止中</button>');
+					},
+					function () {
+						$(this).replaceWith('<button type="button" class="btn btn-success change-btn">販売中</button>');
+					}
+				);
+			});
+		}).fail(function () {
+			console.log("fail");
+		})
+	}
+	// SpringSecurityのcsrf対策を潜り抜けるためにAjax通信のヘッダにトークンを設定する
+	$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		jqXHR.setRequestHeader(header, token);
+	});
+
 	function toDeep(arr, count, callback) {
 		var length = arr.length
 		newArr = [];
@@ -72,8 +74,7 @@ $(function () {
 				dataType: "JSON"
 			}).then(function (json) {
 				console.log(message);
-				var current_form=$(this).parent("tr");
-				current_form.css('display','none');
+				all_view();
 			}).fail(function () {
 				message = "削除失敗しました";
 				console.log("fail");
@@ -96,7 +97,7 @@ $(function () {
 			edit_FormData.append("priceM", $(this).closest('tr').next('tr').find(".edit-priceM").val());
 			edit_FormData.append("priceL", $(this).closest("tr").next('tr').find(".edit-priceL").val());
 			edit_FormData.append("image", $(this).closest("tr").next('tr').find(".edit-image").val());
-
+			console.log(edit_FormData.get('image'));
 			$.ajax({
 				type: "post",
 				url: contextpath + "/editItemByAjax",
@@ -106,6 +107,7 @@ $(function () {
 				dataType: "JSON"
 			}).then(function () {
 				console.log(message);
+				all_view();
 			}).fail(function () {
 				message = "更新失敗しました";
 				console.log("fail");
@@ -116,7 +118,8 @@ $(function () {
 
 	//商品情報編集フォーム
 	$(document).on("click", ".edit-btn", function () {
-		var text = '<tr>' + '<th  class="col-lg-offset-0 col-xs-1 text-center">' + '</th>'
+		var text =  '<tr>' +'<form enctype="multipart/form-data" method="post">'
+			+ '<th  class="col-lg-offset-0 col-xs-1 text-center">' + '</th>'
 			+ '<td  class="col-sm-3">' + '<label for="inputAddress">' + '画像:' + '</label>'
 			+ '<input type="file" name="image" class="edit-image" />' + '<br />' + '</td>'
 			+ '<td  class="col-sm-2 text-center">'
@@ -124,7 +127,7 @@ $(function () {
 			+ '<td class="col-md-2">' + '<input placeholder="Mサイズの金額" class="form-control edit-priceM"  />'
 			+ '</td>'
 			+ '<td class="col-md-2">' + '<input placeholder="Lサイズの金額" class="form-control edit-priceL" />'
-			+ '</td>'
+			+ '</td>'+'</form>'
 			+ '<tr>';
 
 		$(this).closest("tr").after(text);
