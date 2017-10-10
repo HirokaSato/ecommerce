@@ -31,7 +31,7 @@
 			<div
 				class="table-responsive col-lg-offset-0 col-lg-12 col-md-offset-0 col-md-11.5 col-sm-12 col-xs-12">
 				<ol class="breadcrumb">
-					<li><a href="${pageContext.request.contextPath}/add_item">商品追加</a></li>
+					<li><input type="button" onclick="location.href='${pageContext.request.contextPath}/add_item'"value="商品追加"></li>
 					<li><input type="button" class="edit-button" value="一括更新"></li>
 					<li><input type="button" class="bulk_stop" value="一括削除"></li>
 				</ol>

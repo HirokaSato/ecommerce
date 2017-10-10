@@ -57,13 +57,13 @@
 				<sec:authorize access="isAnonymous()">
 					<a href="${pageContext.request.contextPath}/login"
 						class="navbar-link">ログイン</a>&nbsp;&nbsp; 
-						<button class="panel-title">商品検索</button>
+						<!-- <button class="panel-title">商品検索</button> -->
 				</sec:authorize>
 
 				<sec:authorize access="isAuthenticated()">
 					<a class="navbar-link"
 						href="${pageContext.request.contextPath}/mypage/">マイページ</a>&nbsp;&nbsp;
-						<button class="panel-title">商品検索</button>
+						<!-- <button class="panel-title">商品検索</button> -->
 							<a href="${pageContext.request.contextPath}/logout"
 						class="navbar-link">ログアウト</a>
 				</sec:authorize>

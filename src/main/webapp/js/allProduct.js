@@ -73,7 +73,7 @@ $(function () {
 				},
 				dataType: "JSON"
 			}).then(function (json) {
-				console.log(message);
+				alert(message);
 				all_view();
 			}).fail(function () {
 				message = "削除失敗しました";
@@ -93,12 +93,13 @@ $(function () {
 			var edit_FormData = new FormData();
 			edit_FormData.append("id", $(this).val());
 			edit_FormData.append("name", $(this).closest('tr').next('tr').find(".edit-name").val());
-
 			edit_FormData.append("priceM", $(this).closest('tr').next('tr').find(".edit-priceM").val());
 			edit_FormData.append("priceL", $(this).closest("tr").next('tr').find(".edit-priceL").val());
-			var file = $(this).closest("tr").next('tr').find(".edit-image")[0].files[0];
-			edit_FormData.append("image", file);
-			console.log(file);
+
+			if ($(this).closest("tr").next('tr').find(".edit-image").val() != "") {
+				var file = $(this).closest("tr").next('tr').find(".edit-image")[0].files[0];
+				edit_FormData.append("image", file);
+			}
 			$.ajax({
 				type: "post",
 				url: contextpath + "/editItemByAjax",
@@ -106,8 +107,8 @@ $(function () {
 				processData: false,
 				contentType: false,
 				dataType: "JSON"
-			}).then(function () {
-				console.log(message);
+			}).then(function (json) {
+				alert(message);
 				all_view();
 			}).fail(function () {
 				message = "更新失敗しました";
@@ -132,6 +133,8 @@ $(function () {
 			+ '<tr>';
 
 		$(this).closest("tr").after(text);
+		//二度押し防止
+		$(this).prop('disabled', true);
 	});
 
 	//商品情報フォーム
@@ -162,8 +165,4 @@ $(function () {
 	function separate(num) {
 		return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 	}
-
-	/* + '<td class="col-xs-1 text-center">'
-	+ '<button type="button" class="btn btn-danger change-btn">販売中</button>'
-	+ '</td>' + */
 });

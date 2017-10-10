@@ -33,6 +33,8 @@
 			<div
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
 				<!-- <div class="panel panel-default"> -->
+				<p style="padding-top:15px;">
+				<button type="button" class="btn btn-default btn-block panel-title">商品検索</button>
 				<div class="panel-body">
 					<div class="form-group">
 						<div class="text-center" style="color: red">
@@ -43,7 +45,6 @@
 							<input type="text" name="keyword" id="code"
 								class="form-control input-sm autocomplate" />
 						</div>
-						<!-- </div> -->
 						<div class="text-center">
 							<c:out value="${sessionId}" />
 							<br>
@@ -59,6 +60,17 @@
 			<p id="offset">0</p>
 			<p id="limit">3</p>
 		</div>
+		<!-- <div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button"
+				data-toggle="dropdown">
+				ドロップダウン <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li role="presentation"><a href="#">3件表示</a></li>
+				<li role="presentation"><a href="#">6件表示</a></li>
+				<li role="presentation"><a href="#">12件表示</a></li>
+			</ul>
+		</div> -->
 		<div class="row">
 			<div
 				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
@@ -70,12 +82,11 @@
 
 					</tbody>
 				</table>
-				<span>
-					<span>
+				<span> <span>
 						<button type="button" value="前のページへ" id="pre-page">前のページへ</button>
-					</span> <span>
+				</span> <span>
 						<button type="button" value="次のページへ" id="next-page">次のページへ</button>
-					</span>
+				</span>
 				</span>
 			</div>
 		</div>

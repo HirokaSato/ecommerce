@@ -105,7 +105,7 @@ public class ProductManagementController {
 			editItem.setPriceL(edit_FormData.getIntPriceL());
 		}
 
-		if (!edit_FormData.getImage().isEmpty()) {
+		if (edit_FormData.getImage()!=null) {
 			edit_FormData.getImage().transferTo(new File("/opt/tomcat8/webapps/media_2017/image/ecommerce201707C/"
 					+ edit_FormData.getImage().getOriginalFilename()));
 

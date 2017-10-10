@@ -53,9 +53,9 @@
 		<input id="contextpath" type="hidden"
 			value="${pageContext.request.contextPath}" />
 		<ol class="breadcrumb">
-			<li><input type="button" id="add_item_form" value="商品追加"></li>
-			<li><input type="button" class="bulk_register" value="商品一括登録"></li>
-			<li><a href="${pageContext.request.contextPath}/product_list">商品管理一覧に戻る</a></li>
+			<li><input type="button" id="add_item_form" value="新規追加"></li>
+			<li><input type="button" class="bulk_register" value="一括登録"></li>
+			<li><input type="button" onclick="location.href='${pageContext.request.contextPath}/product_list'"value="商品管理一覧"></li>
 		</ol>
 		<div class="table-responsive">
 			<table style="table-layout: fixed" class="table table-responsive">
