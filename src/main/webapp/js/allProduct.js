@@ -110,13 +110,13 @@ $(function () {
 				dataType: "JSON"
 			}).then(function (json) {
 				alert(message);
-				all_view();
 			}).fail(function () {
 				message = "更新失敗しました";
 				console.log("fail");
 				alert(message);
 			})
 		});
+		all_view();
 	});
 
 	//商品情報編集フォーム
