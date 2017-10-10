@@ -99,6 +99,7 @@ $(function () {
 			if ($(this).closest("tr").next('tr').find(".edit-image").val() != "") {
 				var file = $(this).closest("tr").next('tr').find(".edit-image")[0].files[0];
 				edit_FormData.append("image", file);
+
 			}
 			$.ajax({
 				type: "post",
