@@ -13,22 +13,11 @@ $(function () {
 		}).then(function (lst_item) {
 			var htmlItems = toDeep(lst_item, 1, decorateItem);
 			// htmlitems [[item,item,item],[item,item,item]....]
-			htmlItems.forEach(function (twoPizza) {
+			htmlItems.forEach(function (Pizza) {
 				var row = $('<tr>');
-				$('#all_item_list').append(row.append(twoPizza));
+				$('#all_item_list').append(row.append(Pizza));
 			});
 
-			$(document).on("click", ".change-btn", function () {
-
-				$(this).toggle(
-					function () {
-						$(this).replaceWith('<button type="button" class="btn btn-success change-btn">休止中</button>');
-					},
-					function () {
-						$(this).replaceWith('<button type="button" class="btn btn-success change-btn">販売中</button>');
-					}
-				);
-			});
 		}).fail(function () {
 			console.log("fail");
 		})
@@ -62,24 +51,50 @@ $(function () {
 	$(".bulk_stop").on("click", function () {
 		//チェックされた数ぶんだけ以下の処理を行う
 		var message = "削除しました";
-		$('.item_num:checked').each(function () {
-			//販売中ボタンを休止中ボタンに切り替え
-			var id = $(this).val();
-			$.ajax({
-				type: "post",
-				url: contextpath + "/deleteItemByAjax",
-				data: {
-					"id": id
-				},
-				dataType: "JSON"
-			}).then(function (json) {
-				alert(message);
-				all_view();
-			}).fail(function () {
-				message = "削除失敗しました";
-				console.log("fail");
-				alert(message);
+		$.when(
+			$('.item_num:checked').each(function () {
+				//販売中ボタンを休止中ボタンに切り替え
+				var id = $(this).val();
+				$.ajax({
+					type: "post",
+					url: contextpath + "/deleteItemByAjax",
+					data: {
+						"id": id
+					},
+					dataType: "JSON"
+				}).then(function (json) {
+					alert(message);
+					//all_view();
+				}).fail(function () {
+					message = "削除失敗しました";
+					console.log("fail");
+					alert(message);
+				})
 			})
+		).done(function () {
+			setTimeout(function () {
+				$.ajax({
+					type: "GET",
+					url: contextpath + "/SearchAllItem",
+					dataType: 'json',
+					processData: false,
+					contentType: false
+				}).then(function (lst_item) {
+					var htmlItems = toDeep(lst_item, 1, decorateItem);
+
+					var allList = [];
+					htmlItems.forEach(function (Pizza) {
+						var row = $('<tr>');
+						allList.push(row.append(Pizza));
+					});
+					$('#all_item_list').html(allList);
+
+					// htmlitems [[item,item,item],[item,item,item]....]
+
+				}).fail(function () {
+					console.log("fail");
+				})
+			}, 500);
 		});
 
 	});
@@ -88,35 +103,61 @@ $(function () {
 	//一括更新
 	$(".edit-button").on("click", function () {
 		var message = "更新しました";
-		$('.item_num:checked').each(function () {
-			console.log($(this).closest('tr').next('tr').find(".edit-name").val());
-			var edit_FormData = new FormData();
-			edit_FormData.append("id", $(this).val());
-			edit_FormData.append("name", $(this).closest('tr').next('tr').find(".edit-name").val());
-			edit_FormData.append("priceM", $(this).closest('tr').next('tr').find(".edit-priceM").val());
-			edit_FormData.append("priceL", $(this).closest("tr").next('tr').find(".edit-priceL").val());
+		$.when(
+			$('.item_num:checked').each(function () {
+				console.log($(this).closest('tr').next('tr').find(".edit-name").val());
+				var edit_FormData = new FormData();
+				edit_FormData.append("id", $(this).val());
+				edit_FormData.append("name", $(this).closest('tr').next('tr').find(".edit-name").val());
+				edit_FormData.append("priceM", $(this).closest('tr').next('tr').find(".edit-priceM").val());
+				edit_FormData.append("priceL", $(this).closest("tr").next('tr').find(".edit-priceL").val());
 
-			if ($(this).closest("tr").next('tr').find(".edit-image").val() != "") {
-				var file = $(this).closest("tr").next('tr').find(".edit-image")[0].files[0];
-				edit_FormData.append("image", file);
+				if ($(this).closest("tr").next('tr').find(".edit-image").val() != "") {
+					var file = $(this).closest("tr").next('tr').find(".edit-image")[0].files[0];
+					edit_FormData.append("image", file);
 
-			}
-			$.ajax({
-				type: "post",
-				url: contextpath + "/editItemByAjax",
-				data: edit_FormData,
-				processData: false,
-				contentType: false,
-				dataType: "JSON"
-			}).then(function (json) {
-				alert(message);
-			}).fail(function () {
-				message = "更新失敗しました";
-				console.log("fail");
-				alert(message);
+				}
+				$.ajax({
+					type: "post",
+					url: contextpath + "/editItemByAjax",
+					data: edit_FormData,
+					processData: false,
+					contentType: false,
+					dataType: "JSON"
+				}).then(function (json) {
+					alert(message);
+
+				}).fail(function () {
+					message = "更新失敗しました";
+					console.log("fail");
+					alert(message);
+				})
 			})
+		).done(function () {
+			setTimeout(function () {
+				$.ajax({
+					type: "GET",
+					url: contextpath + "/SearchAllItem",
+					dataType: 'json',
+					processData: false,
+					contentType: false
+				}).then(function (lst_item) {
+					var htmlItems = toDeep(lst_item, 1, decorateItem);
+
+					var allList = [];
+					htmlItems.forEach(function (Pizza) {
+						var row = $('<tr>');
+						allList.push(row.append(Pizza));
+					});
+					$('#all_item_list').html(allList);
+
+					// htmlitems [[item,item,item],[item,item,item]....]
+
+				}).fail(function () {
+					console.log("fail");
+				})
+			}, 500);
 		});
-		all_view();
 	});
 
 	//商品情報編集フォーム
