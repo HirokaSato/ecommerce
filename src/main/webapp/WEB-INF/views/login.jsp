@@ -67,7 +67,8 @@
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">ログイン</button>
 							</div>
-							<sec:/>
+							<div>【管理者メールアドレス】hiroka.sato@rakus.co.jp</div>
+							<div>【管理者パスワード】11111111</div>
 						</fieldset>
 					</form:form>
 				</div>

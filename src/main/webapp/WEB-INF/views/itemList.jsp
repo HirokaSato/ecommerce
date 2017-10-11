@@ -34,7 +34,7 @@
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
 				<!-- <div class="panel panel-default"> -->
 				<p style="padding-top:15px;">
-				<button type="button" class="btn btn-default btn-block panel-title">商品検索</button>
+				<button type="button" class="btn btn-default btn-block panel-title">商 品 検 索</button>
 				<div class="panel-body">
 					<div class="form-group">
 						<div class="text-center" style="color: red">
