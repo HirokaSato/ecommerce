@@ -60,20 +60,19 @@
 			<p id="offset">0</p>
 			<p id="limit">3</p>
 		</div>
+			<div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
 		<!-- <div class="dropdown">
 			<button class="btn btn-default dropdown-toggle" type="button"
 				data-toggle="dropdown">
-				ドロップダウン <span class="caret"></span>
+				件数選択 <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li role="presentation"><a href="#">3件表示</a></li>
-				<li role="presentation"><a href="#">6件表示</a></li>
-				<li role="presentation"><a href="#">12件表示</a></li>
+				<li role="presentation" value="3" class="current_page_number">3件表示</li>
+				<li role="presentation" value="6" class="current_page_number">6件表示</li>
+				<li role="presentation" value="12" class="current_page_number">12件表示</li>
 			</ul>
 		</div> -->
 		<div class="row">
-			<div
-				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
 				<button type="submit" value="3" class="current_page_number">3件表示</button>
 				<button type="submit" value="6" class="current_page_number">6件表示</button>
 				<button type="submit" value="12" class="current_page_number">12件表示</button>

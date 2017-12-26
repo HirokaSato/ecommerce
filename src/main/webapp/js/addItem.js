@@ -1,6 +1,6 @@
 $(function () {
 	let contextpath = $('#contextpath').val();
-
+//商品登録フォーム
 	var form = '<tr>' +
 		'<th  class="col-lg-offset-0 col-xs-1 text-center">' + '<label>'
 		+ '<input type="checkbox" class="check_count">' + '</label>' + '</th>'
@@ -19,7 +19,7 @@ $(function () {
 		+ '<button type="reset" class="btn btn-danger delete_botton" >' + '削除' + '</button>' + '</td>'
 		+ '</tr>';
 
-
+	
 	$(".add_item_tbl").html(form);
 
 	//クリックすると商品登録フォームが追加されていく

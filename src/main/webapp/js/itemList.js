@@ -60,7 +60,7 @@ $(function () {
 
 			//次のページ表示・非表示
 			var view = $("#limit").text();
-			if (page_number + 1 == Math.ceil(all_item_amount / view)) {
+			if (page_number + 1 == Math.ceil(all_item_amount / view)) {//math.ceilは切り上げメソッド
 				$("#next-page").css('display', 'none');
 			} else {
 				$("#next-page").css('display', 'inline');
@@ -69,7 +69,7 @@ $(function () {
 			//検索画面表示・非表示
 			$('div.panel-body').css('display', 'none');
 			$("button.panel-title").on("click", function () {
-				$("div.panel-body").toggle();
+				$("div.panel-body").toggle();//表示・非表示
 			});
 			//画像に触れると半透明
 			$("img.image_pizza").hover(function () {

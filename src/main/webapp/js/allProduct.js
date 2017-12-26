@@ -14,7 +14,7 @@ $(function () {
 			var htmlItems = toDeep(lst_item, 1, decorateItem);
 			// htmlitems [[item,item,item],[item,item,item]....]
 			htmlItems.forEach(function (Pizza) {
-				var row = $('<tr>');
+				var row = $('<tr>');//<tr></tr>を作成
 				$('#all_item_list').append(row.append(Pizza));
 			});
 
@@ -94,7 +94,7 @@ $(function () {
 				}).fail(function () {
 					console.log("fail");
 				})
-			}, 500);
+			}, 50);
 		});
 
 	});
@@ -125,7 +125,7 @@ $(function () {
 					contentType: false,
 					dataType: "JSON"
 				}).then(function (json) {
-					alert(message);
+					//alert(message);
 
 				}).fail(function () {
 					message = "更新失敗しました";
@@ -156,7 +156,7 @@ $(function () {
 				}).fail(function () {
 					console.log("fail");
 				})
-			}, 500);
+			}, 50);
 		});
 	});
 
